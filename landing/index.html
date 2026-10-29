@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecobite — Autonomous Kitchen Intelligence</title>
+    <meta name="description" content="Ecobite is the autonomous kitchen intelligence platform that eliminates food waste, powers real-time POS, and redistributes inventory intelligently within a 10km radius.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <ul class="nav-links nav-links--left">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pos">POS Terminal</a></li>
+                <li><a href="#radius">10km Radius</a></li>
+                <li><a href="#analytics">Analytics</a></li>
+            </ul>
+            <div class="nav-logo">
+                <span class="logo-icon">🌿</span>
+                <span class="logo-text">Ecobite</span>
+            </div>
+            <ul class="nav-links nav-links--right">
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Docs</a></li>
+                <li><a href="#" class="btn-ghost">Sign in</a></li>
+                <li><a href="#" class="btn-primary" id="nav-get-started">Get Started →</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO (Mindly Inspired) -->
+    <section class="hero" id="hero">
+        <!-- BACKGROUND GRID & AMBIENT GLOWS -->
+        <div class="hero-grid-canvas" aria-hidden="true"></div>
+        <div class="hero-glow hero-glow--left" aria-hidden="true"></div>
+        <div class="hero-glow hero-glow--right" aria-hidden="true"></div>
+
+        <!-- FLOATING AMBIENT BADGES -->
+        <div class="floating-badge floating-badge--left" aria-hidden="true">
+            <div class="floating-badge-ring">
+                <div class="floating-badge-core floating-badge-core--amber">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="floating-badge floating-badge--right" aria-hidden="true">
+            <div class="floating-badge-ring">
+                <div class="floating-badge-core floating-badge-core--purple">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- HERO CONTENT -->
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Now in Beta — Autonomous Kitchen Intelligence
+            </div>
+
+            <div class="hero-brand-lockup">
+                <span class="hero-brand-icon">🌿</span>
+                <span class="hero-brand-text">Ecobite</span>
+            </div>
+
+            <h1 class="hero-title serif-headline">
+                Your kitchen deserves<br>
+                <span>a place that feels effortless</span>
+            </h1>
+
+            <p class="hero-sub">
+                Track your inventory, understand your kitchen patterns, and talk about what's on your shelf — all in one calm, autonomous space.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#" class="btn-mindly-primary">Start Here</a>
+                <a href="#features" class="btn-mindly-secondary">Explore</a>
+            </div>
+        </div>
+
+        <!-- FANNED-OUT 3-CARD INTERACTIVE DECK (MINDLY STYLE) -->
+        <div class="hero-deck-container" id="hero-deck">
+            <!-- PEEKING MASCOT BEHIND LEFT CARD -->
+            <div class="deck-mascot" aria-hidden="true">
+                <div class="mascot-body">
+                    <div class="mascot-sprout">🌱</div>
+                    <div class="mascot-eyes">
+                        <span class="mascot-eye"><span class="mascot-pupil"></span></span>
+                        <span class="mascot-eye"><span class="mascot-pupil"></span></span>
+                    </div>
+                    <div class="mascot-cheeks">
+                        <span class="mascot-blush"></span>
+                        <span class="mascot-blush"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-deck">
+                <!-- LEFT CARD (Tilted) -->
+                <div class="deck-card deck-card--left">
+                    <div class="deck-card-top">
+                        <div class="deck-card-avatar deck-card-avatar--1">
+                            <span>👩‍🍳</span>
+                        </div>
+                    </div>
+                    <h3 class="deck-card-title">Why do I feel exhausted even after a full night's inventory count?</h3>
+                    <div class="deck-card-meta">
+                        <span class="deck-meta-ans">14 answers</span>
+                        <span class="deck-meta-dot">•</span>
+                        <span class="deck-meta-views">40k views</span>
+                    </div>
+                </div>
+
+                <!-- CENTER CARD (Main focus) -->
+                <div class="deck-card deck-card--center">
+                    <div class="deck-card-top">
+                        <div class="deck-card-avatar deck-card-avatar--bot">
+                            <span>🤖</span>
+                        </div>
+                    </div>
+                    <h3 class="deck-card-title">How do you stop overthinking small prep quantities before rush hour?</h3>
+                    <div class="deck-card-meta">
+                        <span class="deck-meta-ans">16 answers</span>
+                        <span class="deck-meta-dot">•</span>
+                        <span class="deck-meta-views">400 views</span>
+                    </div>
+                </div>
+
+                <!-- RIGHT CARD (Tilted) -->
+                <div class="deck-card deck-card--right">
+                    <div class="deck-card-top">
+                        <div class="deck-card-avatar deck-card-avatar--2">
+                            <span>🧑‍🍳</span>
+                        </div>
+                    </div>
+                    <h3 class="deck-card-title">Is it normal to lose motivation when tracking food waste daily?</h3>
+                    <div class="deck-card-meta">
+                        <span class="deck-meta-ans">32 answers</span>
+                        <span class="deck-meta-dot">•</span>
+                        <span class="deck-meta-views">1.2k views</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HERO BENTO STATS -->
+        <div class="hero-bento" id="hero-bento">
+            <div class="hb-card hb-card--green" data-delay="0">
+                <div class="hb-card-label">Real-time Inventory</div>
+                <div class="hb-card-stat">2,850<span>SKUs tracked</span></div>
+            </div>
+            <div class="hb-card hb-card--warm" data-delay="100">
+                <div class="hb-card-label">Transfers Today</div>
+                <div class="hb-card-stat">54<span>auto-redistributed</span></div>
+            </div>
+            <div class="hb-card hb-card--sage" data-delay="200">
+                <div class="hb-card-label">Waste Prevented</div>
+                <div class="hb-card-stat">92%<span>efficiency rate</span></div>
+            </div>
+            <div class="hb-card hb-card--stone" data-delay="300">
+                <div class="hb-card-label">Active Stores</div>
+                <div class="hb-card-stat">6<span>connected branches</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURE INTRO -->
+    <section class="feature-intro" id="features">
+        <p class="section-eyebrow">Three intelligent systems</p>
+        <h2 class="section-title">Everything your kitchen needs.<br>Nothing it doesn't.</h2>
+    </section>
+
+    <!-- FEATURE 1: POS TERMINAL -->
+    <section class="feature-section" id="pos">
+        <div class="container">
+            <div class="feature-header">
+                <div class="feature-number">01</div>
+                <div>
+                    <p class="feature-eyebrow">Point of Sale</p>
+                    <h2 class="feature-title">A POS built for<br>the speed of service.</h2>
+                    <p class="feature-desc">
+                        Every order placed on the Ecobite POS terminal is instantly reflected in your inventory.
+                        No manual counting. No syncing delays. Just smooth, autonomous operations.
+                    </p>
+                </div>
+            </div>
+            <div class="feature-bento feature-bento--pos">
+                <div class="fb-card fb-card--main fb-card--image tilt-container">
+                    <div class="mockup-wrapper">
+                        <img src="pos_terminal_mockup.jpg" alt="Ecobite POS Terminal" class="feature-img">
+                        <div class="glare-overlay"></div>
+                        <div class="float-badge float-badge--top-right float-badge--glass">
+                            <span class="badge-live-dot"></span>
+                            <span>Live Sync • <strong>0.3s</strong></span>
+                        </div>
+                        <div class="float-badge float-badge--bottom-left float-badge--dark">
+                            <span class="badge-check">✓</span>
+                            <span>Order #3481 • <strong>$47.30 Paid</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fb-card">
+                    <div class="fb-icon">🧾</div>
+                    <h3>Live Order Sync</h3>
+                    <p>Every item sold automatically deducts from the nearest store's live inventory. Zero lag.</p>
+                </div>
+                <div class="fb-card">
+                    <div class="fb-icon">⚡</div>
+                    <h3>Instant Billing</h3>
+                    <p>Apple Pay, Cash & Card — all in one fluid checkout experience.</p>
+                </div>
+                <div class="fb-card">
+                    <div class="fb-icon">📋</div>
+                    <h3>Smart Receipts</h3>
+                    <p>Print or send digital receipts automatically after every transaction.</p>
+                </div>
+                <div class="fb-card fb-card--highlight">
+                    <div class="highlight-stat">0.3s</div>
+                    <div class="highlight-label">Average checkout time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURE 2: 10KM RADIUS -->
+    <section class="feature-section feature-section--alt" id="radius">
+        <div class="container">
+            <div class="feature-header feature-header--right">
+                <div class="feature-number">02</div>
+                <div>
+                    <p class="feature-eyebrow">Smart Redistribution</p>
+                    <h2 class="feature-title">Find surplus, fix shortage.<br>Within 10km.</h2>
+                    <p class="feature-desc">
+                        When a branch runs low, Ecobite scans all stores within a 10km radius using the Haversine formula.
+                        It finds the closest donor with surplus stock, prioritises by expiry date (FEFO),
+                        and initiates a transfer ping — all without a single human action.
+                    </p>
+                </div>
+            </div>
+            <div class="feature-bento feature-bento--radius">
+                <div class="fb-card fb-card--main fb-card--image tilt-container">
+                    <div class="mockup-wrapper">
+                        <img src="radius_map_mockup.jpg" alt="10km radius map" class="feature-img">
+                        <div class="radar-pulse-center">
+                            <div class="radar-pulse-wave"></div>
+                            <div class="radar-pulse-wave radar-pulse-wave--delay-1"></div>
+                            <div class="radar-pulse-wave radar-pulse-wave--delay-2"></div>
+                        </div>
+                        <div class="glare-overlay"></div>
+                        <div class="float-badge float-badge--top-left float-badge--glass">
+                            <span class="badge-beacon"></span>
+                            <span>Scanning 10km Radius</span>
+                        </div>
+                        <div class="float-badge float-badge--bottom-right float-badge--emerald">
+                            <span>✨ Surplus Found: <strong>Store 1 (1.8km)</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fb-card fb-card--highlight fb-card--green">
+                    <div class="highlight-stat">10km</div>
+                    <div class="highlight-label">Auto-scan radius</div>
+                </div>
+                <div class="fb-card">
+                    <div class="fb-icon">📍</div>
+                    <h3>Haversine Geolocation</h3>
+                    <p>Precise real-world distance calculations — not straight-line guesses. Your transfers always make logistical sense.</p>
+                </div>
+                <div class="fb-card">
+                    <div class="fb-icon">🕐</div>
+                    <h3>FEFO Priority</h3>
+                    <p>First Expired, First Out. Stock closest to expiry gets moved first to prevent waste.</p>
+                </div>
+                <div class="fb-card">
+                    <div class="fb-icon">🔔</div>
+                    <h3>Transfer Pings</h3>
+                    <p>Stores receive real-time transfer requests they can accept or reject via Socket.IO.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURE 3: ANALYTICS -->
+    <section class="feature-section" id="analytics">
+        <div class="container">
+            <div class="feature-header">
+                <div class="feature-number">03</div>
+                <div>
+                    <p class="feature-eyebrow">Analytics Engine</p>
+                    <h2 class="feature-title">Turn inventory data<br>into clear decisions.</h2>
+                    <p class="feature-desc">
+                        See exactly what's moving, what's expiring, and what needs attention — across every branch.
+                        Ecobite's analytics dashboard gives you the clarity to act before problems arise.
+                    </p>
+                </div>
+            </div>
+            <div class="feature-bento feature-bento--analytics">
+                <div class="fb-card fb-card--main fb-card--image tilt-container">
+                    <div class="mockup-wrapper">
+                        <img src="analytics_mockup.jpg" alt="Ecobite analytics dashboard" class="feature-img">
+                        <div class="glare-overlay"></div>
+                        <div class="float-badge float-badge--top-right float-badge--emerald">
+                            <span>📉 <strong>-42%</strong> Food Waste</span>
+                        </div>
+                        <div class="float-badge float-badge--bottom-left float-badge--glass">
+                            <span class="badge-live-dot"></span>
+                            <span>Auto-rebalancing <strong>6 Stores</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fb-card">
+                    <div class="fb-icon">📈</div>
+                    <h3>Stock Trends</h3>
+                    <p>Track inventory value over time across all your branches in one chart.</p>
+                </div>
+                <div class="fb-card fb-card--highlight">
+                    <div class="highlight-stat">98.2%</div>
+                    <div class="highlight-label">Order fulfilment rate</div>
+                </div>
+                <div class="fb-card">
+                    <div class="fb-icon">⚠️</div>
+                    <h3>Expiry Alerts</h3>
+                    <p>Get warned days before items expire so you can act — not react.</p>
+                </div>
+                <div class="fb-card">
+                    <div class="fb-icon">🗂️</div>
+                    <h3>Cross-store Visibility</h3>
+                    <p>A single unified view of all stores' inventory, transfers, and reorder levels. No spreadsheets. No guessing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="cta-inner">
+            <p class="cta-eyebrow">Ready to automate?</p>
+            <h2 class="cta-title">Ecobite takes the wheel.<br>You focus on the food.</h2>
+            <p class="cta-sub">Join the waitlist and be the first to run your kitchen on autopilot.</p>
+            <div class="cta-form">
+                <input type="email" id="cta-email" placeholder="your@restaurant.com" class="cta-input">
+                <button class="cta-submit" id="cta-submit-btn">Get Early Access →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo-icon">🌿</span>
+                <span class="logo-text">Ecobite</span>
+                <p>Autonomous Kitchen Intelligence</p>
+            </div>
+            <div class="footer-links">
+                <span>Built with Express · Supabase · Socket.IO</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
