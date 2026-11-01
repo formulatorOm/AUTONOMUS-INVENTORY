@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecobite · Autonomous Kitchen Console</title>
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- App Stylesheet -->
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <!-- ── TOP GLOBAL NAVIGATION ── -->
+    <header class="app-topbar">
+        <div class="topbar-left">
+            <a href="index.html" class="topbar-brand" title="Back to Landing Page">
+                <div class="topbar-logo-squircle">
+                    <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+                        <defs>
+                            <linearGradient id="app-logo-bg" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#4ade80"/>
+                                <stop offset="50%" stop-color="#22c55e"/>
+                                <stop offset="100%" stop-color="#15803d"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="1" y="1" width="30" height="30" rx="7.5" fill="url(#app-logo-bg)"/>
+                        <rect x="1" y="1" width="30" height="30" rx="7.5" stroke="rgba(255,255,255,0.7)" stroke-width="1"/>
+                        <path d="M16 23 C16 18 19 12 24 9 C24 16 21 21 16 23 Z" fill="#ffffff"/>
+                        <path d="M16 23 C16 19 13.5 14 8.5 13 C8.5 18 11.5 21.5 16 23 Z" fill="#dcfce7"/>
+                        <circle cx="21" cy="14" r="1.3" fill="#ffffff"/>
+                    </svg>
+                </div>
+                <div class="topbar-title-block">
+                    <span class="topbar-title">Autonomous Kitchen</span>
+                    <span class="topbar-badge">10KM GEOSPATIAL</span>
+                    <span class="topbar-sub">Micro-Deduction · FEFO Surplus Balancing</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- 3 CORE FEATURE TABS -->
+        <nav class="app-nav-tabs" role="tablist">
+            <button class="app-tab-btn active" id="tab-btn-pos" data-tab="pos" role="tab" aria-selected="true">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span>POS Terminal</span>
+            </button>
+
+            <button class="app-tab-btn" id="tab-btn-radar" data-tab="radar" role="tab" aria-selected="false">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="6"></circle>
+                    <circle cx="12" cy="12" r="2"></circle>
+                </svg>
+                <span>10km Radar & Manager</span>
+                <span class="tab-pill-badge" id="radar-alert-badge">1</span>
+            </button>
+
+            <button class="app-tab-btn" id="tab-btn-analytics" data-tab="analytics" role="tab" aria-selected="false">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span>ESG Analytics</span>
+            </button>
+        </nav>
+
+        <!-- STORE SWITCHER & USER PROFILE -->
+        <div class="topbar-right">
+            <div class="store-selector-wrapper">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="store-icon">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <select id="store-switcher" class="store-select" aria-label="Switch store branch">
+                    <option value="0" selected>Central Hub - Connaught Place</option>
+                    <option value="1">Express - Paharganj (~1.8km)</option>
+                    <option value="2">Kitchen - Karol Bagh (~3.8km)</option>
+                    <option value="3">Bistro - Chandni Chowk (~2.9km)</option>
+                    <option value="4">Outpost - South Extension (~7.2km)</option>
+                    <option value="5">Far Branch - Rajouri Garden (~11.5km)</option>
+                </select>
+                <span class="live-status-pill">
+                    <span class="live-dot"></span>
+                    <span>LIVE</span>
+                </span>
+            </div>
+
+            <div class="topbar-user" id="topbar-user-wrap">
+                <img id="app-user-avatar" class="app-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop&crop=face" alt="User">
+                <span id="app-user-name" class="app-user-name">Sarah</span>
+                <a href="index.html" class="btn-topbar-home" title="Exit to Landing">Exit</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ── MAIN APP VIEWPORT ── -->
+    <main class="app-main-viewport">
+
+        <!-- ==================================================== -->
+        <!-- TAB 1: POS TERMINAL & INVENTORY MICRO-DEDUCTION      -->
+        <!-- ==================================================== -->
+        <section class="app-tab-panel active" id="panel-pos" role="tabpanel">
+            <div class="pos-layout">
+                
+                <!-- LEFT & CENTER: MENU CATALOG -->
+                <div class="pos-catalog-section">
+                    <!-- Perspective Header -->
+                    <div class="pos-header-banner">
+                        <div class="pos-banner-left">
+                            <div class="pos-badges">
+                                <span class="badge-tag">TERMINAL PERSPECTIVE</span>
+                                <span class="badge-tag badge-tag--green">ONLINE</span>
+                            </div>
+                            <h2 class="pos-store-name" id="pos-store-display">Central Hub - Connaught Place</h2>
+                            <p class="pos-store-address" id="pos-address-display">Block B, Inner Circle, Connaught Place, New Delhi</p>
+                        </div>
+                        <div class="pos-banner-right">
+                            <span class="coord-label">COORDINATES</span>
+                            <span class="coord-val" id="pos-coords-display">28.6315°N, 77.2167°E</span>
+                        </div>
+                    </div>
+
+                    <!-- Category Filter Chips -->
+                    <div class="pos-category-bar">
+                        <button class="pos-cat-chip active" data-cat="all">All</button>
+                        <button class="pos-cat-chip" data-cat="Burgers">Burgers</button>
+                        <button class="pos-cat-chip" data-cat="Sides">Sides</button>
+                        <button class="pos-cat-chip" data-cat="Beverages">Beverages</button>
+                        <button class="pos-cat-chip" data-cat="Combos">Combos</button>
+                    </div>
+
+                    <!-- Menu Items Grid -->
+                    <div class="pos-menu-grid" id="pos-menu-grid">
+                        <!-- Populated dynamically via JS from menu items data -->
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE: CUSTOMER CART & MICRO-DEDUCTION ENGINE -->
+                <aside class="pos-cart-panel">
+                    <div class="cart-header">
+                        <div class="cart-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            <span>Customer Cart</span>
+                        </div>
+                        <button class="btn-clear-cart" id="btn-clear-cart" title="Clear all items">Clear</button>
+                    </div>
+
+                    <div class="cart-body" id="cart-items-list">
+                        <!-- Empty Cart Placeholder -->
+                        <div class="cart-empty-state" id="cart-empty-placeholder">
+                            <div class="cart-empty-icon">🛒</div>
+                            <h4>Cart is empty</h4>
+                            <p>Add dishes from the menu to simulate live order intake & micro-deduction.</p>
+                        </div>
+                    </div>
+
+                    <!-- Cart Summary & Checkout -->
+                    <div class="cart-footer" id="cart-footer" style="display: none;">
+                        <!-- Live BOM Micro-Deduction Telemetry Preview -->
+                        <div class="cart-bom-preview">
+                            <div class="bom-title">
+                                <span>⚡ Micro-Deduction Telemetry</span>
+                                <span class="bom-status-live">Auto-Calc</span>
+                            </div>
+                            <ul class="bom-items-summary" id="bom-items-summary">
+                                <!-- Computed ingredients deducted -->
+                            </ul>
+                        </div>
+
+                        <div class="cart-totals">
+                            <div class="total-row">
+                                <span>Subtotal</span>
+                                <span id="cart-subtotal">₹0</span>
+                            </div>
+                            <div class="total-row">
+                                <span>GST (5%)</span>
+                                <span id="cart-tax">₹0</span>
+                            </div>
+                            <div class="total-row total-row--grand">
+                                <span>Total Amount</span>
+                                <span id="cart-grandtotal">₹0</span>
+                            </div>
+                        </div>
+
+                        <button class="btn-checkout-order" id="btn-checkout-order">
+                            <span>Place Order & Micro-Deduct Stock</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+
+        <!-- ==================================================== -->
+        <!-- TAB 2: 10KM RADAR & STORE INVENTORY MANAGER          -->
+        <!-- ==================================================== -->
+        <section class="app-tab-panel" id="panel-radar" role="tabpanel">
+            <div class="radar-layout">
+                <!-- Header Control Strip -->
+                <div class="radar-header-banner">
+                    <div class="radar-banner-left">
+                        <div class="radar-badges">
+                            <span class="badge-tag">STORE MANAGEMENT CONSOLE</span>
+                            <span class="badge-tag badge-tag--emerald">TELEMETRY ACTIVE</span>
+                        </div>
+                        <h2 class="radar-store-name" id="radar-store-display">Central Hub - Connaught Place</h2>
+                        <p class="radar-store-address" id="radar-address-display">Block B, Inner Circle, Connaught Place, New Delhi · 28.6315°N, 77.2167°E</p>
+                    </div>
+                    <div class="radar-banner-right">
+                        <button class="btn-radar-refresh" id="btn-radar-refresh">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="23 4 23 10 17 10"></polyline>
+                                <polyline points="1 20 1 14 7 14"></polyline>
+                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                            </svg>
+                            <span>Refresh</span>
+                        </button>
+                        <button class="btn-radar-scan" id="btn-radar-scan">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                            <span>Run Autonomous 10km Scan</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2-COLUMN VIEW: MAP ON LEFT, INVENTORY MATRIX ON RIGHT -->
+                <div class="radar-content-split">
+                    <!-- LEFT: 10KM GEOSPATIAL MAP -->
+                    <div class="radar-map-card">
+                        <div class="map-card-header">
+                            <div>
+                                <h3 class="card-title">10km Geospatial Geofence Radar</h3>
+                                <p class="card-sub" id="map-radius-sub">Radius perimeter centered on Central Hub - Connaught Place</p>
+                            </div>
+                            <span class="radius-tag">RADIUS: 10.0 KM</span>
+                        </div>
+                        <div class="map-container-wrapper">
+                            <div id="geofence-map" class="leaflet-map-canvas"></div>
+                            
+                            <!-- Live Scan Overlay -->
+                            <div class="map-scan-overlay" id="map-scan-overlay" style="display: none;">
+                                <div class="scan-beam"></div>
+                                <div class="scan-status-pill">
+                                    <span class="scan-spinner"></span>
+                                    <span>Scanning 10km Network for FEFO Surplus...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Map Legend -->
+                        <div class="map-legend-bar">
+                            <div class="legend-item"><span class="legend-dot legend-dot--hub"></span> Central Hub (CP)</div>
+                            <div class="legend-item"><span class="legend-dot legend-dot--in"></span> Within 10km Geofence (4)</div>
+                            <div class="legend-item"><span class="legend-dot legend-dot--out"></span> Outside Geofence (Rajouri Garden, 11.5km)</div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: MICRO-INVENTORY MATRIX -->
+                    <div class="inventory-matrix-card">
+                        <div class="matrix-card-header">
+                            <div>
+                                <h3 class="card-title">Micro-Inventory Matrix</h3>
+                                <p class="card-sub">Stock telemetry & FEFO expiry tracking</p>
+                            </div>
+                            <span class="matrix-item-count">9 ITEMS</span>
+                        </div>
+
+                        <div class="matrix-items-list" id="matrix-items-list">
+                            <!-- Populated with the 9 ingredients from seed.js -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRANSFER PING NOTIFICATION DRAWER / TOAST -->
+                <div class="transfer-alert-drawer" id="transfer-alert-drawer" style="display: none;">
+                    <div class="drawer-header">
+                        <span class="drawer-icon">⚡</span>
+                        <div>
+                            <h4>Autonomous Surplus Transfer Available</h4>
+                            <p id="transfer-drawer-text">Store 1 (Paharganj) has 50 pcs Crispy Veg Patty expiring in 3 days.</p>
+                        </div>
+                        <button class="btn-drawer-accept" id="btn-drawer-accept">Accept Transfer</button>
+                        <button class="btn-drawer-dismiss" id="btn-drawer-dismiss">✕</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================================================== -->
+        <!-- TAB 3: ESG ANALYTICS & FOOD WASTE INTELLIGENCE       -->
+        <!-- ==================================================== -->
+        <section class="app-tab-panel" id="panel-analytics" role="tabpanel">
+            <div class="analytics-layout">
+                <!-- Header Banner -->
+                <div class="analytics-header-banner">
+                    <div>
+                        <div class="analytics-badges">
+                            <span class="badge-tag">SUSTAINABILITY & AUDIT TELEMETRY</span>
+                            <span class="badge-tag badge-tag--green">FEFO ACTIVE</span>
+                        </div>
+                        <h2 class="analytics-title">Franchise ESG & Commercial Food Waste Analytics</h2>
+                        <p class="analytics-sub">10km FEFO surplus balancing directly prevents spoilage of expiring micro-ingredients across the cluster.</p>
+                    </div>
+                    <div class="analytics-badge-pill">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                        <span>FEFO Waste Prevention Protocol</span>
+                    </div>
+                </div>
+
+                <!-- 4 Top KPI Cards Row -->
+                <div class="analytics-kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <span class="kpi-label">FOOD WASTE PREVENTED</span>
+                            <span class="kpi-icon kpi-icon--green">🍃</span>
+                        </div>
+                        <div class="kpi-value-row">
+                            <span class="kpi-number" id="kpi-waste-kg">10.5</span>
+                            <span class="kpi-unit">kg</span>
+                        </div>
+                        <p class="kpi-footnote">Rescued via FEFO prior to expiration</p>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <span class="kpi-label">SUPPLY CHAIN COST SAVED</span>
+                            <span class="kpi-icon kpi-icon--amber">₹</span>
+                        </div>
+                        <div class="kpi-value-row">
+                            <span class="kpi-number" id="kpi-cost-saved">₹850</span>
+                        </div>
+                        <p class="kpi-footnote">Value of salvaged micro-ingredients</p>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <span class="kpi-label">COMPLETED TRANSFERS</span>
+                            <span class="kpi-icon kpi-icon--blue">⇄</span>
+                        </div>
+                        <div class="kpi-value-row">
+                            <span class="kpi-number" id="kpi-transfers">5 / 6</span>
+                        </div>
+                        <p class="kpi-footnote">1 currently pending</p>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <span class="kpi-label">ACTIVE SHORTAGES</span>
+                            <span class="kpi-icon kpi-icon--red">⚠️</span>
+                        </div>
+                        <div class="kpi-value-row">
+                            <span class="kpi-number" id="kpi-shortages">1</span>
+                            <span class="kpi-unit">items</span>
+                        </div>
+                        <p class="kpi-footnote text-critical">Stock currently ≤ reorder level</p>
+                    </div>
+                </div>
+
+                <!-- 2-COLUMN LOWER SECTION: CHART & NETWORK HEALTH -->
+                <div class="analytics-lower-grid">
+                    <!-- Left: Top Transferred Ingredients Chart -->
+                    <div class="analytics-chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <h3 class="card-title">Top Transferred Raw Materials</h3>
+                                <p class="card-sub">Perishable items rebalanced across branches</p>
+                            </div>
+                            <span class="chart-stat-tag">Telemetry Log</span>
+                        </div>
+                        <div class="chart-canvas-wrapper">
+                            <canvas id="materialsChart" height="230"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Right: Cluster Network Health -->
+                    <div class="analytics-health-card">
+                        <div class="chart-header">
+                            <div>
+                                <h3 class="card-title">Cluster Network Health</h3>
+                                <p class="card-sub">Operational telemetry for 6 branches</p>
+                            </div>
+                            <span class="health-pin-icon">📍</span>
+                        </div>
+
+                        <div class="cluster-health-list" id="cluster-health-list">
+                            <!-- Populated with the 6 stores -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ── HYPERPURE-INSPIRED QUANTITY SELECTION MODAL ── -->
+    <div class="hyperpure-modal-backdrop" id="hyperpure-modal" aria-hidden="true">
+        <div class="hyperpure-modal-card">
+            <div class="hp-modal-header">
+                <h3>Select quantity</h3>
+                <button class="hp-close-btn" id="hp-close-btn">✕</button>
+            </div>
+            <div class="hp-modal-body">
+                <div class="hp-product-summary">
+                    <div class="hp-product-img-box" id="hp-modal-img">🍔</div>
+                    <div class="hp-product-info">
+                        <h4 id="hp-modal-title">Item Title</h4>
+                        <div class="hp-rating-row">
+                            <span class="hp-badge-veg" id="hp-modal-veg">🟢 Veg</span>
+                            <span class="hp-rating">★ 4.8 (276)</span>
+                        </div>
+                        <div class="hp-price-row">
+                            <span class="hp-price" id="hp-modal-price">₹149</span>
+                            <span class="hp-rate-desc">Standard kitchen rate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quantity Tier Selectors -->
+                <div class="hp-tier-list">
+                    <div class="hp-tier-item active" data-qty="1">
+                        <div>
+                            <strong>1 Unit</strong>
+                            <p class="hp-tier-sub">Standard single portion</p>
+                        </div>
+                        <button class="btn-tier-add">Select 1</button>
+                    </div>
+                    <div class="hp-tier-item" data-qty="2">
+                        <div>
+                            <strong>2 Units (Double)</strong>
+                            <p class="hp-tier-sub">₹5.00/unit bundle benefit</p>
+                        </div>
+                        <button class="btn-tier-add">Select 2</button>
+                    </div>
+                    <div class="hp-tier-item" data-qty="4">
+                        <div>
+                            <strong>4 Units (Bulk / Combo)</strong>
+                            <p class="hp-tier-sub">Kitchen volume preparation</p>
+                        </div>
+                        <button class="btn-tier-add">Select 4</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- App Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

@@ -6,6 +6,7 @@
     <title>Ecobite — Autonomous Kitchen Intelligence</title>
     <meta name="description" content="Ecobite is the autonomous kitchen intelligence platform that eliminates food waste, powers real-time POS, and redistributes inventory intelligently within a 10km radius.">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2322c55e'/><path d='M16 23 C16 18 19 12 24 9 C24 16 21 21 16 23 Z' fill='%23ffffff'/></svg>">
 </head>
 <body>
 
@@ -13,19 +14,287 @@
     <nav id="navbar">
         <div class="nav-inner">
             <ul class="nav-links nav-links--left">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#pos">POS Terminal</a></li>
-                <li><a href="#radius">10km Radius</a></li>
-                <li><a href="#analytics">Analytics</a></li>
+                <li>
+                    <a href="#features" class="nav-item-link">
+                        <span class="apple-3d-icon-wrap apple-3d-icon-wrap--features" aria-hidden="true">
+                            <svg class="apple-3d-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="apple-feat-bg" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#818cf8"/>
+                                        <stop offset="45%" stop-color="#6366f1"/>
+                                        <stop offset="100%" stop-color="#4338ca"/>
+                                    </linearGradient>
+                                    <linearGradient id="apple-feat-shine" x1="12" y1="1" x2="12" y2="12" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                    </linearGradient>
+                                    <linearGradient id="apple-feat-bevel" x1="12" y1="1" x2="12" y2="23" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                        <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                        <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                    </linearGradient>
+                                    <filter id="apple-feat-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="0" dy="1.2" stdDeviation="0.8" flood-color="#1e1b4b" flood-opacity="0.5"/>
+                                    </filter>
+                                </defs>
+                                <rect x="1" y="1" width="22" height="22" rx="5.5" fill="url(#apple-feat-bg)"/>
+                                <path d="M 1 6.5 C 1 3.5 3.5 1 6.5 1 L 17.5 1 C 20.5 1 23 3.5 23 6.5 L 23 9 C 23 9 17 12 12 12 C 7 12 1 9 1 9 Z" fill="url(#apple-feat-shine)"/>
+                                <rect x="1" y="1" width="22" height="22" rx="5.5" stroke="url(#apple-feat-bevel)" stroke-width="0.8" fill="none"/>
+                                <g filter="url(#apple-feat-shadow)">
+                                    <path d="M12 5.2 C12 8 10 10 7.2 10 C10 10 12 12 12 14.8 C12 12 14 10 16.8 10 C14 10 12 8 12 5.2 Z" fill="#ffffff"/>
+                                    <circle cx="12" cy="10" r="1.1" fill="#f5f3ff"/>
+                                    <path d="M17.2 13.2 C17.2 14.4 16.4 15 15.2 15 C16.4 15 17.2 15.6 17.2 16.8 C17.2 15.6 18 15 19.2 15 C18 15 17.2 14.4 17.2 13.2 Z" fill="#ffffff" opacity="0.9"/>
+                                </g>
+                            </svg>
+                        </span>
+                        <span>Features</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#pos" class="nav-item-link">
+                        <span class="apple-3d-icon-wrap apple-3d-icon-wrap--pos" aria-hidden="true">
+                            <svg class="apple-3d-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="apple-pos-bg" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#34d399"/>
+                                        <stop offset="45%" stop-color="#10b981"/>
+                                        <stop offset="100%" stop-color="#047857"/>
+                                    </linearGradient>
+                                    <linearGradient id="apple-pos-shine" x1="12" y1="1" x2="12" y2="12" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                    </linearGradient>
+                                    <linearGradient id="apple-pos-bevel" x1="12" y1="1" x2="12" y2="23" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                        <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                        <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                    </linearGradient>
+                                    <filter id="apple-pos-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="0" dy="1.2" stdDeviation="0.8" flood-color="#064e3b" flood-opacity="0.5"/>
+                                    </filter>
+                                </defs>
+                                <rect x="1" y="1" width="22" height="22" rx="5.5" fill="url(#apple-pos-bg)"/>
+                                <path d="M 1 6.5 C 1 3.5 3.5 1 6.5 1 L 17.5 1 C 20.5 1 23 3.5 23 6.5 L 23 9 C 23 9 17 12 12 12 C 7 12 1 9 1 9 Z" fill="url(#apple-pos-shine)"/>
+                                <rect x="1" y="1" width="22" height="22" rx="5.5" stroke="url(#apple-pos-bevel)" stroke-width="0.8" fill="none"/>
+                                <g filter="url(#apple-pos-shadow)">
+                                    <rect x="7" y="6" width="10" height="12" rx="2" fill="#ffffff"/>
+                                    <rect x="8.5" y="7.5" width="7" height="4" rx="0.8" fill="#10b981"/>
+                                    <rect x="9.5" y="8.5" width="5" height="1" rx="0.5" fill="#a7f3d0"/>
+                                    <circle cx="9.2" cy="13.5" r="0.6" fill="#047857"/>
+                                    <circle cx="12" cy="13.5" r="0.6" fill="#047857"/>
+                                    <circle cx="14.8" cy="13.5" r="0.6" fill="#047857"/>
+                                    <circle cx="9.2" cy="15.5" r="0.6" fill="#047857"/>
+                                    <circle cx="12" cy="15.5" r="0.6" fill="#047857"/>
+                                    <circle cx="14.8" cy="15.5" r="0.6" fill="#047857"/>
+                                    <path d="M10 4.5 C11.3 3.8 12.7 3.8 14 4.5" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+                                </g>
+                            </svg>
+                        </span>
+                        <span>POS Terminal</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#radius" class="nav-item-link">
+                        <span class="apple-3d-icon-wrap apple-3d-icon-wrap--radius" aria-hidden="true">
+                            <svg class="apple-3d-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="apple-rad-bg" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#fb923c"/>
+                                        <stop offset="45%" stop-color="#f97316"/>
+                                        <stop offset="100%" stop-color="#c2410c"/>
+                                    </linearGradient>
+                                    <linearGradient id="apple-rad-shine" x1="12" y1="1" x2="12" y2="12" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                    </linearGradient>
+                                    <linearGradient id="apple-rad-bevel" x1="12" y1="1" x2="12" y2="23" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                        <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                        <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                    </linearGradient>
+                                    <filter id="apple-rad-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="0" dy="1.2" stdDeviation="0.8" flood-color="#7c2d12" flood-opacity="0.5"/>
+                                    </filter>
+                                </defs>
+                                <rect x="1" y="1" width="22" height="22" rx="5.5" fill="url(#apple-rad-bg)"/>
+                                <path d="M 1 6.5 C 1 3.5 3.5 1 6.5 1 L 17.5 1 C 20.5 1 23 3.5 23 6.5 L 23 9 C 23 9 17 12 12 12 C 7 12 1 9 1 9 Z" fill="url(#apple-rad-shine)"/>
+                                <rect x="1" y="1" width="22" height="22" rx="5.5" stroke="url(#apple-rad-bevel)" stroke-width="0.8" fill="none"/>
+                                <g filter="url(#apple-rad-shadow)">
+                                    <path d="M6 9.5 C6 6.5 8.7 4 12 4 C15.3 4 18 6.5 18 9.5" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.6"/>
+                                    <path d="M8 9.5 C8 7.5 9.8 6 12 6 C14.2 6 16 7.5 16 9.5" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.85"/>
+                                    <path d="M12 7 C10.3 7 9 8.3 9 10 C9 12.5 12 16.5 12 16.5 C12 16.5 15 12.5 15 10 C15 8.3 13.7 7 12 7 Z" fill="#ffffff"/>
+                                    <circle cx="12" cy="10" r="1.4" fill="#f97316"/>
+                                    <ellipse cx="12" cy="17.8" rx="3.5" ry="0.9" fill="#ffffff" opacity="0.6"/>
+                                </g>
+                            </svg>
+                        </span>
+                        <span>10km Radius</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#analytics" class="nav-item-link">
+                        <span class="apple-3d-icon-wrap apple-3d-icon-wrap--analytics" aria-hidden="true">
+                            <svg class="apple-3d-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="apple-ana-bg" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#38bdf8"/>
+                                        <stop offset="45%" stop-color="#0284c7"/>
+                                        <stop offset="100%" stop-color="#0369a1"/>
+                                    </linearGradient>
+                                    <linearGradient id="apple-ana-shine" x1="12" y1="1" x2="12" y2="12" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                    </linearGradient>
+                                    <linearGradient id="apple-ana-bevel" x1="12" y1="1" x2="12" y2="23" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                        <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                        <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                    </linearGradient>
+                                    <filter id="apple-ana-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="0" dy="1.2" stdDeviation="0.8" flood-color="#082f49" flood-opacity="0.5"/>
+                                    </filter>
+                                </defs>
+                                <rect x="1" y="1" width="22" height="22" rx="5.5" fill="url(#apple-ana-bg)"/>
+                                <path d="M 1 6.5 C 1 3.5 3.5 1 6.5 1 L 17.5 1 C 20.5 1 23 3.5 23 6.5 L 23 9 C 23 9 17 12 12 12 C 7 12 1 9 1 9 Z" fill="url(#apple-ana-shine)"/>
+                                <rect x="1" y="1" width="22" height="22" rx="5.5" stroke="url(#apple-ana-bevel)" stroke-width="0.8" fill="none"/>
+                                <g filter="url(#apple-ana-shadow)">
+                                    <rect x="5.5" y="12.5" width="3" height="5.5" rx="1" fill="#ffffff" opacity="0.85"/>
+                                    <rect x="10.5" y="9" width="3" height="9" rx="1" fill="#ffffff"/>
+                                    <rect x="15.5" y="6" width="3" height="12" rx="1" fill="#ffffff"/>
+                                    <path d="M5.5 11.5 L10 7.8 L15 5.5 L17.5 6" stroke="#bae6fd" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <circle cx="17.5" cy="6" r="1.1" fill="#ffffff"/>
+                                </g>
+                            </svg>
+                        </span>
+                        <span>Analytics</span>
+                    </a>
+                </li>
             </ul>
-            <div class="nav-logo">
-                <span class="logo-icon">🌿</span>
+            <a href="#" class="nav-logo">
+                <span class="apple-3d-logo-wrap" aria-hidden="true">
+                    <svg class="apple-3d-logo" viewBox="0 0 32 32" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="apple-logo-bg" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#4ade80"/>
+                                <stop offset="45%" stop-color="#22c55e"/>
+                                <stop offset="100%" stop-color="#15803d"/>
+                            </linearGradient>
+                            <linearGradient id="apple-logo-shine" x1="16" y1="1" x2="16" y2="16" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                            </linearGradient>
+                            <linearGradient id="apple-logo-bevel" x1="16" y1="1" x2="16" y2="31" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                <stop offset="50%" stop-color="#ffffff" stop-opacity="0.2"/>
+                                <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                            </linearGradient>
+                            <linearGradient id="apple-leaf-main" x1="12" y1="8" x2="22" y2="24" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#ffffff"/>
+                                <stop offset="100%" stop-color="#f0fdf4"/>
+                            </linearGradient>
+                            <filter id="apple-logo-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="1.6" stdDeviation="1.2" flood-color="#052e16" flood-opacity="0.5"/>
+                            </filter>
+                        </defs>
+                        <rect x="1.5" y="1.5" width="29" height="29" rx="7.5" fill="url(#apple-logo-bg)"/>
+                        <path d="M 1.5 8.5 C 1.5 4.5 4.5 1.5 8.5 1.5 L 23.5 1.5 C 27.5 1.5 30.5 4.5 30.5 8.5 L 30.5 12 C 30.5 12 22.5 16 16 16 C 9.5 16 1.5 12 1.5 12 Z" fill="url(#apple-logo-shine)"/>
+                        <rect x="1.5" y="1.5" width="29" height="29" rx="7.5" stroke="url(#apple-logo-bevel)" stroke-width="1" fill="none"/>
+                        <g filter="url(#apple-logo-shadow)">
+                            <path d="M16 23 C16 18 19 12 24 9 C24 16 21 21 16 23 Z" fill="url(#apple-leaf-main)"/>
+                            <path d="M16.5 22 C18 18 20.5 14 23.5 10.5" stroke="#22c55e" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.6"/>
+                            <path d="M16 23 C16 19 13.5 14 8.5 13 C8.5 18 11.5 21.5 16 23 Z" fill="#dcfce7"/>
+                            <circle cx="21" cy="14" r="1.3" fill="#ffffff"/>
+                            <circle cx="21.3" cy="13.7" r="0.5" fill="#ffffff"/>
+                        </g>
+                    </svg>
+                </span>
                 <span class="logo-text">Ecobite</span>
-            </div>
+            </a>
             <ul class="nav-links nav-links--right">
-                <li><a href="#">Pricing</a></li>
-                <li><a href="#">Docs</a></li>
-                <li><a href="#" class="btn-ghost">Sign in</a></li>
+                <li>
+                    <a href="#" class="nav-item-link">
+                        <span class="apple-3d-icon-wrap apple-3d-icon-wrap--pricing" aria-hidden="true">
+                            <svg class="apple-3d-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="apple-pri-bg" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#fbbf24"/>
+                                        <stop offset="45%" stop-color="#f59e0b"/>
+                                        <stop offset="100%" stop-color="#b45309"/>
+                                    </linearGradient>
+                                    <linearGradient id="apple-pri-shine" x1="12" y1="1" x2="12" y2="12" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                    </linearGradient>
+                                    <linearGradient id="apple-pri-bevel" x1="12" y1="1" x2="12" y2="23" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                        <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                        <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                    </linearGradient>
+                                    <filter id="apple-pri-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="0" dy="1.2" stdDeviation="0.8" flood-color="#78350f" flood-opacity="0.5"/>
+                                    </filter>
+                                </defs>
+                                <rect x="1" y="1" width="22" height="22" rx="5.5" fill="url(#apple-pri-bg)"/>
+                                <path d="M 1 6.5 C 1 3.5 3.5 1 6.5 1 L 17.5 1 C 20.5 1 23 3.5 23 6.5 L 23 9 C 23 9 17 12 12 12 C 7 12 1 9 1 9 Z" fill="url(#apple-pri-shine)"/>
+                                <rect x="1" y="1" width="22" height="22" rx="5.5" stroke="url(#apple-pri-bevel)" stroke-width="0.8" fill="none"/>
+                                <g filter="url(#apple-pri-shadow)">
+                                    <path d="M7 6.5 C7 5.7 7.7 5 8.5 5 L12 5 L18 11 L14.5 14.5 L8.5 8.5 L8.5 6.5 Z" fill="#ffffff"/>
+                                    <circle cx="10" cy="7.5" r="1.1" fill="#d97706"/>
+                                    <path d="M12.5 10.5 L14.5 12.5" stroke="#d97706" stroke-width="1.2" stroke-linecap="round"/>
+                                    <circle cx="14" cy="15" r="1" fill="#ffffff" opacity="0.9"/>
+                                </g>
+                            </svg>
+                        </span>
+                        <span>Pricing</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item-link">
+                        <span class="apple-3d-icon-wrap apple-3d-icon-wrap--docs" aria-hidden="true">
+                            <svg class="apple-3d-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="apple-doc-bg" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#60a5fa"/>
+                                        <stop offset="45%" stop-color="#3b82f6"/>
+                                        <stop offset="100%" stop-color="#1d4ed8"/>
+                                    </linearGradient>
+                                    <linearGradient id="apple-doc-shine" x1="12" y1="1" x2="12" y2="12" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                    </linearGradient>
+                                    <linearGradient id="apple-doc-bevel" x1="12" y1="1" x2="12" y2="23" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                        <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                        <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                    </linearGradient>
+                                    <filter id="apple-doc-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="0" dy="1.2" stdDeviation="0.8" flood-color="#1e3a8a" flood-opacity="0.5"/>
+                                    </filter>
+                                </defs>
+                                <rect x="1" y="1" width="22" height="22" rx="5.5" fill="url(#apple-doc-bg)"/>
+                                <path d="M 1 6.5 C 1 3.5 3.5 1 6.5 1 L 17.5 1 C 20.5 1 23 3.5 23 6.5 L 23 9 C 23 9 17 12 12 12 C 7 12 1 9 1 9 Z" fill="url(#apple-doc-shine)"/>
+                                <rect x="1" y="1" width="22" height="22" rx="5.5" stroke="url(#apple-doc-bevel)" stroke-width="0.8" fill="none"/>
+                                <g filter="url(#apple-doc-shadow)">
+                                    <path d="M7 5.5 C7 4.7 7.7 4 8.5 4 L13 4 L17 8 L17 17.5 C17 18.3 16.3 19 15.5 19 L8.5 19 C7.7 19 7 18.3 7 17.5 Z" fill="#ffffff"/>
+                                    <path d="M13 4 L13 7.5 C13 7.8 13.2 8 13.5 8 L17 8 Z" fill="#bfdbfe"/>
+                                    <line x1="9.5" y1="10.5" x2="14.5" y2="10.5" stroke="#3b82f6" stroke-width="1.1" stroke-linecap="round"/>
+                                    <line x1="9.5" y1="13" x2="14.5" y2="13" stroke="#3b82f6" stroke-width="1.1" stroke-linecap="round"/>
+                                    <line x1="9.5" y1="15.5" x2="12.5" y2="15.5" stroke="#3b82f6" stroke-width="1.1" stroke-linecap="round"/>
+                                </g>
+                            </svg>
+                        </span>
+                        <span>Docs</span>
+                    </a>
+                </li>
+                <li id="nav-auth-item"><a href="#" class="btn-ghost" id="nav-sign-in">Sign in</a></li>
+                <li id="nav-user-item" style="display:none;">
+                    <div class="nav-user-pill">
+                        <img id="nav-user-avatar" class="nav-user-avatar" src="" alt="Avatar" style="display:none;">
+                        <span id="nav-user-avatar-fallback" class="nav-user-avatar-fallback">👤</span>
+                        <span id="nav-user-name" class="nav-user-name">User</span>
+                        <button id="nav-logout-btn" class="nav-logout-btn" title="Sign out" aria-label="Sign out">✕</button>
+                    </div>
+                </li>
                 <li><a href="#" class="btn-primary" id="nav-get-started">Get Started →</a></li>
             </ul>
         </div>
@@ -67,22 +336,71 @@
             </div>
 
             <div class="hero-brand-lockup">
-                <span class="hero-brand-icon">🌿</span>
+                <span class="apple-3d-logo-wrap apple-3d-logo-wrap--hero" aria-hidden="true">
+                    <svg class="apple-3d-logo" viewBox="0 0 32 32" width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="apple-logo-bg-hero" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#4ade80"/>
+                                <stop offset="45%" stop-color="#22c55e"/>
+                                <stop offset="100%" stop-color="#15803d"/>
+                            </linearGradient>
+                            <linearGradient id="apple-logo-shine-hero" x1="16" y1="1" x2="16" y2="16" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                            </linearGradient>
+                            <linearGradient id="apple-logo-bevel-hero" x1="16" y1="1" x2="16" y2="31" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                <stop offset="50%" stop-color="#ffffff" stop-opacity="0.2"/>
+                                <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                            </linearGradient>
+                            <linearGradient id="apple-leaf-main-hero" x1="12" y1="8" x2="22" y2="24" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#ffffff"/>
+                                <stop offset="100%" stop-color="#f0fdf4"/>
+                            </linearGradient>
+                            <filter id="apple-logo-shadow-hero" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="1.6" stdDeviation="1.2" flood-color="#052e16" flood-opacity="0.5"/>
+                            </filter>
+                        </defs>
+                        <rect x="1.5" y="1.5" width="29" height="29" rx="7.5" fill="url(#apple-logo-bg-hero)"/>
+                        <path d="M 1.5 8.5 C 1.5 4.5 4.5 1.5 8.5 1.5 L 23.5 1.5 C 27.5 1.5 30.5 4.5 30.5 8.5 L 30.5 12 C 30.5 12 22.5 16 16 16 C 9.5 16 1.5 12 1.5 12 Z" fill="url(#apple-logo-shine-hero)"/>
+                        <rect x="1.5" y="1.5" width="29" height="29" rx="7.5" stroke="url(#apple-logo-bevel-hero)" stroke-width="1" fill="none"/>
+                        <g filter="url(#apple-logo-shadow-hero)">
+                            <path d="M16 23 C16 18 19 12 24 9 C24 16 21 21 16 23 Z" fill="url(#apple-leaf-main-hero)"/>
+                            <path d="M16.5 22 C18 18 20.5 14 23.5 10.5" stroke="#22c55e" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.6"/>
+                            <path d="M16 23 C16 19 13.5 14 8.5 13 C8.5 18 11.5 21.5 16 23 Z" fill="#dcfce7"/>
+                            <circle cx="21" cy="14" r="1.3" fill="#ffffff"/>
+                            <circle cx="21.3" cy="13.7" r="0.5" fill="#ffffff"/>
+                        </g>
+                    </svg>
+                </span>
                 <span class="hero-brand-text">Ecobite</span>
             </div>
 
-            <h1 class="hero-title serif-headline">
+            <h1 class="hero-title camo-headline">
                 Your kitchen deserves<br>
-                <span>a place that feels effortless</span>
+                <span class="text-fade-gradient">a place that feels effortless.</span>
             </h1>
 
             <p class="hero-sub">
                 Track your inventory, understand your kitchen patterns, and talk about what's on your shelf — all in one calm, autonomous space.
             </p>
 
-            <div class="hero-actions">
-                <a href="#" class="btn-mindly-primary">Start Here</a>
-                <a href="#features" class="btn-mindly-secondary">Explore</a>
+            <div class="hero-actions camo-actions">
+                <a href="#pos" class="btn-camo-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Start Here</span>
+                </a>
+                <a href="#features" class="btn-camo-secondary">
+                    <span>Explore</span>
+                </a>
+            </div>
+
+            <div class="hero-sub-note">
+                Free 14-day beta access. Works with any POS &amp; tablet.
             </div>
         </div>
 
@@ -182,43 +500,189 @@
     <section class="feature-section" id="pos">
         <div class="container">
             <div class="feature-header">
-                <div class="feature-number">01</div>
-                <div>
-                    <p class="feature-eyebrow">Point of Sale</p>
-                    <h2 class="feature-title">A POS built for<br>the speed of service.</h2>
+                <div class="feature-number" aria-hidden="true">01</div>
+                <div class="feature-header-main">
+                    <p class="feature-eyebrow">Point of sale</p>
+                    <h2 class="feature-title">
+                        Order once. Sync <span class="inline-3d-badge inline-3d-badge--pos" title="Ecobite POS">
+                            <svg viewBox="0 0 28 28" width="28" height="28" fill="none">
+                                <defs>
+                                    <linearGradient id="in-pos-bg" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#34d399"/>
+                                        <stop offset="50%" stop-color="#10b981"/>
+                                        <stop offset="100%" stop-color="#047857"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="28" height="28" rx="7" fill="url(#in-pos-bg)"/>
+                                <rect x="0.5" y="0.5" width="27" height="27" rx="6.5" stroke="rgba(255,255,255,0.7)" stroke-width="1"/>
+                                <rect x="7" y="7" width="14" height="14" rx="2.5" fill="#ffffff"/>
+                                <rect x="9" y="9" width="10" height="4.5" rx="1" fill="#10b981"/>
+                                <circle cx="10.5" cy="16.5" r="0.9" fill="#047857"/>
+                                <circle cx="14" cy="16.5" r="0.9" fill="#047857"/>
+                                <circle cx="17.5" cy="16.5" r="0.9" fill="#047857"/>
+                            </svg>
+                        </span> live and <span class="inline-3d-badge inline-3d-badge--applepay" title="Apple Pay">
+                            <svg viewBox="0 0 28 28" width="28" height="28" fill="none">
+                                <rect width="28" height="28" rx="7" fill="#000000"/>
+                                <rect x="0.5" y="0.5" width="27" height="27" rx="6.5" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+                                <path d="M12.5 11.2 C12.5 10.4 13 9.6 13.6 9.2 C13 8.4 12 8 11 8 C9.8 8 8.7 8.7 8.1 8.7 C7.5 8.7 6.5 8.1 5.5 8.1 C4.2 8.1 3 8.9 2.4 10 C1 12.4 2.1 16 3.4 17.9 C4.1 18.8 4.8 19.8 5.8 19.8 C6.8 19.8 7.2 19.2 8.4 19.2 C9.6 19.2 9.9 19.8 11 19.8 C12 19.8 12.7 18.9 13.3 18 C14.1 16.9 14.4 15.8 14.4 15.7 C14.3 15.7 12.5 15 12.5 12.9 Z" fill="#ffffff" transform="translate(3, 1) scale(0.9)"/>
+                            </svg>
+                        </span> stock<br>
+                        <span class="headline-dim text-fade-gradient">at the same time.</span>
+                    </h2>
                     <p class="feature-desc">
-                        Every order placed on the Ecobite POS terminal is instantly reflected in your inventory.
-                        No manual counting. No syncing delays. Just smooth, autonomous operations.
+                        One tap, instant reconciliation. Every item sold on the Ecobite POS terminal deducts from live kitchen stock without lag. Same counter, same second, nothing to count later.
                     </p>
-                </div>
-            </div>
-            <div class="feature-bento feature-bento--pos">
-                <div class="fb-card fb-card--main fb-card--image tilt-container">
-                    <div class="mockup-wrapper">
-                        <img src="pos_terminal_mockup.jpg" alt="Ecobite POS Terminal" class="feature-img">
-                        <div class="glare-overlay"></div>
-                        <div class="float-badge float-badge--top-right float-badge--glass">
-                            <span class="badge-live-dot"></span>
-                            <span>Live Sync • <strong>0.3s</strong></span>
-                        </div>
-                        <div class="float-badge float-badge--bottom-left float-badge--dark">
-                            <span class="badge-check">✓</span>
-                            <span>Order #3481 • <strong>$47.30 Paid</strong></span>
-                        </div>
+                    <div class="feature-segmented-control" role="tablist">
+                        <button class="fsc-btn active" data-spec="0.3s latency · Sub-second inventory decrement across all connected stations.">Live Sync <span class="fsc-tag">0.3s</span></button>
+                        <button class="fsc-btn" data-spec="Instant contactless · Apple Pay, Google Pay, Tap to Pay & Chip cards.">Contactless Billing</button>
+                        <button class="fsc-btn" data-spec="Digital + Thermal · Auto-SMS, email receipt dispatch and paper print.">Smart Receipts</button>
+                    </div>
+                    <div class="feature-spec-note">
+                        <span class="spec-mono">0.3s latency</span> · Sub-second inventory decrement across all connected stations.
                     </div>
                 </div>
+            </div>
+            <div class="feature-stage-window macos-master-window">
+                <div class="macos-window-header">
+                    <div class="macos-traffic-lights" aria-hidden="true">
+                        <span class="macos-dot macos-dot--close"></span>
+                        <span class="macos-dot macos-dot--minimize"></span>
+                        <span class="macos-dot macos-dot--maximize"></span>
+                    </div>
+                    <div class="macos-window-title">
+                        <span class="macos-status-dot macos-status-dot--green"></span>
+                        <span class="macos-title-text">Live • Ecobite POS Terminal</span>
+                    </div>
+                    <div class="macos-window-actions" aria-hidden="true">
+                        <span class="macos-action-pill macos-action-pill--emerald">⚡ 0.3s sync</span>
+                    </div>
+                </div>
+                <div class="feature-stage-body">
+                    <div class="feature-bento feature-bento--pos">
+                        <div class="fb-card fb-card--main fb-card--image tilt-container">
+                            <div class="mockup-wrapper">
+                                <img src="pos_terminal_mockup.jpg" alt="Ecobite POS Terminal" class="feature-img">
+                                <div class="glare-overlay"></div>
+                                <div class="float-badge float-badge--top-right float-badge--glass">
+                                    <span class="badge-live-dot"></span>
+                                    <span>Live Sync • <strong>0.3s</strong></span>
+                                </div>
+                                <div class="float-badge float-badge--bottom-left float-badge--dark">
+                                    <span class="badge-check">✓</span>
+                                    <span>Order #3481 • <strong>$47.30 Paid</strong></span>
+                                </div>
+                            </div>
+                        </div>
                 <div class="fb-card">
-                    <div class="fb-icon">🧾</div>
+                    <div class="fb-icon-3d fb-icon-3d--order" aria-hidden="true">
+                        <svg class="apple-3d-feature-icon" viewBox="0 0 42 42" width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="apple-feat-order-bg" x1="4" y1="4" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#34d399"/>
+                                    <stop offset="45%" stop-color="#10b981"/>
+                                    <stop offset="100%" stop-color="#047857"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-order-shine" x1="21" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-order-bevel" x1="21" y1="2" x2="21" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                    <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                </linearGradient>
+                                <filter id="apple-feat-order-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#064e3b" flood-opacity="0.5"/>
+                                </filter>
+                            </defs>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" fill="url(#apple-feat-order-bg)"/>
+                            <path d="M 2 12.5 C 2 6.5 6.5 2 12.5 2 L 29.5 2 C 35.5 2 40 6.5 40 12.5 L 40 16 C 40 16 30 21 21 21 C 12 21 2 16 2 16 Z" fill="url(#apple-feat-order-shine)"/>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" stroke="url(#apple-feat-order-bevel)" stroke-width="1.2" fill="none"/>
+                            <g filter="url(#apple-feat-order-shadow)">
+                                <path d="M13 11 C13 9.8 14 9 15.2 9 L26.8 9 C28 9 29 9.8 29 11 L29 31 L26.5 29.5 L24 31 L21 29.5 L18 31 L15.5 29.5 L13 31 Z" fill="#ffffff"/>
+                                <rect x="16" y="13" width="10" height="2" rx="1" fill="#10b981"/>
+                                <line x1="16" y1="18" x2="26" y2="18" stroke="#a7f3d0" stroke-width="1.8" stroke-linecap="round"/>
+                                <line x1="16" y1="22" x2="23" y2="22" stroke="#a7f3d0" stroke-width="1.8" stroke-linecap="round"/>
+                                <circle cx="25.5" cy="24.5" r="4" fill="#059669"/>
+                                <path d="M24 24.5 L25.2 25.7 L27.2 23.3" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </g>
+                        </svg>
+                    </div>
                     <h3>Live Order Sync</h3>
                     <p>Every item sold automatically deducts from the nearest store's live inventory. Zero lag.</p>
                 </div>
                 <div class="fb-card">
-                    <div class="fb-icon">⚡</div>
+                    <div class="fb-icon-3d fb-icon-3d--billing" aria-hidden="true">
+                        <svg class="apple-3d-feature-icon" viewBox="0 0 42 42" width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="apple-feat-bill-bg" x1="4" y1="4" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#fbbf24"/>
+                                    <stop offset="45%" stop-color="#f59e0b"/>
+                                    <stop offset="100%" stop-color="#b45309"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-bill-shine" x1="21" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-bill-bevel" x1="21" y1="2" x2="21" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                    <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                </linearGradient>
+                                <filter id="apple-feat-bill-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#78350f" flood-opacity="0.5"/>
+                                </filter>
+                            </defs>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" fill="url(#apple-feat-bill-bg)"/>
+                            <path d="M 2 12.5 C 2 6.5 6.5 2 12.5 2 L 29.5 2 C 35.5 2 40 6.5 40 12.5 L 40 16 C 40 16 30 21 21 21 C 12 21 2 16 2 16 Z" fill="url(#apple-feat-bill-shine)"/>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" stroke="url(#apple-feat-bill-bevel)" stroke-width="1.2" fill="none"/>
+                            <g filter="url(#apple-feat-bill-shadow)">
+                                <path d="M23 9 L13 22 L20 22 L17 33 L29 19 L22 19 L25 9 Z" fill="#ffffff"/>
+                                <path d="M22 11 L15.5 21 L20 21 L18 29 L26.5 19.5 L22 19.5 Z" fill="#fef3c7" opacity="0.85"/>
+                            </g>
+                        </svg>
+                    </div>
                     <h3>Instant Billing</h3>
                     <p>Apple Pay, Cash & Card — all in one fluid checkout experience.</p>
                 </div>
                 <div class="fb-card">
-                    <div class="fb-icon">📋</div>
+                    <div class="fb-icon-3d fb-icon-3d--receipts" aria-hidden="true">
+                        <svg class="apple-3d-feature-icon" viewBox="0 0 42 42" width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="apple-feat-rec-bg" x1="4" y1="4" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#a78bfa"/>
+                                    <stop offset="45%" stop-color="#8b5cf6"/>
+                                    <stop offset="100%" stop-color="#581c87"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-rec-shine" x1="21" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-rec-bevel" x1="21" y1="2" x2="21" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                    <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                </linearGradient>
+                                <filter id="apple-feat-rec-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#3b0764" flood-opacity="0.5"/>
+                                </filter>
+                            </defs>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" fill="url(#apple-feat-rec-bg)"/>
+                            <path d="M 2 12.5 C 2 6.5 6.5 2 12.5 2 L 29.5 2 C 35.5 2 40 6.5 40 12.5 L 40 16 C 40 16 30 21 21 21 C 12 21 2 16 2 16 Z" fill="url(#apple-feat-rec-shine)"/>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" stroke="url(#apple-feat-rec-bevel)" stroke-width="1.2" fill="none"/>
+                            <g filter="url(#apple-feat-rec-shadow)">
+                                <rect x="12" y="11" width="18" height="21" rx="3" fill="#ffffff"/>
+                                <path d="M17 9 C17 8 18 7.5 19 7.5 L23 7.5 C24 7.5 25 8 25 9 L26 12 L16 12 Z" fill="#c4b5fd"/>
+                                <circle cx="21" cy="9.5" r="1.2" fill="#581c87"/>
+                                <line x1="16" y1="16" x2="26" y2="16" stroke="#8b5cf6" stroke-width="1.8" stroke-linecap="round"/>
+                                <line x1="16" y1="20" x2="26" y2="20" stroke="#ddd6fe" stroke-width="1.8" stroke-linecap="round"/>
+                                <line x1="16" y1="24" x2="22" y2="24" stroke="#ddd6fe" stroke-width="1.8" stroke-linecap="round"/>
+                                <circle cx="24.5" cy="25.5" r="3.5" fill="#10b981"/>
+                                <path d="M23.2 25.5 L24.2 26.5 L25.8 24.5" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+                            </g>
+                        </svg>
+                    </div>
                     <h3>Smart Receipts</h3>
                     <p>Print or send digital receipts automatically after every transaction.</p>
                 </div>
@@ -228,95 +692,355 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
+</section>
 
     <!-- FEATURE 2: 10KM RADIUS -->
     <section class="feature-section feature-section--alt" id="radius">
         <div class="container">
-            <div class="feature-header feature-header--right">
-                <div class="feature-number">02</div>
-                <div>
+            <div class="feature-header">
+                <div class="feature-number" aria-hidden="true">02</div>
+                <div class="feature-header-main">
                     <p class="feature-eyebrow">Smart Redistribution</p>
-                    <h2 class="feature-title">Find surplus, fix shortage.<br>Within 10km.</h2>
+                    <h2 class="feature-title">
+                        Find surplus. <span class="inline-3d-badge inline-3d-badge--radar" title="Haversine Radar">
+                            <svg viewBox="0 0 28 28" width="28" height="28" fill="none">
+                                <defs>
+                                    <linearGradient id="in-rad-bg" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#fb923c"/>
+                                        <stop offset="50%" stop-color="#f97316"/>
+                                        <stop offset="100%" stop-color="#ea580c"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="28" height="28" rx="7" fill="url(#in-rad-bg)"/>
+                                <rect x="0.5" y="0.5" width="27" height="27" rx="6.5" stroke="rgba(255,255,255,0.7)" stroke-width="1"/>
+                                <circle cx="14" cy="14" r="8" stroke="#ffffff" stroke-width="1.2" opacity="0.6"/>
+                                <circle cx="14" cy="14" r="4.5" stroke="#ffffff" stroke-width="1.2" opacity="0.85"/>
+                                <circle cx="14" cy="14" r="2" fill="#ffffff"/>
+                            </svg>
+                        </span> Fix shortage <span class="inline-3d-badge inline-3d-badge--map" title="Nearby Kitchen">
+                            <svg viewBox="0 0 28 28" width="28" height="28" fill="none">
+                                <defs>
+                                    <linearGradient id="in-map-bg" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#34d399"/>
+                                        <stop offset="50%" stop-color="#10b981"/>
+                                        <stop offset="100%" stop-color="#047857"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="28" height="28" rx="7" fill="url(#in-map-bg)"/>
+                                <rect x="0.5" y="0.5" width="27" height="27" rx="6.5" stroke="rgba(255,255,255,0.7)" stroke-width="1"/>
+                                <path d="M14 6.5 C10.5 6.5 8 9 8 12.2 C8 16.5 14 21.5 14 21.5 C14 21.5 20 16.5 20 12.2 C20 9 17.5 6.5 14 6.5 Z" fill="#ffffff"/>
+                                <circle cx="14" cy="12" r="2.2" fill="#047857"/>
+                            </svg>
+                        </span><br>
+                        <span class="headline-dim text-fade-gradient">within 10km.</span>
+                    </h2>
                     <p class="feature-desc">
-                        When a branch runs low, Ecobite scans all stores within a 10km radius using the Haversine formula.
-                        It finds the closest donor with surplus stock, prioritises by expiry date (FEFO),
-                        and initiates a transfer ping — all without a single human action.
+                        When a branch runs low, Ecobite scans all stores within a 10km radius using the Haversine formula. It finds the closest surplus stock, prioritises by FEFO expiry, and initiates a transfer ping automatically.
                     </p>
-                </div>
-            </div>
-            <div class="feature-bento feature-bento--radius">
-                <div class="fb-card fb-card--main fb-card--image tilt-container">
-                    <div class="mockup-wrapper">
-                        <img src="radius_map_mockup.jpg" alt="10km radius map" class="feature-img">
-                        <div class="radar-pulse-center">
-                            <div class="radar-pulse-wave"></div>
-                            <div class="radar-pulse-wave radar-pulse-wave--delay-1"></div>
-                            <div class="radar-pulse-wave radar-pulse-wave--delay-2"></div>
-                        </div>
-                        <div class="glare-overlay"></div>
-                        <div class="float-badge float-badge--top-left float-badge--glass">
-                            <span class="badge-beacon"></span>
-                            <span>Scanning 10km Radius</span>
-                        </div>
-                        <div class="float-badge float-badge--bottom-right float-badge--emerald">
-                            <span>✨ Surplus Found: <strong>Store 1 (1.8km)</strong></span>
-                        </div>
+                    <div class="feature-segmented-control" role="tablist">
+                        <button class="fsc-btn active" data-spec="10km radius · Real-world Haversine distance matrix without straight-line guesses.">Haversine Mesh <span class="fsc-tag">10km</span></button>
+                        <button class="fsc-btn" data-spec="FEFO priority · Stock closest to expiration moves first to prevent kitchen waste.">FEFO Expiry</button>
+                        <button class="fsc-btn" data-spec="Socket.IO dispatch · Real-time auto-acceptance requests to donor tablet terminals.">Transfer Pings</button>
+                    </div>
+                    <div class="feature-spec-note">
+                        <span class="spec-mono">10km radius</span> · Real-world Haversine distance matrix without straight-line guesses.
                     </div>
                 </div>
+            </div>
+            <div class="feature-stage-window macos-master-window">
+                <div class="macos-window-header">
+                    <div class="macos-traffic-lights" aria-hidden="true">
+                        <span class="macos-dot macos-dot--close"></span>
+                        <span class="macos-dot macos-dot--minimize"></span>
+                        <span class="macos-dot macos-dot--maximize"></span>
+                    </div>
+                    <div class="macos-window-title">
+                        <span class="macos-status-dot macos-status-dot--blue"></span>
+                        <span class="macos-title-text">Radar Mesh · 10km Radius</span>
+                    </div>
+                    <div class="macos-window-actions" aria-hidden="true">
+                        <span class="macos-action-pill macos-action-pill--emerald">6 Nodes Active</span>
+                    </div>
+                </div>
+                <div class="feature-stage-body">
+                    <div class="feature-bento feature-bento--radius">
+                        <div class="fb-card fb-card--main fb-card--image tilt-container">
+                            <div class="mockup-wrapper">
+                                <img src="radius_map_mockup.jpg" alt="10km radius map" class="feature-img">
+                                <div class="radar-pulse-center">
+                                    <div class="radar-pulse-wave"></div>
+                                    <div class="radar-pulse-wave radar-pulse-wave--delay-1"></div>
+                                    <div class="radar-pulse-wave radar-pulse-wave--delay-2"></div>
+                                </div>
+                                <div class="glare-overlay"></div>
+                                <div class="float-badge float-badge--top-left float-badge--glass">
+                                    <span class="badge-beacon"></span>
+                                    <span>Scanning 10km Radius</span>
+                                </div>
+                                <div class="float-badge float-badge--bottom-right float-badge--emerald">
+                                    <span>✨ Surplus Found: <strong>Store 1 (1.8km)</strong></span>
+                                </div>
+                            </div>
+                        </div>
                 <div class="fb-card fb-card--highlight fb-card--green">
                     <div class="highlight-stat">10km</div>
                     <div class="highlight-label">Auto-scan radius</div>
                 </div>
                 <div class="fb-card">
-                    <div class="fb-icon">📍</div>
+                    <div class="fb-icon-3d fb-icon-3d--geo" aria-hidden="true">
+                        <svg class="apple-3d-feature-icon" viewBox="0 0 42 42" width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="apple-feat-geo-bg" x1="4" y1="4" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#fb923c"/>
+                                    <stop offset="45%" stop-color="#f97316"/>
+                                    <stop offset="100%" stop-color="#c2410c"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-geo-shine" x1="21" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-geo-bevel" x1="21" y1="2" x2="21" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                    <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                </linearGradient>
+                                <filter id="apple-feat-geo-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#7c2d12" flood-opacity="0.5"/>
+                                </filter>
+                            </defs>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" fill="url(#apple-feat-geo-bg)"/>
+                            <path d="M 2 12.5 C 2 6.5 6.5 2 12.5 2 L 29.5 2 C 35.5 2 40 6.5 40 12.5 L 40 16 C 40 16 30 21 21 21 C 12 21 2 16 2 16 Z" fill="url(#apple-feat-geo-shine)"/>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" stroke="url(#apple-feat-geo-bevel)" stroke-width="1.2" fill="none"/>
+                            <g filter="url(#apple-feat-geo-shadow)">
+                                <ellipse cx="21" cy="29" rx="8" ry="2.8" stroke="#ffedd5" stroke-width="1.5" fill="none" opacity="0.7"/>
+                                <ellipse cx="21" cy="29" rx="13" ry="4.5" stroke="#ffedd5" stroke-width="1.2" stroke-dasharray="3 3" fill="none" opacity="0.5"/>
+                                <path d="M21 9 C16.5 9 13 12.5 13 17 C13 23 21 30 21 30 C21 30 29 23 29 17 C29 12.5 25.5 9 21 9 Z" fill="#ffffff"/>
+                                <circle cx="21" cy="17" r="3.5" fill="#f97316"/>
+                            </g>
+                        </svg>
+                    </div>
                     <h3>Haversine Geolocation</h3>
                     <p>Precise real-world distance calculations — not straight-line guesses. Your transfers always make logistical sense.</p>
                 </div>
                 <div class="fb-card">
-                    <div class="fb-icon">🕐</div>
+                    <div class="fb-icon-3d fb-icon-3d--fefo" aria-hidden="true">
+                        <svg class="apple-3d-feature-icon" viewBox="0 0 42 42" width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="apple-feat-fefo-bg" x1="4" y1="4" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#2dd4bf"/>
+                                    <stop offset="45%" stop-color="#14b8a6"/>
+                                    <stop offset="100%" stop-color="#0f766e"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-fefo-shine" x1="21" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-fefo-bevel" x1="21" y1="2" x2="21" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                    <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                </linearGradient>
+                                <filter id="apple-feat-fefo-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#134e4a" flood-opacity="0.5"/>
+                                </filter>
+                            </defs>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" fill="url(#apple-feat-fefo-bg)"/>
+                            <path d="M 2 12.5 C 2 6.5 6.5 2 12.5 2 L 29.5 2 C 35.5 2 40 6.5 40 12.5 L 40 16 C 40 16 30 21 21 21 C 12 21 2 16 2 16 Z" fill="url(#apple-feat-fefo-shine)"/>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" stroke="url(#apple-feat-fefo-bevel)" stroke-width="1.2" fill="none"/>
+                            <g filter="url(#apple-feat-fefo-shadow)">
+                                <circle cx="21" cy="22" r="11" fill="#ffffff"/>
+                                <circle cx="21" cy="22" r="8.5" fill="#f0fdfa"/>
+                                <rect x="19.5" y="8" width="3" height="3" rx="1" fill="#ffffff"/>
+                                <line x1="21" y1="22" x2="21" y2="16" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="21" y1="22" x2="26" y2="22" stroke="#14b8a6" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="21" cy="22" r="1.5" fill="#0f766e"/>
+                                <path d="M26 14 L28 17 L24 17 Z" fill="#0f766e"/>
+                            </g>
+                        </svg>
+                    </div>
                     <h3>FEFO Priority</h3>
                     <p>First Expired, First Out. Stock closest to expiry gets moved first to prevent waste.</p>
                 </div>
                 <div class="fb-card">
-                    <div class="fb-icon">🔔</div>
+                    <div class="fb-icon-3d fb-icon-3d--pings" aria-hidden="true">
+                        <svg class="apple-3d-feature-icon" viewBox="0 0 42 42" width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="apple-feat-ping-bg" x1="4" y1="4" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#fde047"/>
+                                    <stop offset="45%" stop-color="#eab308"/>
+                                    <stop offset="100%" stop-color="#a16207"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-ping-shine" x1="21" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-ping-bevel" x1="21" y1="2" x2="21" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                    <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                </linearGradient>
+                                <filter id="apple-feat-ping-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#713f12" flood-opacity="0.5"/>
+                                </filter>
+                            </defs>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" fill="url(#apple-feat-ping-bg)"/>
+                            <path d="M 2 12.5 C 2 6.5 6.5 2 12.5 2 L 29.5 2 C 35.5 2 40 6.5 40 12.5 L 40 16 C 40 16 30 21 21 21 C 12 21 2 16 2 16 Z" fill="url(#apple-feat-ping-shine)"/>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" stroke="url(#apple-feat-ping-bevel)" stroke-width="1.2" fill="none"/>
+                            <g filter="url(#apple-feat-ping-shadow)">
+                                <path d="M12 17 C10 19.5 10 23.5 12 26" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.8"/>
+                                <path d="M30 17 C32 19.5 32 23.5 30 26" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.8"/>
+                                <path d="M21 9 C17 9 15 13 15 19 L13.5 25 L28.5 25 L27 19 C27 13 25 9 21 9 Z" fill="#ffffff"/>
+                                <circle cx="21" cy="27.5" r="2" fill="#ffffff"/>
+                                <circle cx="21" cy="7.5" r="1.5" fill="#fef08a"/>
+                            </g>
+                        </svg>
+                    </div>
                     <h3>Transfer Pings</h3>
                     <p>Stores receive real-time transfer requests they can accept or reject via Socket.IO.</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
+</section>
 
     <!-- FEATURE 3: ANALYTICS -->
     <section class="feature-section" id="analytics">
         <div class="container">
             <div class="feature-header">
-                <div class="feature-number">03</div>
-                <div>
+                <div class="feature-number" aria-hidden="true">03</div>
+                <div class="feature-header-main">
                     <p class="feature-eyebrow">Analytics Engine</p>
-                    <h2 class="feature-title">Turn inventory data<br>into clear decisions.</h2>
+                    <h2 class="feature-title">
+                        Every <span class="inline-3d-badge inline-3d-badge--trends" title="Stock Trends">
+                            <svg viewBox="0 0 28 28" width="28" height="28" fill="none">
+                                <defs>
+                                    <linearGradient id="in-tre-bg" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#38bdf8"/>
+                                        <stop offset="50%" stop-color="#0284c7"/>
+                                        <stop offset="100%" stop-color="#1d4ed8"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="28" height="28" rx="7" fill="url(#in-tre-bg)"/>
+                                <rect x="0.5" y="0.5" width="27" height="27" rx="6.5" stroke="rgba(255,255,255,0.7)" stroke-width="1"/>
+                                <rect x="7" y="15" width="3" height="6" rx="0.8" fill="#ffffff" opacity="0.8"/>
+                                <rect x="12" y="11" width="3" height="10" rx="0.8" fill="#ffffff"/>
+                                <rect x="17" y="7" width="3" height="14" rx="0.8" fill="#ffffff"/>
+                            </svg>
+                        </span> <span class="inline-3d-badge inline-3d-badge--alerts" title="Expiry Alerts">
+                            <svg viewBox="0 0 28 28" width="28" height="28" fill="none">
+                                <defs>
+                                    <linearGradient id="in-ale-bg" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#fb923c"/>
+                                        <stop offset="50%" stop-color="#f59e0b"/>
+                                        <stop offset="100%" stop-color="#b45309"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="28" height="28" rx="7" fill="url(#in-ale-bg)"/>
+                                <rect x="0.5" y="0.5" width="27" height="27" rx="6.5" stroke="rgba(255,255,255,0.7)" stroke-width="1"/>
+                                <path d="M14 6 L22 20 L6 20 Z" fill="#ffffff"/>
+                                <line x1="14" y1="11" x2="14" y2="15.5" stroke="#b45309" stroke-width="1.8" stroke-linecap="round"/>
+                                <circle cx="14" cy="18" r="0.9" fill="#b45309"/>
+                            </svg>
+                        </span> <span class="inline-3d-badge inline-3d-badge--stores" title="Store Folders">
+                            <svg viewBox="0 0 28 28" width="28" height="28" fill="none">
+                                <defs>
+                                    <linearGradient id="in-vis-bg" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#c084fc"/>
+                                        <stop offset="50%" stop-color="#a855f7"/>
+                                        <stop offset="100%" stop-color="#7e22ce"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="28" height="28" rx="7" fill="url(#in-vis-bg)"/>
+                                <rect x="0.5" y="0.5" width="27" height="27" rx="6.5" stroke="rgba(255,255,255,0.7)" stroke-width="1"/>
+                                <rect x="7" y="8" width="6" height="3" rx="1" fill="#f3e8ff"/>
+                                <rect x="7" y="10" width="14" height="11" rx="1.5" fill="#ffffff"/>
+                                <circle cx="11" cy="15.5" r="1.3" fill="#7e22ce"/>
+                                <circle cx="17" cy="15.5" r="1.3" fill="#7e22ce"/>
+                            </svg>
+                        </span> branch.<br>
+                        <span class="headline-dim text-fade-gradient">One conversation.</span>
+                    </h2>
                     <p class="feature-desc">
-                        See exactly what's moving, what's expiring, and what needs attention — across every branch.
-                        Ecobite's analytics dashboard gives you the clarity to act before problems arise.
+                        Data from every kitchen branch lands in one calm view. Track live consumption trends, catch expiring batches days ahead, and let autonomous rebalancing handle the rest.
                     </p>
-                </div>
-            </div>
-            <div class="feature-bento feature-bento--analytics">
-                <div class="fb-card fb-card--main fb-card--image tilt-container">
-                    <div class="mockup-wrapper">
-                        <img src="analytics_mockup.jpg" alt="Ecobite analytics dashboard" class="feature-img">
-                        <div class="glare-overlay"></div>
-                        <div class="float-badge float-badge--top-right float-badge--emerald">
-                            <span>📉 <strong>-42%</strong> Food Waste</span>
-                        </div>
-                        <div class="float-badge float-badge--bottom-left float-badge--glass">
-                            <span class="badge-live-dot"></span>
-                            <span>Auto-rebalancing <strong>6 Stores</strong></span>
-                        </div>
+                    <div class="feature-segmented-control" role="tablist">
+                        <button class="fsc-btn active" data-spec="-42% food waste · Real-time predictive ordering eliminates prep waste.">-42% Waste</button>
+                        <button class="fsc-btn" data-spec="Telemetry trends · Cross-branch consumption curves updated on every sale.">Stock Trends</button>
+                        <button class="fsc-btn" data-spec="Unified network · Single dashboard controlling 6 connected store inventories.">6 Store Mesh</button>
+                    </div>
+                    <div class="feature-spec-note">
+                        <span class="spec-mono">-42% food waste</span> · Real-time predictive ordering eliminates prep waste.
                     </div>
                 </div>
+            </div>
+            <div class="feature-stage-window macos-master-window">
+                <div class="macos-window-header">
+                    <div class="macos-traffic-lights" aria-hidden="true">
+                        <span class="macos-dot macos-dot--close"></span>
+                        <span class="macos-dot macos-dot--minimize"></span>
+                        <span class="macos-dot macos-dot--maximize"></span>
+                    </div>
+                    <div class="macos-window-title">
+                        <span class="macos-status-dot macos-status-dot--purple"></span>
+                        <span class="macos-title-text">Analytics Engine · Multi-Store</span>
+                    </div>
+                    <div class="macos-window-actions" aria-hidden="true">
+                        <span class="macos-action-pill macos-action-pill--violet">📈 98.2% Accurate</span>
+                    </div>
+                </div>
+                <div class="feature-stage-body">
+                    <div class="feature-bento feature-bento--analytics">
+                        <div class="fb-card fb-card--main fb-card--image tilt-container">
+                            <div class="mockup-wrapper">
+                                <img src="analytics_mockup.jpg" alt="Ecobite analytics dashboard" class="feature-img">
+                                <div class="glare-overlay"></div>
+                                <div class="float-badge float-badge--top-right float-badge--emerald">
+                                    <span>📉 <strong>-42%</strong> Food Waste</span>
+                                </div>
+                                <div class="float-badge float-badge--bottom-left float-badge--glass">
+                                    <span class="badge-live-dot"></span>
+                                    <span>Auto-rebalancing <strong>6 Stores</strong></span>
+                                </div>
+                            </div>
+                        </div>
                 <div class="fb-card">
-                    <div class="fb-icon">📈</div>
+                    <div class="fb-icon-3d fb-icon-3d--trends" aria-hidden="true">
+                        <svg class="apple-3d-feature-icon" viewBox="0 0 42 42" width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="apple-feat-trend-bg" x1="4" y1="4" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#38bdf8"/>
+                                    <stop offset="45%" stop-color="#0ea5e9"/>
+                                    <stop offset="100%" stop-color="#1d4ed8"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-trend-shine" x1="21" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-trend-bevel" x1="21" y1="2" x2="21" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                    <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                </linearGradient>
+                                <filter id="apple-feat-trend-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#1e3a8a" flood-opacity="0.5"/>
+                                </filter>
+                            </defs>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" fill="url(#apple-feat-trend-bg)"/>
+                            <path d="M 2 12.5 C 2 6.5 6.5 2 12.5 2 L 29.5 2 C 35.5 2 40 6.5 40 12.5 L 40 16 C 40 16 30 21 21 21 C 12 21 2 16 2 16 Z" fill="url(#apple-feat-trend-shine)"/>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" stroke="url(#apple-feat-trend-bevel)" stroke-width="1.2" fill="none"/>
+                            <g filter="url(#apple-feat-trend-shadow)">
+                                <path d="M10 30 L32 30" stroke="#bae6fd" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+                                <rect x="12" y="22" width="4" height="8" rx="1" fill="#ffffff" opacity="0.8"/>
+                                <rect x="18" y="17" width="4" height="13" rx="1" fill="#ffffff" opacity="0.9"/>
+                                <rect x="24" y="12" width="4" height="18" rx="1" fill="#ffffff"/>
+                                <path d="M11 23 L18 16 L23 18 L31 9.5" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                <path d="M27 9.5 L31 9.5 L31 13.5" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            </g>
+                        </svg>
+                    </div>
                     <h3>Stock Trends</h3>
                     <p>Track inventory value over time across all your branches in one chart.</p>
                 </div>
@@ -325,18 +1049,83 @@
                     <div class="highlight-label">Order fulfilment rate</div>
                 </div>
                 <div class="fb-card">
-                    <div class="fb-icon">⚠️</div>
+                    <div class="fb-icon-3d fb-icon-3d--alerts" aria-hidden="true">
+                        <svg class="apple-3d-feature-icon" viewBox="0 0 42 42" width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="apple-feat-alert-bg" x1="4" y1="4" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#fb923c"/>
+                                    <stop offset="45%" stop-color="#f59e0b"/>
+                                    <stop offset="100%" stop-color="#b45309"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-alert-shine" x1="21" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-alert-bevel" x1="21" y1="2" x2="21" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                    <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                </linearGradient>
+                                <filter id="apple-feat-alert-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#78350f" flood-opacity="0.5"/>
+                                </filter>
+                            </defs>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" fill="url(#apple-feat-alert-bg)"/>
+                            <path d="M 2 12.5 C 2 6.5 6.5 2 12.5 2 L 29.5 2 C 35.5 2 40 6.5 40 12.5 L 40 16 C 40 16 30 21 21 21 C 12 21 2 16 2 16 Z" fill="url(#apple-feat-alert-shine)"/>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" stroke="url(#apple-feat-alert-bevel)" stroke-width="1.2" fill="none"/>
+                            <g filter="url(#apple-feat-alert-shadow)">
+                                <path d="M21 9 L31.5 28 C32.2 29.2 31.3 30.5 30 30.5 L12 30.5 C10.7 30.5 9.8 29.2 10.5 28 L21 9 Z" fill="#ffffff"/>
+                                <path d="M21 16 L21 22" stroke="#b45309" stroke-width="2.2" stroke-linecap="round"/>
+                                <circle cx="21" cy="26" r="1.3" fill="#b45309"/>
+                            </g>
+                        </svg>
+                    </div>
                     <h3>Expiry Alerts</h3>
                     <p>Get warned days before items expire so you can act — not react.</p>
                 </div>
                 <div class="fb-card">
-                    <div class="fb-icon">🗂️</div>
+                    <div class="fb-icon-3d fb-icon-3d--visibility" aria-hidden="true">
+                        <svg class="apple-3d-feature-icon" viewBox="0 0 42 42" width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="apple-feat-vis-bg" x1="4" y1="4" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#c084fc"/>
+                                    <stop offset="45%" stop-color="#a855f7"/>
+                                    <stop offset="100%" stop-color="#7e22ce"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-vis-shine" x1="21" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="apple-feat-vis-bevel" x1="21" y1="2" x2="21" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+                                    <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                </linearGradient>
+                                <filter id="apple-feat-vis-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#581c87" flood-opacity="0.5"/>
+                                </filter>
+                            </defs>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" fill="url(#apple-feat-vis-bg)"/>
+                            <path d="M 2 12.5 C 2 6.5 6.5 2 12.5 2 L 29.5 2 C 35.5 2 40 6.5 40 12.5 L 40 16 C 40 16 30 21 21 21 C 12 21 2 16 2 16 Z" fill="url(#apple-feat-vis-shine)"/>
+                            <rect x="2" y="2" width="38" height="38" rx="10.5" stroke="url(#apple-feat-vis-bevel)" stroke-width="1.2" fill="none"/>
+                            <g filter="url(#apple-feat-vis-shadow)">
+                                <rect x="10" y="11" width="10" height="4" rx="1.5" fill="#f3e8ff"/>
+                                <rect x="10" y="13" width="22" height="17" rx="2.5" fill="#ffffff"/>
+                                <path d="M10 17 L32 17" stroke="#e9d5ff" stroke-width="1.2"/>
+                                <circle cx="16" cy="23" r="2" fill="#a855f7"/>
+                                <circle cx="26" cy="23" r="2" fill="#a855f7"/>
+                                <line x1="18" y1="23" x2="24" y2="23" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="2 1"/>
+                            </g>
+                        </svg>
+                    </div>
                     <h3>Cross-store Visibility</h3>
                     <p>A single unified view of all stores' inventory, transfers, and reorder levels. No spreadsheets. No guessing.</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
+</section>
 
     <!-- CTA SECTION -->
     <section class="cta-section">
@@ -355,8 +1144,46 @@
     <footer class="footer">
         <div class="footer-inner">
             <div class="footer-brand">
-                <span class="logo-icon">🌿</span>
-                <span class="logo-text">Ecobite</span>
+                <div class="footer-brand-title">
+                    <span class="apple-3d-logo-wrap" aria-hidden="true">
+                        <svg class="apple-3d-logo" viewBox="0 0 32 32" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="apple-logo-bg-ft" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#4ade80"/>
+                                    <stop offset="45%" stop-color="#22c55e"/>
+                                    <stop offset="100%" stop-color="#15803d"/>
+                                </linearGradient>
+                                <linearGradient id="apple-logo-shine-ft" x1="16" y1="1" x2="16" y2="16" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                                </linearGradient>
+                                <linearGradient id="apple-logo-bevel-ft" x1="16" y1="1" x2="16" y2="31" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.2"/>
+                                    <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+                                </linearGradient>
+                                <linearGradient id="apple-leaf-main-ft" x1="12" y1="8" x2="22" y2="24" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#ffffff"/>
+                                    <stop offset="100%" stop-color="#f0fdf4"/>
+                                </linearGradient>
+                                <filter id="apple-logo-shadow-ft" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="1.6" stdDeviation="1.2" flood-color="#052e16" flood-opacity="0.5"/>
+                                </filter>
+                            </defs>
+                            <rect x="1.5" y="1.5" width="29" height="29" rx="7.5" fill="url(#apple-logo-bg-ft)"/>
+                            <path d="M 1.5 8.5 C 1.5 4.5 4.5 1.5 8.5 1.5 L 23.5 1.5 C 27.5 1.5 30.5 4.5 30.5 8.5 L 30.5 12 C 30.5 12 22.5 16 16 16 C 9.5 16 1.5 12 1.5 12 Z" fill="url(#apple-logo-shine-ft)"/>
+                            <rect x="1.5" y="1.5" width="29" height="29" rx="7.5" stroke="url(#apple-logo-bevel-ft)" stroke-width="1" fill="none"/>
+                            <g filter="url(#apple-logo-shadow-ft)">
+                                <path d="M16 23 C16 18 19 12 24 9 C24 16 21 21 16 23 Z" fill="url(#apple-leaf-main-ft)"/>
+                                <path d="M16.5 22 C18 18 20.5 14 23.5 10.5" stroke="#22c55e" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.6"/>
+                                <path d="M16 23 C16 19 13.5 14 8.5 13 C8.5 18 11.5 21.5 16 23 Z" fill="#dcfce7"/>
+                                <circle cx="21" cy="14" r="1.3" fill="#ffffff"/>
+                                <circle cx="21.3" cy="13.7" r="0.5" fill="#ffffff"/>
+                            </g>
+                        </svg>
+                    </span>
+                    <span class="logo-text">Ecobite</span>
+                </div>
                 <p>Autonomous Kitchen Intelligence</p>
             </div>
             <div class="footer-links">
@@ -364,6 +1191,92 @@
             </div>
         </div>
     </footer>
+    <!-- ── APPLE-STYLED OAUTH AUTHENTICATION MODAL ── -->
+    <div class="auth-modal-backdrop" id="auth-modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="auth-modal-card">
+            <button class="auth-modal-close" id="auth-modal-close" aria-label="Close dialog">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- Brand Icon -->
+            <div class="auth-modal-brand">
+                <div class="auth-3d-icon-squircle">
+                    <svg viewBox="0 0 32 32" width="38" height="38" fill="none">
+                        <defs>
+                            <linearGradient id="auth-logo-bg" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#4ade80"/>
+                                <stop offset="45%" stop-color="#22c55e"/>
+                                <stop offset="100%" stop-color="#15803d"/>
+                            </linearGradient>
+                            <linearGradient id="auth-logo-shine" x1="16" y1="1" x2="16" y2="16" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+                                <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="1.5" y="1.5" width="29" height="29" rx="7.5" fill="url(#auth-logo-bg)"/>
+                        <path d="M 1.5 8.5 C 1.5 4.5 4.5 1.5 8.5 1.5 L 23.5 1.5 C 27.5 1.5 30.5 4.5 30.5 8.5 L 30.5 12 C 30.5 12 22.5 16 16 16 C 9.5 16 1.5 12 1.5 12 Z" fill="url(#auth-logo-shine)"/>
+                        <rect x="1.5" y="1.5" width="29" height="29" rx="7.5" stroke="rgba(255,255,255,0.7)" stroke-width="1" fill="none"/>
+                        <path d="M16 23 C16 18 19 12 24 9 C24 16 21 21 16 23 Z" fill="#ffffff"/>
+                        <path d="M16 23 C16 19 13.5 14 8.5 13 C8.5 18 11.5 21.5 16 23 Z" fill="#dcfce7"/>
+                        <circle cx="21" cy="14" r="1.3" fill="#ffffff"/>
+                    </svg>
+                </div>
+                <h3 class="auth-modal-title">Sign in to Ecobite</h3>
+                <p class="auth-modal-sub">Autonomous kitchen sync & redistribution mesh</p>
+            </div>
+
+            <!-- OAuth Buttons -->
+            <div class="auth-actions">
+                <!-- Google OAuth Button -->
+                <button class="btn-oauth btn-oauth--google" id="btn-oauth-google" type="button">
+                    <svg class="oauth-icon" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
+                    <span class="btn-oauth-text">Continue with Google</span>
+                    <span class="btn-oauth-tag">Instant SSO</span>
+                </button>
+
+                <!-- GitHub OAuth Button -->
+                <button class="btn-oauth btn-oauth--github" id="btn-oauth-github" type="button">
+                    <svg class="oauth-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                    </svg>
+                    <span class="btn-oauth-text">Continue with GitHub</span>
+                    <span class="btn-oauth-tag">Developer</span>
+                </button>
+            </div>
+
+            <div class="auth-divider">
+                <span>or continue with email</span>
+            </div>
+
+            <!-- Magic Link Email Form -->
+            <form class="auth-email-form" id="auth-email-form">
+                <div class="auth-input-wrapper">
+                    <input type="email" id="auth-email-input" class="auth-input" placeholder="chef@restaurant.com" required autocomplete="email">
+                </div>
+                <button type="submit" class="btn-auth-submit" id="btn-auth-submit">
+                    <span>Send Magic Link</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </form>
+
+            <div class="auth-status-message" id="auth-status-msg" style="display:none;"></div>
+
+            <p class="auth-footer-note">
+                By continuing, you agree to Ecobite's <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>.
+            </p>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
