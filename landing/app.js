@@ -239,7 +239,18 @@ function initCategoryFilters() {
     });
 }
 
-function renderMenuCatalog(filterCategory) {
+let activeCategory = "all";
+
+function getCartItemTotalQty(itemId) {
+    let total = 0;
+    Object.values(cart).forEach(entry => {
+        if (entry.id === itemId) total += entry.qty;
+    });
+    return total;
+}
+
+function renderMenuCatalog(filterCategory = activeCategory) {
+    activeCategory = filterCategory;
     const grid = document.getElementById("pos-menu-grid");
     if (!grid) return;
     grid.innerHTML = "";
@@ -255,6 +266,21 @@ function renderMenuCatalog(filterCategory) {
         const bomTagsHtml = item.bom.map(b => 
             `<span class="bom-pill">${b.name} (${b.qty}${b.unit})</span>`
         ).join("");
+
+        const qtyInCart = getCartItemTotalQty(item.id);
+        const actionControls = qtyInCart > 0
+            ? `
+                <div class="dish-card-stepper">
+                    <button type="button" class="btn-card-step btn-card-step--minus" data-id="${item.id}" aria-label="Decrease quantity">−</button>
+                    <span class="card-step-qty">${qtyInCart} in Cart</span>
+                    <button type="button" class="btn-card-step btn-card-step--plus" data-id="${item.id}" aria-label="Increase quantity">+</button>
+                </div>
+              `
+            : `
+                <button type="button" class="btn-add-dish gb-btn-add" data-id="${item.id}" title="Quick Add">
+                    <span>+ Add to Cart</span>
+                </button>
+              `;
 
         card.innerHTML = `
             <div class="gb-card-thumb-wrap">
@@ -282,38 +308,51 @@ function renderMenuCatalog(filterCategory) {
                         <span class="menu-card-price">${item.price}</span>
                     </div>
                     <div class="dish-btn-group">
-                        <button class="btn-customize-dish" data-id="${item.id}" title="Select options & quantity">
+                        ${actionControls}
+                        <button type="button" class="btn-customize-dish" data-id="${item.id}" title="Select options & quantity">
                             <span>Options ⚙</span>
-                        </button>
-                        <button class="btn-add-dish gb-btn-add" data-id="${item.id}" title="Quick Add">
-                            <span>+ Add</span>
                         </button>
                     </div>
                 </div>
             </div>
         `;
 
-        // Click quick add button (+1 directly with visual feedback)
+        // Direct Quick Add Button
         const addBtn = card.querySelector(".btn-add-dish");
-        addBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            addToCart(item.id, 1);
-            addBtn.classList.add("added-flash");
-            addBtn.innerHTML = `<span>✓ Added!</span>`;
-            setTimeout(() => {
-                addBtn.classList.remove("added-flash");
-                addBtn.innerHTML = `<span>+ Add</span>`;
-            }, 750);
-        });
+        if (addBtn) {
+            addBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                addToCart(item.id, 1);
+            });
+        }
 
-        // Click options button to open customization modal
+        // Stepper Plus Button
+        const stepPlus = card.querySelector(".btn-card-step--plus");
+        if (stepPlus) {
+            stepPlus.addEventListener("click", (e) => {
+                e.stopPropagation();
+                addToCart(item.id, 1);
+            });
+        }
+
+        // Stepper Minus Button
+        const stepMinus = card.querySelector(".btn-card-step--minus");
+        if (stepMinus) {
+            stepMinus.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const matchingKey = Object.keys(cart).find(k => cart[k].id === item.id);
+                if (matchingKey) updateCartQty(matchingKey, -1);
+            });
+        }
+
+        // Options Button
         const custBtn = card.querySelector(".btn-customize-dish");
         custBtn?.addEventListener("click", (e) => {
             e.stopPropagation();
             openHyperpureModal(item);
         });
 
-        // Click entire card to open options & quantity modal
+        // Click card body opens options & quantity modal
         card.addEventListener("click", () => {
             openHyperpureModal(item);
         });
@@ -342,6 +381,7 @@ function addToCart(itemId, qty = 1) {
         delete cart[cartKey];
     }
     renderCart();
+    renderMenuCatalog(activeCategory);
 }
 
 function updateCartQty(key, delta) {
@@ -351,6 +391,7 @@ function updateCartQty(key, delta) {
             delete cart[key];
         }
         renderCart();
+        renderMenuCatalog(activeCategory);
     }
 }
 
@@ -380,11 +421,11 @@ function addCustomizedToCart(item, qty, selectedOptions) {
     }
     cart[cartKey].qty += qty;
     renderCart();
+    renderMenuCatalog(activeCategory);
 }
 
 function renderCart() {
     const cartList = document.getElementById("cart-items-list");
-    const emptyState = document.getElementById("cart-empty-placeholder");
     const cartFooter = document.getElementById("cart-footer");
     const bomSummaryEl = document.getElementById("bom-items-summary");
     const subtotalEl = document.getElementById("cart-subtotal");
@@ -394,14 +435,17 @@ function renderCart() {
     const cartKeys = Object.keys(cart);
 
     if (cartKeys.length === 0) {
-        cartList.innerHTML = "";
-        cartList.appendChild(emptyState);
-        emptyState.style.display = "block";
+        cartList.innerHTML = `
+            <div class="cart-empty-state" id="cart-empty-placeholder">
+                <div class="cart-empty-icon">🛒</div>
+                <h4>Cart is empty</h4>
+                <p>Add dishes from the menu to simulate live order intake & micro-deduction.</p>
+            </div>
+        `;
         cartFooter.style.display = "none";
         return;
     }
 
-    emptyState.style.display = "none";
     cartFooter.style.display = "block";
     cartList.innerHTML = "";
 
@@ -416,7 +460,7 @@ function renderCart() {
         const lineTotal = entry.unitPrice * entry.qty;
         subtotal += lineTotal;
 
-        // Compute Base BOM deductions
+        // Base BOM deductions
         item.bom.forEach(b => {
             if (!computedBom[b.name]) {
                 computedBom[b.name] = { totalQty: 0, unit: b.unit };
@@ -424,7 +468,7 @@ function renderCart() {
             computedBom[b.name].totalQty += b.qty * entry.qty;
         });
 
-        // Compute Option Add-on BOM deductions
+        // Addon BOM deductions
         if (entry.bomAddons && entry.bomAddons.length) {
             entry.bomAddons.forEach(b => {
                 if (!computedBom[b.name]) {
@@ -444,9 +488,9 @@ function renderCart() {
                 <span class="cart-item-price">₹${entry.unitPrice} × ${entry.qty} = ₹${lineTotal}</span>
             </div>
             <div class="cart-item-stepper">
-                <button class="btn-step btn-step--dec" data-key="${entry.key}" aria-label="Decrease quantity">−</button>
+                <button type="button" class="btn-step btn-step--dec" data-key="${entry.key}" aria-label="Decrease quantity">−</button>
                 <span class="step-qty">${entry.qty}</span>
-                <button class="btn-step btn-step--inc" data-key="${entry.key}" aria-label="Increase quantity">+</button>
+                <button type="button" class="btn-step btn-step--inc" data-key="${entry.key}" aria-label="Increase quantity">+</button>
             </div>
         `;
 
@@ -474,56 +518,202 @@ function renderCart() {
 document.getElementById("btn-clear-cart")?.addEventListener("click", () => {
     cart = {};
     renderCart();
+    renderMenuCatalog(activeCategory);
 });
 
-// Checkout Order & Live Micro-Deduction
-document.getElementById("btn-checkout-order")?.addEventListener("click", () => {
+// ====================================================
+// ATOMIC ORDER CHECKOUT & 10KM FEFO REDISTRIBUTION PING
+// ====================================================
+
+let pendingPingData = null;
+
+document.getElementById("btn-checkout-order")?.addEventListener("click", async () => {
     const cartKeys = Object.keys(cart);
     if (cartKeys.length === 0) return;
 
-    // Perform live micro-deductions on inventory
+    const deductionsSummary = [];
+    const criticalShortages = [];
+    let orderSubtotal = 0;
+
+    // 1. Calculate and deduct from local Inventory Matrix
     cartKeys.forEach(key => {
         const entry = cart[key];
         const item = MENU_ITEMS.find(m => m.id === entry.id);
         if (!item) return;
         const count = entry.qty;
+        orderSubtotal += entry.unitPrice * count;
 
         // Base BOM deduction
         item.bom.forEach(b => {
             const match = inventoryMatrix.find(i => i.name === b.name);
             if (match) {
-                match.qty = Math.max(0, parseFloat((match.qty - (b.qty * count)).toFixed(2)));
+                const deductAmt = parseFloat((b.qty * count).toFixed(2));
+                match.qty = Math.max(0, parseFloat((match.qty - deductAmt).toFixed(2)));
+
+                let existing = deductionsSummary.find(d => d.name === match.name);
+                if (existing) {
+                    existing.deducted = parseFloat((existing.deducted + deductAmt).toFixed(2));
+                    existing.remaining = match.qty;
+                } else {
+                    deductionsSummary.push({
+                        name: match.name,
+                        unit: match.unit,
+                        deducted: deductAmt,
+                        remaining: match.qty,
+                        reorder: match.reorder
+                    });
+                }
+
+                // Check for critical threshold breach
+                if (match.qty <= match.reorder && !criticalShortages.some(c => c.name === match.name)) {
+                    criticalShortages.push(match);
+                }
             }
         });
 
-        // Add-ons BOM deduction
+        // Addon BOM deduction
         if (entry.bomAddons && entry.bomAddons.length) {
             entry.bomAddons.forEach(b => {
                 const match = inventoryMatrix.find(i => i.name === b.name);
                 if (match) {
-                    match.qty = Math.max(0, parseFloat((match.qty - (b.qty * count)).toFixed(2)));
+                    const deductAmt = parseFloat((b.qty * count).toFixed(2));
+                    match.qty = Math.max(0, parseFloat((match.qty - deductAmt).toFixed(2)));
+                    let existing = deductionsSummary.find(d => d.name === match.name);
+                    if (existing) {
+                        existing.deducted = parseFloat((existing.deducted + deductAmt).toFixed(2));
+                        existing.remaining = match.qty;
+                    } else {
+                        deductionsSummary.push({
+                            name: match.name,
+                            unit: match.unit,
+                            deducted: deductAmt,
+                            remaining: match.qty,
+                            reorder: match.reorder
+                        });
+                    }
+
+                    if (match.qty <= match.reorder && !criticalShortages.some(c => c.name === match.name)) {
+                        criticalShortages.push(match);
+                    }
                 }
             });
         }
     });
 
-    // Clear cart & re-render
+    const gst = Math.round(orderSubtotal * 0.05);
+    const grandTotal = orderSubtotal + gst;
+    const orderId = "ORD-" + Math.random().toString(36).substring(2, 7).toUpperCase();
+
+    // 2. Confetti Explosion
+    if (typeof confetti === "function") {
+        confetti({
+            particleCount: 50,
+            spread: 60,
+            origin: { y: 0.7 }
+        });
+    }
+
+    // 3. Clear cart & re-render
     cart = {};
     renderCart();
+    renderMenuCatalog(activeCategory);
     renderInventoryMatrix();
-
-    // Check for shortages to update radar badge
     checkShortagesAndNotify();
 
-    // Play visual feedback
-    const btn = document.getElementById("btn-checkout-order");
-    const origText = btn.innerHTML;
-    btn.innerHTML = `<span>✓ Order Synced & Micro-Deducted!</span>`;
-    btn.style.background = "#059669";
-    setTimeout(() => {
-        btn.innerHTML = origText;
-        btn.style.background = "";
-    }, 1800);
+    // 4. Populate and Show Order Success Receipt Modal
+    const receiptModal = document.getElementById("receipt-modal");
+    document.getElementById("receipt-order-id").textContent = `Receipt: ${orderId} · Central Hub - Connaught Place`;
+    document.getElementById("receipt-total-val").textContent = `₹${grandTotal}`;
+
+    const receiptList = document.getElementById("receipt-deductions-list");
+    receiptList.innerHTML = deductionsSummary.map(d => `
+        <div class="receipt-bom-row">
+            <span class="ing-name">${d.name}</span>
+            <span class="ing-stat">-${d.deducted} ${d.unit} (Left: ${d.remaining} ${d.unit})</span>
+        </div>
+    `).join("");
+
+    const pingBanner = document.getElementById("receipt-ping-banner");
+    if (criticalShortages.length > 0) {
+        pingBanner.style.display = "block";
+        document.getElementById("receipt-ping-desc").textContent = 
+            `Critical stock breach on ${criticalShortages.map(c => c.name).join(", ")}. 10km FEFO Geospatial Algorithm triggered!`;
+    } else {
+        pingBanner.style.display = "none";
+    }
+
+    receiptModal.style.display = "flex";
+
+    // 5. Trigger 10km Geospatial Redistribution Ping Modal (matching PingAlertModal.jsx)
+    if (criticalShortages.length > 0) {
+        const shortage = criticalShortages[0];
+        pendingPingData = {
+            id: "ping-" + Date.now(),
+            ingredient: shortage.name,
+            quantity: 8,
+            unit: shortage.unit,
+            fromStore: "Kitchen - Karol Bagh",
+            toStore: "Central Hub (Connaught Place)",
+            distanceKm: 3.8
+        };
+
+        document.getElementById("ping-store-name").textContent = pendingPingData.toStore;
+        document.getElementById("ping-ing-name").textContent = pendingPingData.ingredient;
+        document.getElementById("ping-ing-qty").textContent = `${pendingPingData.quantity} ${pendingPingData.unit}`;
+        document.getElementById("ping-donor-name").textContent = pendingPingData.fromStore;
+        document.getElementById("ping-distance-km").textContent = `${pendingPingData.distanceKm} km`;
+
+        setTimeout(() => {
+            document.getElementById("emergency-ping-alert").style.display = "block";
+        }, 600);
+    }
+});
+
+// Close Receipt Modal
+document.getElementById("btn-receipt-close")?.addEventListener("click", () => {
+    document.getElementById("receipt-modal").style.display = "none";
+});
+
+// Accept Emergency Ping Alert
+document.getElementById("btn-ping-accept")?.addEventListener("click", () => {
+    if (!pendingPingData) return;
+
+    if (typeof confetti === "function") {
+        confetti({
+            particleCount: 60,
+            spread: 70,
+            origin: { y: 0.8 }
+        });
+    }
+
+    // Replenish stock
+    const match = inventoryMatrix.find(i => i.name === pendingPingData.ingredient);
+    if (match) {
+        match.qty = Math.round((match.qty + pendingPingData.quantity) * 10) / 10;
+        match.expiry = "6 days remaining";
+    }
+
+    // Update ESG Analytics
+    esgMetrics.foodWasteKg = parseFloat((esgMetrics.foodWasteKg + 4.5).toFixed(1));
+    esgMetrics.costSavedInr += 320;
+    esgMetrics.transfersCompleted += 1;
+    esgMetrics.activeShortages = Math.max(0, inventoryMatrix.filter(i => i.qty <= i.reorder).length);
+
+    renderInventoryMatrix();
+    updateEsgMetricsDisplay();
+    document.getElementById("radar-alert-badge").textContent = esgMetrics.activeShortages;
+
+    document.getElementById("emergency-ping-alert").style.display = "none";
+    pendingPingData = null;
+});
+
+// Dismiss Emergency Ping Alert
+document.getElementById("btn-ping-dismiss")?.addEventListener("click", () => {
+    document.getElementById("emergency-ping-alert").style.display = "none";
+});
+
+document.getElementById("btn-ping-ignore")?.addEventListener("click", () => {
+    document.getElementById("emergency-ping-alert").style.display = "none";
 });
 
 // ====================================================

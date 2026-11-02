@@ -14,9 +14,11 @@
     
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
 
     <!-- App Stylesheet -->
-    <link rel="stylesheet" href="app.css?v=4.0">
+    <link rel="stylesheet" href="app.css?v=4.5">
 </head>
 <body>
     <!-- ── TOP GLOBAL NAVIGATION ── -->
@@ -571,9 +573,85 @@
         </div>
     </div>
 
+    <!-- ── ORDER SUCCESS ATOMIC RECEIPT MODAL ── -->
+    <div class="receipt-modal-backdrop" id="receipt-modal" style="display: none;">
+        <div class="receipt-modal-card">
+            <div class="receipt-head">
+                <div class="receipt-check-circle">✓</div>
+                <h3 class="receipt-title">Order Processed Atomically</h3>
+                <p class="receipt-id" id="receipt-order-id">Receipt: ORD-7X9B · Central Hub - Connaught Place</p>
+            </div>
+
+            <!-- Triggered FEFO Redistribution alert badge if critical -->
+            <div class="receipt-ping-alert" id="receipt-ping-banner" style="display: none;">
+                <div class="ping-alert-top">
+                    <span>🚨 10km FEFO Redistribution Ping Initiated</span>
+                </div>
+                <p id="receipt-ping-desc">Restock requested for expiring micro-ingredients within 10km geofence.</p>
+            </div>
+
+            <!-- Deducted Raw Materials Breakdown -->
+            <div class="receipt-bom-box">
+                <span class="receipt-box-label">DEDUCTED RAW INGREDIENTS (BOM)</span>
+                <div class="receipt-bom-list" id="receipt-deductions-list">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <div class="receipt-total-bar">
+                <span>Total Paid</span>
+                <strong id="receipt-total-val">₹418</strong>
+            </div>
+
+            <button type="button" class="btn-receipt-return" id="btn-receipt-close">
+                <span>Return to Terminal</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ── 10KM GEOSPATIAL EMERGENCY RESTOCK PING MODAL ── -->
+    <div class="emergency-ping-card" id="emergency-ping-alert" style="display: none;">
+        <div class="ping-card-inner">
+            <div class="ping-card-header">
+                <div class="ping-header-left">
+                    <span class="ping-siren">🚨</span>
+                    <div>
+                        <span class="ping-badge-tag">10KM GEOSPATIAL ALERT</span>
+                        <h4 class="ping-title">Emergency Restock Ping</h4>
+                    </div>
+                </div>
+                <button class="ping-close-x" id="btn-ping-dismiss" aria-label="Close">✕</button>
+            </div>
+
+            <div class="ping-card-body">
+                <p class="ping-lead-text">
+                    <strong id="ping-store-name">Central Hub (Connaught Place)</strong> has reached critical safety threshold and initiated FEFO redistribution:
+                </p>
+                <div class="ping-ingredient-chip">
+                    <span class="ping-ing-name" id="ping-ing-name">Crispy Veg Patty</span>
+                    <span class="ping-ing-qty" id="ping-ing-qty">8 pcs</span>
+                </div>
+                <div class="ping-meta-row">
+                    <span>📍 Donor: <strong id="ping-donor-name">Kitchen - Karol Bagh</strong></span>
+                    <span>•</span>
+                    <span>Distance: <strong id="ping-distance-km">3.8 km</strong> (&lt; 10km geofence)</span>
+                </div>
+            </div>
+
+            <div class="ping-action-row">
+                <button class="btn-ping-accept" id="btn-ping-accept">
+                    <span>✓ Accept & Transfer Stock</span>
+                </button>
+                <button class="btn-ping-ignore" id="btn-ping-ignore">
+                    <span>Ignore</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <!-- App Logic -->
-    <script src="app.js?v=4.0"></script>
+    <script src="app.js?v=4.5"></script>
 </body>
 </html>

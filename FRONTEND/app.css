@@ -2358,6 +2358,388 @@ body {
     width: fit-content;
 }
 
+/* Dish Card Direct Stepper */
+.dish-card-stepper {
+    display: inline-flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1.5px solid #1b4e2b;
+    border-radius: 50px;
+    padding: 3px 6px;
+    box-shadow: 0 2px 8px rgba(27, 78, 43, 0.12);
+}
+
+.btn-card-step {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: none;
+    background: #f0fdf4;
+    color: #1b4e2b;
+    font-size: 15px;
+    font-weight: 850;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.btn-card-step:hover {
+    background: #1b4e2b;
+    color: #ffffff;
+}
+
+.card-step-qty {
+    padding: 0 8px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #1b4e2b;
+    font-family: var(--font-mono);
+    white-space: nowrap;
+}
+
+/* ==================================================== */
+/* ORDER SUCCESS ATOMIC RECEIPT MODAL                  */
+/* ==================================================== */
+.receipt-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.2s ease;
+}
+
+.receipt-modal-card {
+    background: #ffffff;
+    border-radius: 28px;
+    width: 100%;
+    max-width: 460px;
+    padding: 26px 28px;
+    box-shadow: 0 30px 80px rgba(27, 67, 50, 0.25);
+    border: 1.5px solid rgba(27, 78, 43, 0.12);
+    animation: popUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.receipt-head {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.receipt-check-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #1b4e2b;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    box-shadow: 0 6px 18px rgba(27, 78, 43, 0.3);
+}
+
+.receipt-title {
+    font-size: 19px;
+    font-weight: 850;
+    color: #1b4332;
+    margin-bottom: 4px;
+}
+
+.receipt-id {
+    font-size: 11.5px;
+    color: #6b8f7e;
+    font-family: var(--font-mono);
+}
+
+.receipt-ping-alert {
+    background: #fef2f2;
+    border: 1.5px solid #fecaca;
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.ping-alert-top {
+    font-size: 12px;
+    font-weight: 800;
+    color: #b91c1c;
+    margin-bottom: 3px;
+}
+
+.receipt-ping-alert p {
+    font-size: 11.5px;
+    color: #991b1b;
+    line-height: 1.35;
+}
+
+.receipt-bom-box {
+    background: #fafcf9;
+    border: 1.5px solid #edf2e8;
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+}
+
+.receipt-box-label {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #1b4e2b;
+    margin-bottom: 8px;
+}
+
+.receipt-bom-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 130px;
+    overflow-y: auto;
+}
+
+.receipt-bom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12.5px;
+}
+
+.receipt-bom-row .ing-name {
+    color: #1b4332;
+    font-weight: 650;
+}
+
+.receipt-bom-row .ing-stat {
+    color: #6b8f7e;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+}
+
+.receipt-total-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    font-size: 14px;
+    color: #166534;
+}
+
+.receipt-total-bar strong {
+    font-size: 18px;
+    font-weight: 850;
+    color: #15803d;
+    font-family: var(--font-mono);
+}
+
+.btn-receipt-return {
+    width: 100%;
+    padding: 13px;
+    border-radius: 50px;
+    background: #1b4e2b;
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(27, 78, 43, 0.25);
+    transition: all 0.2s ease;
+}
+
+.btn-receipt-return:hover {
+    background: #14371f;
+    transform: translateY(-1px);
+}
+
+/* ==================================================== */
+/* 10KM EMERGENCY RESTOCK PING FLOATING MODAL          */
+/* (Matching PingAlertModal.jsx)                        */
+/* ==================================================== */
+.emergency-ping-card {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 10002;
+    max-width: 410px;
+    width: calc(100% - 48px);
+    animation: slideUpRight 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ping-card-inner {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 18px 20px;
+    box-shadow: 0 20px 50px rgba(185, 28, 28, 0.18), 0 4px 16px rgba(0,0,0,0.06);
+    border: 2px solid #ef4444;
+}
+
+.ping-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.ping-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ping-siren {
+    font-size: 20px;
+    animation: ring 1s infinite;
+}
+
+.ping-badge-tag {
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.06em;
+    color: #b91c1c;
+    background: #fee2e2;
+    padding: 2px 7px;
+    border-radius: 50px;
+}
+
+.ping-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #111827;
+    margin-top: 2px;
+}
+
+.ping-close-x {
+    background: #f3f4f6;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ping-card-body {
+    margin-bottom: 14px;
+}
+
+.ping-lead-text {
+    font-size: 12px;
+    color: #4b5563;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.ping-ingredient-chip {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.ping-ing-name {
+    font-weight: 750;
+    color: #111827;
+    font-size: 13px;
+}
+
+.ping-ing-qty {
+    font-weight: 850;
+    color: #dc2626;
+    font-size: 14px;
+    font-family: var(--font-mono);
+}
+
+.ping-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #6b7280;
+    font-family: var(--font-mono);
+}
+
+.ping-action-row {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-ping-accept {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 50px;
+    background: #1b4e2b;
+    color: #ffffff;
+    border: none;
+    font-size: 12.5px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(27, 78, 43, 0.3);
+    transition: all 0.15s ease;
+}
+
+.btn-ping-accept:hover {
+    background: #14371f;
+    transform: translateY(-1px);
+}
+
+.btn-ping-ignore {
+    padding: 10px 16px;
+    border-radius: 50px;
+    background: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-ping-ignore:hover {
+    background: #e5e7eb;
+}
+
+@keyframes slideUpRight {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes popUp {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 /* Responsive */
 @media (max-width: 1180px) {
     .pos-layout { grid-template-columns: 1fr; }
