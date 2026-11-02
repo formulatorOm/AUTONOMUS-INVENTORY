@@ -2740,8 +2740,256 @@ body {
     }
 }
 
+/* ==================================================== */
+/* AUTONOMOUS REDISTRIBUTION PING CENTER (Matching Ref) */
+/* ==================================================== */
+.ping-center-card {
+    background: #ffffff;
+    border: 1.5px solid rgba(27, 78, 43, 0.12);
+    border-radius: 24px;
+    padding: 24px 26px;
+    box-shadow: 0 8px 24px rgba(27, 67, 50, 0.04);
+    margin-top: 24px;
+    transition: all 0.25s ease;
+}
+
+.ping-center-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.ping-center-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1b4332;
+    margin-bottom: 3px;
+}
+
+.ping-center-sub {
+    font-size: 12.5px;
+    color: #6b8f7e;
+}
+
+.ping-center-badges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge-incoming-count {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11.5px;
+    font-weight: 800;
+    font-family: var(--font-mono);
+}
+
+.badge-outgoing-count {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11.5px;
+    font-weight: 800;
+    font-family: var(--font-mono);
+}
+
+.ping-center-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.ping-column {
+    background: #fbfdfa;
+    border: 1.5px solid #edf2e8;
+    border-radius: 18px;
+    padding: 16px 18px;
+}
+
+.ping-col-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #1b4332;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dot-crimson {
+    color: #dc2626;
+    font-size: 16px;
+}
+
+.dot-amber {
+    color: #d97706;
+    font-size: 16px;
+}
+
+.ping-empty-state {
+    text-align: center;
+    padding: 24px 16px;
+    color: #8fa79b;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.ping-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Individual Ping Cards */
+.ping-item-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    transition: all 0.2s ease;
+}
+
+.ping-item-card--outgoing {
+    border: 1.5px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.ping-item-card--incoming {
+    border: 1.5px solid #fca5a5;
+    background: linear-gradient(180deg, #ffffff 0%, #fef8f8 100%);
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.06);
+}
+
+.ping-item-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.ping-tag-badge {
+    font-size: 10px;
+    font-weight: 850;
+    font-family: var(--font-mono);
+    padding: 2px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.ping-tag-badge--dispatched {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.ping-tag-badge--critical {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.ping-item-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #1b4332;
+    margin-bottom: 2px;
+}
+
+.ping-item-dist {
+    font-size: 11.5px;
+    color: #6b8f7e;
+    font-family: var(--font-mono);
+}
+
+.ping-item-qty {
+    text-align: right;
+}
+
+.ping-qty-val {
+    font-size: 15px;
+    font-weight: 850;
+    font-family: var(--font-mono);
+    display: block;
+}
+
+.ping-qty-val--green {
+    color: #15803d;
+}
+
+.ping-qty-val--crimson {
+    color: #dc2626;
+}
+
+.ping-qty-name {
+    font-size: 12px;
+    color: #1b4332;
+    font-weight: 700;
+}
+
+.ping-item-footer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    color: #6b8f7e;
+    font-family: var(--font-mono);
+    margin-top: 6px;
+}
+
+.ping-item-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.btn-dispatch-accept {
+    flex: 1;
+    padding: 8px 14px;
+    border-radius: 50px;
+    background: #1b4e2b;
+    color: #ffffff;
+    border: none;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(27, 78, 43, 0.25);
+    transition: all 0.15s ease;
+}
+
+.btn-dispatch-accept:hover {
+    background: #14371f;
+    transform: translateY(-1px);
+}
+
+.btn-dispatch-decline {
+    padding: 8px 14px;
+    border-radius: 50px;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-dispatch-decline:hover {
+    background: #e2e8f0;
+}
+
 /* Responsive */
 @media (max-width: 1180px) {
+    .ping-center-grid { grid-template-columns: 1fr; }
     .pos-layout { grid-template-columns: 1fr; }
     .radar-content-split { grid-template-columns: 1fr; }
     .analytics-kpi-grid { grid-template-columns: repeat(2, 1fr); }

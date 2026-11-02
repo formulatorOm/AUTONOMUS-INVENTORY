@@ -134,6 +134,22 @@ let esgMetrics = {
     activeShortages: 1
 };
 
+// ── AUTONOMOUS REDISTRIBUTION PINGS REGISTRY ──
+// (Directly matches EcoBite/frontend transfer pings structure)
+let transferPings = [
+    {
+        id: "ping-sample-1",
+        from_store_id: 3, // Bistro - Chandni Chowk (Donor)
+        to_store_id: 0,   // Central Hub - Connaught Place (Recipient)
+        ingredient: "Cheddar Cheese Slice",
+        quantity: 6,
+        unit: "pcs",
+        distance_km: 1.96,
+        status: "PENDING",
+        created_at: new Date()
+    }
+];
+
 // ── GLOBAL REFERENCES ──
 let currentStoreIdx = 0;
 let leafletMap = null;
@@ -152,6 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initCategoryFilters();
     renderInventoryMatrix();
     initRadarMap();
+    renderPingCenter();
     initEsgAnalytics();
     initHyperpureModal();
 });
@@ -220,6 +237,9 @@ function initStoreSwitcher() {
             leafletMap.flyTo([store.lat, store.lng], 12, { duration: 1.2 });
             geofenceCircle.setLatLng([store.lat, store.lng]);
         }
+
+        // Re-render Redistribution Ping Center relative to selected store
+        renderPingCenter();
     });
 }
 
@@ -647,14 +667,32 @@ document.getElementById("btn-checkout-order")?.addEventListener("click", async (
     // 5. Trigger 10km Geospatial Redistribution Ping Modal (matching PingAlertModal.jsx)
     if (criticalShortages.length > 0) {
         const shortage = criticalShortages[0];
-        pendingPingData = {
-            id: "ping-" + Date.now(),
+        const pingId = "ping-" + Date.now();
+        
+        // Register in Transfer Pings Registry
+        const newPing = {
+            id: pingId,
+            from_store_id: 2, // Kitchen - Karol Bagh (Surplus Donor)
+            to_store_id: currentStoreIdx, // Requesting Store (e.g. Central Hub)
             ingredient: shortage.name,
             quantity: 8,
             unit: shortage.unit,
-            fromStore: "Kitchen - Karol Bagh",
-            toStore: "Central Hub (Connaught Place)",
-            distanceKm: 3.8
+            distance_km: 3.8,
+            status: "PENDING",
+            created_at: new Date()
+        };
+
+        transferPings.unshift(newPing);
+        renderPingCenter();
+
+        pendingPingData = {
+            id: pingId,
+            ingredient: shortage.name,
+            quantity: 8,
+            unit: shortage.unit,
+            fromStore: STORES[newPing.from_store_id].name,
+            toStore: STORES[newPing.to_store_id].name,
+            distanceKm: newPing.distance_km
         };
 
         document.getElementById("ping-store-name").textContent = pendingPingData.toStore;
@@ -677,33 +715,7 @@ document.getElementById("btn-receipt-close")?.addEventListener("click", () => {
 // Accept Emergency Ping Alert
 document.getElementById("btn-ping-accept")?.addEventListener("click", () => {
     if (!pendingPingData) return;
-
-    if (typeof confetti === "function") {
-        confetti({
-            particleCount: 60,
-            spread: 70,
-            origin: { y: 0.8 }
-        });
-    }
-
-    // Replenish stock
-    const match = inventoryMatrix.find(i => i.name === pendingPingData.ingredient);
-    if (match) {
-        match.qty = Math.round((match.qty + pendingPingData.quantity) * 10) / 10;
-        match.expiry = "6 days remaining";
-    }
-
-    // Update ESG Analytics
-    esgMetrics.foodWasteKg = parseFloat((esgMetrics.foodWasteKg + 4.5).toFixed(1));
-    esgMetrics.costSavedInr += 320;
-    esgMetrics.transfersCompleted += 1;
-    esgMetrics.activeShortages = Math.max(0, inventoryMatrix.filter(i => i.qty <= i.reorder).length);
-
-    renderInventoryMatrix();
-    updateEsgMetricsDisplay();
-    document.getElementById("radar-alert-badge").textContent = esgMetrics.activeShortages;
-
-    document.getElementById("emergency-ping-alert").style.display = "none";
+    acceptTransferPingById(pendingPingData.id);
     pendingPingData = null;
 });
 
@@ -715,6 +727,159 @@ document.getElementById("btn-ping-dismiss")?.addEventListener("click", () => {
 document.getElementById("btn-ping-ignore")?.addEventListener("click", () => {
     document.getElementById("emergency-ping-alert").style.display = "none";
 });
+
+// ====================================================
+// AUTONOMOUS REDISTRIBUTION PING CENTER
+// (Incoming Fulfillment & Outgoing Restock Telemetry)
+// ====================================================
+
+function renderPingCenter() {
+    const incomingList = document.getElementById("ping-incoming-list");
+    const outgoingList = document.getElementById("ping-outgoing-list");
+    const badgeIncoming = document.getElementById("badge-incoming-count");
+    const badgeOutgoing = document.getElementById("badge-outgoing-count");
+
+    if (!incomingList || !outgoingList) return;
+
+    // Filter pings relative to active store
+    const incomingPings = transferPings.filter(
+        p => p.from_store_id === currentStoreIdx && p.status === "PENDING"
+    );
+
+    const outgoingPings = transferPings.filter(
+        p => p.to_store_id === currentStoreIdx && p.status === "PENDING"
+    );
+
+    if (badgeIncoming) badgeIncoming.textContent = `${incomingPings.length} Incoming`;
+    if (badgeOutgoing) badgeOutgoing.textContent = `${outgoingPings.length} Outgoing`;
+
+    // 1. Render Incoming Pings (Action Required: Current store is requested to DONATE stock)
+    if (incomingPings.length === 0) {
+        incomingList.innerHTML = `
+            <div class="ping-empty-state">
+                No active incoming pings. Store is not currently designated as a donor.
+            </div>
+        `;
+    } else {
+        incomingList.innerHTML = incomingPings.map(ping => {
+            const recipientStore = STORES[ping.to_store_id] || { name: "Central Hub" };
+            return `
+                <div class="ping-item-card ping-item-card--incoming" data-ping-id="${ping.id}">
+                    <div class="ping-item-top">
+                        <div>
+                            <span class="ping-tag-badge ping-tag-badge--critical">CRITICAL SHORTAGE</span>
+                            <h5 class="ping-item-title">${recipientStore.name}</h5>
+                            <span class="ping-item-dist">Distance: ${ping.distance_km || 2.5} km (&lt; 10km geofence)</span>
+                        </div>
+                        <div class="ping-item-qty">
+                            <span class="ping-qty-val ping-qty-val--crimson">${ping.quantity} ${ping.unit}</span>
+                            <span class="ping-qty-name">${ping.ingredient}</span>
+                        </div>
+                    </div>
+                    <div class="ping-item-actions">
+                        <button type="button" class="btn-dispatch-accept" data-ping-id="${ping.id}">
+                            ✓ Accept & Dispatch Stock
+                        </button>
+                        <button type="button" class="btn-dispatch-decline" data-ping-id="${ping.id}">
+                            ✕ Decline
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join("");
+
+        // Attach action handlers
+        incomingList.querySelectorAll(".btn-dispatch-accept").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const id = btn.getAttribute("data-ping-id");
+                acceptTransferPingById(id);
+            });
+        });
+
+        incomingList.querySelectorAll(".btn-dispatch-decline").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const id = btn.getAttribute("data-ping-id");
+                rejectTransferPingById(id);
+            });
+        });
+    }
+
+    // 2. Render Outgoing Pings (Awaiting partner branch dispatch to THIS store)
+    if (outgoingPings.length === 0) {
+        outgoingList.innerHTML = `
+            <div class="ping-empty-state">
+                No active outgoing pings. Store inventory is operating above threshold.
+            </div>
+        `;
+    } else {
+        outgoingList.innerHTML = outgoingPings.map(ping => {
+            const donorStore = STORES[ping.from_store_id] || { name: "Donor Partner" };
+            return `
+                <div class="ping-item-card ping-item-card--outgoing" data-ping-id="${ping.id}">
+                    <div class="ping-item-top">
+                        <div>
+                            <span class="ping-tag-badge ping-tag-badge--dispatched">DISPATCHED PING</span>
+                            <h5 class="ping-item-title">Donor: ${donorStore.name}</h5>
+                            <span class="ping-item-dist">Distance: ${ping.distance_km || 2.0} km</span>
+                        </div>
+                        <div class="ping-item-qty">
+                            <span class="ping-qty-val ping-qty-val--green">+${ping.quantity} ${ping.unit}</span>
+                            <span class="ping-qty-name">${ping.ingredient}</span>
+                        </div>
+                    </div>
+                    <div class="ping-item-footer">
+                        <span>⏱️ Awaiting partner branch dispatch</span>
+                    </div>
+                </div>
+            `;
+        }).join("");
+    }
+}
+
+function acceptTransferPingById(pingId) {
+    const ping = transferPings.find(p => p.id === pingId);
+    if (!ping) return;
+
+    if (typeof confetti === "function") {
+        confetti({
+            particleCount: 55,
+            spread: 65,
+            origin: { y: 0.8 }
+        });
+    }
+
+    ping.status = "COMPLETED";
+
+    // Replenish inventory if current store is recipient
+    if (ping.to_store_id === currentStoreIdx) {
+        const match = inventoryMatrix.find(i => i.name === ping.ingredient);
+        if (match) {
+            match.qty = Math.round((match.qty + ping.quantity) * 10) / 10;
+            match.expiry = "6 days remaining";
+        }
+    }
+
+    // Update ESG Sustainability Metrics
+    esgMetrics.foodWasteKg = parseFloat((esgMetrics.foodWasteKg + 4.5).toFixed(1));
+    esgMetrics.costSavedInr += 320;
+    esgMetrics.transfersCompleted += 1;
+    esgMetrics.activeShortages = Math.max(0, inventoryMatrix.filter(i => i.qty <= i.reorder).length);
+
+    renderInventoryMatrix();
+    renderPingCenter();
+    updateEsgMetricsDisplay();
+    document.getElementById("radar-alert-badge").textContent = esgMetrics.activeShortages;
+
+    const emergencyModal = document.getElementById("emergency-ping-alert");
+    if (emergencyModal) emergencyModal.style.display = "none";
+}
+
+function rejectTransferPingById(pingId) {
+    const ping = transferPings.find(p => p.id === pingId);
+    if (!ping) return;
+    ping.status = "REJECTED";
+    renderPingCenter();
+}
 
 // ====================================================
 // MODULE 2: 10KM RADAR & STORE INVENTORY MATRIX

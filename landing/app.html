@@ -18,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
 
     <!-- App Stylesheet -->
-    <link rel="stylesheet" href="app.css?v=4.5">
+    <link rel="stylesheet" href="app.css?v=5.0">
 </head>
 <body>
     <!-- ── TOP GLOBAL NAVIGATION ── -->
@@ -340,6 +340,44 @@
                     </div>
                 </div>
 
+                <!-- ── AUTONOMOUS REDISTRIBUTION PING CENTER (Matching Reference) ── -->
+                <div class="ping-center-card">
+                    <div class="ping-center-header">
+                        <div>
+                            <h3 class="ping-center-title">Autonomous Redistribution Ping Center</h3>
+                            <p class="ping-center-sub">Incoming stock fulfillment requests & active transfer tracking</p>
+                        </div>
+                        <div class="ping-center-badges">
+                            <span class="badge-incoming-count" id="badge-incoming-count">0 Incoming</span>
+                            <span class="badge-outgoing-count" id="badge-outgoing-count">0 Outgoing</span>
+                        </div>
+                    </div>
+
+                    <div class="ping-center-grid">
+                        <!-- Left: Incoming Fulfillment Requests (Action Required as donor) -->
+                        <div class="ping-column ping-column--incoming">
+                            <h4 class="ping-col-title">
+                                <span class="dot-crimson">•</span>
+                                Incoming Fulfillment Requests (Action Required)
+                            </h4>
+                            <div class="ping-list" id="ping-incoming-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Right: Outgoing Restock Requests (Awaiting Fulfillment as recipient) -->
+                        <div class="ping-column ping-column--outgoing">
+                            <h4 class="ping-col-title">
+                                <span class="dot-amber">•</span>
+                                Outgoing Restock Requests (Awaiting Fulfillment)
+                            </h4>
+                            <div class="ping-list" id="ping-outgoing-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- TRANSFER PING NOTIFICATION DRAWER / TOAST -->
                 <div class="transfer-alert-drawer" id="transfer-alert-drawer" style="display: none;">
                     <div class="drawer-header">
@@ -652,6 +690,6 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <!-- App Logic -->
-    <script src="app.js?v=4.5"></script>
+    <script src="app.js?v=5.0"></script>
 </body>
 </html>
