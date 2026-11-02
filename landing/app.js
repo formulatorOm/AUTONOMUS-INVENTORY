@@ -109,18 +109,79 @@ const MENU_ITEMS = [
     }
 ];
 
-// ── REAL-TIME MICRO-INVENTORY MATRIX ──
-let inventoryMatrix = [
-    { name: "Fresh Tomatoes", unit: "kg", qty: 25.0, reorder: 10.0, max: 40.0, expiry: "5 days remaining" },
-    { name: "Iceberg Lettuce", unit: "kg", qty: 25.0, reorder: 10.0, max: 40.0, expiry: "4 days remaining" },
-    { name: "Crispy Veg Patty", unit: "pcs", qty: 3.0, reorder: 8.0, max: 50.0, expiry: "3 days remaining (FEFO Alert)" },
-    { name: "Signature Garlic Mayo", unit: "kg", qty: 24.55, reorder: 10.0, max: 35.0, expiry: "14 days remaining" },
-    { name: "Cheddar Cheese Slice", unit: "pcs", qty: 15.0, reorder: 10.0, max: 60.0, expiry: "12 days remaining" },
-    { name: "Russet Potatoes", unit: "kg", qty: 2.0, reorder: 5.0, max: 30.0, expiry: "2 days remaining (FEFO Alert)" },
-    { name: "Brioche Burger Buns", unit: "pcs", qty: 45.0, reorder: 12.0, max: 80.0, expiry: "4 days remaining" },
-    { name: "Grilled Chicken Patty", unit: "pcs", qty: 30.0, reorder: 10.0, max: 50.0, expiry: "6 days remaining" },
-    { name: "Cola Fountain Syrup", unit: "L", qty: 40.0, reorder: 8.0, max: 60.0, expiry: "30 days remaining" }
-];
+// ── STORE-SPECIFIC MICRO-INVENTORY MATRICES ──
+// Each branch maintains independent telemetry, stock levels, safety thresholds and FEFO expiry tracking.
+const STORE_INVENTORIES = {
+    0: [ // Central Hub - Connaught Place (High-Volume Flagship, Depleted on Patties & Potatoes)
+        { name: "Fresh Tomatoes", unit: "kg", qty: 25.0, reorder: 10.0, max: 40.0, expiry: "5 days remaining" },
+        { name: "Iceberg Lettuce", unit: "kg", qty: 25.0, reorder: 10.0, max: 40.0, expiry: "4 days remaining" },
+        { name: "Crispy Veg Patty", unit: "pcs", qty: 3.0, reorder: 8.0, max: 50.0, expiry: "3 days remaining (FEFO Alert)" },
+        { name: "Signature Garlic Mayo", unit: "kg", qty: 24.55, reorder: 10.0, max: 35.0, expiry: "14 days remaining" },
+        { name: "Cheddar Cheese Slice", unit: "pcs", qty: 15.0, reorder: 10.0, max: 60.0, expiry: "12 days remaining" },
+        { name: "Russet Potatoes", unit: "kg", qty: 2.0, reorder: 5.0, max: 30.0, expiry: "2 days remaining (FEFO Alert)" },
+        { name: "Brioche Burger Buns", unit: "pcs", qty: 45.0, reorder: 12.0, max: 80.0, expiry: "4 days remaining" },
+        { name: "Grilled Chicken Patty", unit: "pcs", qty: 30.0, reorder: 10.0, max: 50.0, expiry: "6 days remaining" },
+        { name: "Cola Fountain Syrup", unit: "L", qty: 40.0, reorder: 8.0, max: 60.0, expiry: "30 days remaining" }
+    ],
+    1: [ // Express - Paharganj (Heavy Veg Patty Surplus Donor, 1.8km away)
+        { name: "Fresh Tomatoes", unit: "kg", qty: 28.0, reorder: 10.0, max: 40.0, expiry: "6 days remaining" },
+        { name: "Iceberg Lettuce", unit: "kg", qty: 18.0, reorder: 10.0, max: 40.0, expiry: "5 days remaining" },
+        { name: "Crispy Veg Patty", unit: "pcs", qty: 48.0, reorder: 8.0, max: 50.0, expiry: "3 days remaining (FEFO Surplus Donor)" },
+        { name: "Signature Garlic Mayo", unit: "kg", qty: 16.0, reorder: 10.0, max: 35.0, expiry: "20 days remaining" },
+        { name: "Cheddar Cheese Slice", unit: "pcs", qty: 35.0, reorder: 10.0, max: 60.0, expiry: "10 days remaining" },
+        { name: "Russet Potatoes", unit: "kg", qty: 18.0, reorder: 5.0, max: 30.0, expiry: "8 days remaining" },
+        { name: "Brioche Burger Buns", unit: "pcs", qty: 52.0, reorder: 12.0, max: 80.0, expiry: "5 days remaining" },
+        { name: "Grilled Chicken Patty", unit: "pcs", qty: 22.0, reorder: 10.0, max: 50.0, expiry: "7 days remaining" },
+        { name: "Cola Fountain Syrup", unit: "L", qty: 30.0, reorder: 8.0, max: 60.0, expiry: "35 days remaining" }
+    ],
+    2: [ // Kitchen - Karol Bagh (Surplus Farm Potatoes & Chicken Patties, Low Buns, 3.8km away)
+        { name: "Fresh Tomatoes", unit: "kg", qty: 20.0, reorder: 10.0, max: 40.0, expiry: "7 days remaining" },
+        { name: "Iceberg Lettuce", unit: "kg", qty: 22.0, reorder: 10.0, max: 40.0, expiry: "4 days remaining" },
+        { name: "Crispy Veg Patty", unit: "pcs", qty: 24.0, reorder: 8.0, max: 50.0, expiry: "8 days remaining" },
+        { name: "Signature Garlic Mayo", unit: "kg", qty: 28.0, reorder: 10.0, max: 35.0, expiry: "15 days remaining" },
+        { name: "Cheddar Cheese Slice", unit: "pcs", qty: 25.0, reorder: 10.0, max: 60.0, expiry: "9 days remaining" },
+        { name: "Russet Potatoes", unit: "kg", qty: 28.5, reorder: 5.0, max: 30.0, expiry: "3 days remaining (FEFO Surplus Donor)" },
+        { name: "Brioche Burger Buns", unit: "pcs", qty: 8.0, reorder: 12.0, max: 80.0, expiry: "3 days remaining (FEFO Alert)" },
+        { name: "Grilled Chicken Patty", unit: "pcs", qty: 45.0, reorder: 10.0, max: 50.0, expiry: "4 days remaining (FEFO Surplus Donor)" },
+        { name: "Cola Fountain Syrup", unit: "L", qty: 35.0, reorder: 8.0, max: 60.0, expiry: "28 days remaining" }
+    ],
+    3: [ // Bistro - Chandni Chowk (Surplus Tomatoes & Cheddar Cheese, Low Chicken, 2.9km away)
+        { name: "Fresh Tomatoes", unit: "kg", qty: 36.0, reorder: 10.0, max: 40.0, expiry: "3 days remaining (FEFO Surplus Donor)" },
+        { name: "Iceberg Lettuce", unit: "kg", qty: 15.0, reorder: 10.0, max: 40.0, expiry: "5 days remaining" },
+        { name: "Crispy Veg Patty", unit: "pcs", qty: 18.0, reorder: 8.0, max: 50.0, expiry: "6 days remaining" },
+        { name: "Signature Garlic Mayo", unit: "kg", qty: 12.0, reorder: 10.0, max: 35.0, expiry: "18 days remaining" },
+        { name: "Cheddar Cheese Slice", unit: "pcs", qty: 54.0, reorder: 10.0, max: 60.0, expiry: "4 days remaining (FEFO Surplus Donor)" },
+        { name: "Russet Potatoes", unit: "kg", qty: 14.0, reorder: 5.0, max: 30.0, expiry: "6 days remaining" },
+        { name: "Brioche Burger Buns", unit: "pcs", qty: 38.0, reorder: 12.0, max: 80.0, expiry: "6 days remaining" },
+        { name: "Grilled Chicken Patty", unit: "pcs", qty: 4.0, reorder: 10.0, max: 50.0, expiry: "2 days remaining (FEFO Alert)" },
+        { name: "Cola Fountain Syrup", unit: "L", qty: 25.0, reorder: 8.0, max: 60.0, expiry: "40 days remaining" }
+    ],
+    4: [ // Outpost - South Extension (Surplus Mayo & Buns, Low Lettuce, 7.2km away)
+        { name: "Fresh Tomatoes", unit: "kg", qty: 19.0, reorder: 10.0, max: 40.0, expiry: "6 days remaining" },
+        { name: "Iceberg Lettuce", unit: "kg", qty: 6.0, reorder: 10.0, max: 40.0, expiry: "2 days remaining (FEFO Alert)" },
+        { name: "Crispy Veg Patty", unit: "pcs", qty: 32.0, reorder: 8.0, max: 50.0, expiry: "9 days remaining" },
+        { name: "Signature Garlic Mayo", unit: "kg", qty: 31.0, reorder: 10.0, max: 35.0, expiry: "12 days remaining" },
+        { name: "Cheddar Cheese Slice", unit: "pcs", qty: 40.0, reorder: 10.0, max: 60.0, expiry: "11 days remaining" },
+        { name: "Russet Potatoes", unit: "kg", qty: 20.0, reorder: 5.0, max: 30.0, expiry: "7 days remaining" },
+        { name: "Brioche Burger Buns", unit: "pcs", qty: 68.0, reorder: 12.0, max: 80.0, expiry: "5 days remaining" },
+        { name: "Grilled Chicken Patty", unit: "pcs", qty: 28.0, reorder: 10.0, max: 50.0, expiry: "8 days remaining" },
+        { name: "Cola Fountain Syrup", unit: "L", qty: 48.0, reorder: 8.0, max: 60.0, expiry: "25 days remaining" }
+    ],
+    5: [ // Far Branch - Rajouri Garden (11.5km - Outside 10km Geofence Radar)
+        { name: "Fresh Tomatoes", unit: "kg", qty: 14.0, reorder: 10.0, max: 40.0, expiry: "8 days remaining" },
+        { name: "Iceberg Lettuce", unit: "kg", qty: 16.0, reorder: 10.0, max: 40.0, expiry: "6 days remaining" },
+        { name: "Crispy Veg Patty", unit: "pcs", qty: 20.0, reorder: 8.0, max: 50.0, expiry: "7 days remaining" },
+        { name: "Signature Garlic Mayo", unit: "kg", qty: 18.0, reorder: 10.0, max: 35.0, expiry: "22 days remaining" },
+        { name: "Cheddar Cheese Slice", unit: "pcs", qty: 22.0, reorder: 10.0, max: 60.0, expiry: "14 days remaining" },
+        { name: "Russet Potatoes", unit: "kg", qty: 12.0, reorder: 5.0, max: 30.0, expiry: "9 days remaining" },
+        { name: "Brioche Burger Buns", unit: "pcs", qty: 30.0, reorder: 12.0, max: 80.0, expiry: "8 days remaining" },
+        { name: "Grilled Chicken Patty", unit: "pcs", qty: 19.0, reorder: 10.0, max: 50.0, expiry: "9 days remaining" },
+        { name: "Cola Fountain Syrup", unit: "L", qty: 22.0, reorder: 8.0, max: 60.0, expiry: "45 days remaining" }
+    ]
+};
+
+// Pointer to currently selected branch's micro-inventory
+let inventoryMatrix = STORE_INVENTORIES[0];
 
 // ── CART STATE ──
 let cart = {}; // { m1: 2, m3: 1 }
@@ -223,6 +284,9 @@ function initStoreSwitcher() {
         currentStoreIdx = parseInt(e.target.value, 10);
         const store = STORES[currentStoreIdx];
 
+        // Switch to the selected branch's local inventory matrix
+        inventoryMatrix = STORE_INVENTORIES[currentStoreIdx];
+
         // Update displays
         document.getElementById("pos-store-display").textContent = store.name;
         document.getElementById("pos-address-display").textContent = store.address;
@@ -238,8 +302,18 @@ function initStoreSwitcher() {
             geofenceCircle.setLatLng([store.lat, store.lng]);
         }
 
+        // Re-render Micro-Inventory Matrix for the selected branch
+        renderInventoryMatrix();
+
         // Re-render Redistribution Ping Center relative to selected store
         renderPingCenter();
+
+        // Update Radar alert badge for current branch's shortages
+        const currentShortages = inventoryMatrix.filter(i => i.qty <= i.reorder).length;
+        document.getElementById("radar-alert-badge").textContent = currentShortages;
+
+        // Update ESG Sustainability Cluster Health
+        renderClusterHealth();
     });
 }
 
@@ -642,7 +716,7 @@ document.getElementById("btn-checkout-order")?.addEventListener("click", async (
 
     // 4. Populate and Show Order Success Receipt Modal
     const receiptModal = document.getElementById("receipt-modal");
-    document.getElementById("receipt-order-id").textContent = `Receipt: ${orderId} · Central Hub - Connaught Place`;
+    document.getElementById("receipt-order-id").textContent = `Receipt: ${orderId} · ${STORES[currentStoreIdx].name}`;
     document.getElementById("receipt-total-val").textContent = `₹${grandTotal}`;
 
     const receiptList = document.getElementById("receipt-deductions-list");
@@ -669,15 +743,33 @@ document.getElementById("btn-checkout-order")?.addEventListener("click", async (
         const shortage = criticalShortages[0];
         const pingId = "ping-" + Date.now();
         
+        // Find best donor branch within 10km with maximum available surplus of this ingredient
+        let bestDonorId = 1; // Default to Paharganj
+        let maxDonorQty = -1;
+
+        STORES.forEach(s => {
+            if (s.id !== currentStoreIdx && s.inRadius) {
+                const sInv = STORE_INVENTORIES[s.id] || [];
+                const itemMatch = sInv.find(i => i.name === shortage.name);
+                if (itemMatch && itemMatch.qty > itemMatch.reorder && itemMatch.qty > maxDonorQty) {
+                    maxDonorQty = itemMatch.qty;
+                    bestDonorId = s.id;
+                }
+            }
+        });
+
+        const donorStore = STORES[bestDonorId];
+        const transferQty = shortage.unit === "kg" ? 5 : 8;
+
         // Register in Transfer Pings Registry
         const newPing = {
             id: pingId,
-            from_store_id: 2, // Kitchen - Karol Bagh (Surplus Donor)
-            to_store_id: currentStoreIdx, // Requesting Store (e.g. Central Hub)
+            from_store_id: donorStore.id, // Surplus Donor (e.g. Paharganj / Karol Bagh / Chandni Chowk)
+            to_store_id: currentStoreIdx, // Requesting Store
             ingredient: shortage.name,
-            quantity: 8,
+            quantity: transferQty,
             unit: shortage.unit,
-            distance_km: 3.8,
+            distance_km: parseFloat(donorStore.dist.replace(" km", "")),
             status: "PENDING",
             created_at: new Date()
         };
@@ -850,14 +942,27 @@ function acceptTransferPingById(pingId) {
 
     ping.status = "COMPLETED";
 
-    // Replenish inventory if current store is recipient
-    if (ping.to_store_id === currentStoreIdx) {
-        const match = inventoryMatrix.find(i => i.name === ping.ingredient);
-        if (match) {
-            match.qty = Math.round((match.qty + ping.quantity) * 10) / 10;
-            match.expiry = "6 days remaining";
+    // Deduct stock from donor branch inventory
+    const donorInv = STORE_INVENTORIES[ping.from_store_id];
+    if (donorInv) {
+        const donorMatch = donorInv.find(i => i.name === ping.ingredient);
+        if (donorMatch) {
+            donorMatch.qty = Math.max(0, Math.round((donorMatch.qty - ping.quantity) * 10) / 10);
         }
     }
+
+    // Replenish stock at recipient branch inventory
+    const recipInv = STORE_INVENTORIES[ping.to_store_id];
+    if (recipInv) {
+        const recipMatch = recipInv.find(i => i.name === ping.ingredient);
+        if (recipMatch) {
+            recipMatch.qty = Math.round((recipMatch.qty + ping.quantity) * 10) / 10;
+            recipMatch.expiry = "6 days remaining (FEFO Rebalanced)";
+        }
+    }
+
+    // Keep active inventory reference in sync
+    inventoryMatrix = STORE_INVENTORIES[currentStoreIdx];
 
     // Update ESG Sustainability Metrics
     esgMetrics.foodWasteKg = parseFloat((esgMetrics.foodWasteKg + 4.5).toFixed(1));
@@ -867,6 +972,7 @@ function acceptTransferPingById(pingId) {
 
     renderInventoryMatrix();
     renderPingCenter();
+    renderClusterHealth();
     updateEsgMetricsDisplay();
     document.getElementById("radar-alert-badge").textContent = esgMetrics.activeShortages;
 
@@ -1141,15 +1247,29 @@ function renderClusterHealth() {
     list.innerHTML = "";
 
     STORES.forEach(store => {
-        const isCritical = store.isHub && inventoryMatrix.some(i => i.qty <= i.reorder);
-        const badgeClass = isCritical ? "branch-health-badge--critical" : "branch-health-badge--optimal";
-        const badgeText = isCritical ? "1 shortages · CRITICAL" : "9 items · OPTIMAL";
+        const storeInv = STORE_INVENTORIES[store.id] || [];
+        const shortages = storeInv.filter(i => i.qty <= i.reorder);
+        
+        let badgeClass = "branch-health-badge--optimal";
+        let badgeText = `${storeInv.length} items · OPTIMAL`;
 
+        if (!store.inRadius) {
+            badgeClass = "branch-health-badge--outside";
+            badgeText = "OUT OF 10KM RADAR";
+        } else if (shortages.length > 0) {
+            badgeClass = "branch-health-badge--critical";
+            badgeText = `${shortages.length} shortage${shortages.length > 1 ? "s" : ""} · CRITICAL`;
+        } else if (store.surplus && (store.surplus.includes("pcs") || store.surplus.includes("kg"))) {
+            badgeClass = "branch-health-badge--surplus";
+            badgeText = "FEFO SURPLUS DONOR";
+        }
+
+        const isCurrentActive = store.id === currentStoreIdx;
         const item = document.createElement("div");
-        item.className = "cluster-branch-item";
+        item.className = `cluster-branch-item ${isCurrentActive ? "cluster-branch-item--active" : ""}`;
         item.innerHTML = `
             <div class="branch-info">
-                <h5>${store.name}</h5>
+                <h5>${store.name} ${isCurrentActive ? '<span class="active-store-pill">ACTIVE</span>' : ''}</h5>
                 <p>${store.address}</p>
             </div>
             <span class="branch-health-badge ${badgeClass}">${badgeText}</span>

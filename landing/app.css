@@ -1861,6 +1861,35 @@ body {
     border: 1px solid #fca5a5;
 }
 
+.branch-health-badge--surplus {
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #7dd3fc;
+}
+
+.branch-health-badge--outside {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+}
+
+.cluster-branch-item--active {
+    background: #f0fdf4 !important;
+    border-color: #86efac !important;
+}
+
+.active-store-pill {
+    background: #1b4e2b;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 99px;
+    margin-left: 6px;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+}
+
 /* Dish button group on cards */
 .dish-btn-group {
     display: flex;
