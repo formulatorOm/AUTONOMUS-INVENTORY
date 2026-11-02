@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecobite · Autonomous Kitchen Console</title>
-    <!-- Modern Typography -->
+    <!-- Modern Typography & Organic Script Accent -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Leaflet Map CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
@@ -16,7 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- App Stylesheet -->
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="app.css?v=3.8">
 </head>
 <body>
     <!-- ── TOP GLOBAL NAVIGATION ── -->
@@ -118,29 +118,74 @@
                 
                 <!-- LEFT & CENTER: MENU CATALOG -->
                 <div class="pos-catalog-section">
-                    <!-- Perspective Header -->
-                    <div class="pos-header-banner">
-                        <div class="pos-banner-left">
-                            <div class="pos-badges">
-                                <span class="badge-tag">TERMINAL PERSPECTIVE</span>
-                                <span class="badge-tag badge-tag--green">ONLINE</span>
+                    <!-- GreenBasket Inspiration Hero & Live Redistribution Partner Banner -->
+                    <div class="gb-pos-hero-banner">
+                        <div class="gb-hero-main">
+                            <span class="gb-script-subtitle">Farm Fresh · 10km Redistribution Mesh</span>
+                            <h2 class="gb-hero-title">Good food, Good life.</h2>
+                            <p class="gb-hero-desc">
+                                Operating from <strong id="pos-store-display">Central Hub - Connaught Place</strong> (<span id="pos-address-display">Block B, Inner Circle, New Delhi</span>). Real-time BOM micro-deduction with intelligent FEFO surplus balancing.
+                            </p>
+                            <div class="gb-usp-row">
+                                <div class="gb-usp-badge">
+                                    <span class="gb-usp-icon">🌿</span>
+                                    <div><strong>100% Organic</strong><p>Certified &amp; Fresh</p></div>
+                                </div>
+                                <div class="gb-usp-badge">
+                                    <span class="gb-usp-icon">⚡</span>
+                                    <div><strong>Auto Micro-Deduction</strong><p>Real-Time BOM Sync</p></div>
+                                </div>
+                                <div class="gb-usp-badge">
+                                    <span class="gb-usp-icon">🛡️</span>
+                                    <div><strong>Zero Food Waste</strong><p>FEFO Redistribution</p></div>
+                                </div>
                             </div>
-                            <h2 class="pos-store-name" id="pos-store-display">Central Hub - Connaught Place</h2>
-                            <p class="pos-store-address" id="pos-address-display">Block B, Inner Circle, Connaught Place, New Delhi</p>
                         </div>
-                        <div class="pos-banner-right">
-                            <span class="coord-label">COORDINATES</span>
-                            <span class="coord-val" id="pos-coords-display">28.6315°N, 77.2167°E</span>
+
+                        <!-- Live Redistribution Transit Partner Widget (Rahul Sharma from Image 2) -->
+                        <div class="gb-transit-card">
+                            <div class="gb-transit-header">
+                                <span class="gb-transit-title">Track Redistribution</span>
+                                <span class="gb-live-pill"><span class="gb-live-dot"></span> LIVE</span>
+                            </div>
+                            <div class="gb-partner-info">
+                                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80" alt="Rahul Sharma" class="gb-partner-avatar">
+                                <div class="gb-partner-meta">
+                                    <h4 class="gb-partner-name">Rahul Sharma</h4>
+                                    <span class="gb-partner-sub">10km EV Redistribution Courier</span>
+                                    <span class="gb-partner-rating">⭐ 4.8 · Active Route</span>
+                                </div>
+                                <div class="gb-partner-actions">
+                                    <button type="button" class="gb-action-circle" title="Call Transit Partner">📞</button>
+                                    <button type="button" class="gb-action-circle" title="Message Transit Partner">💬</button>
+                                </div>
+                            </div>
+                            <div class="gb-transit-progress">
+                                <div class="gb-progress-info">
+                                    <span>On the way to Hub</span>
+                                    <strong class="gb-eta-text">Arriving in 12 min</strong>
+                                </div>
+                                <div class="gb-stepper-bar">
+                                    <div class="gb-step done" title="Order Confirmed"><span>✓</span></div>
+                                    <div class="gb-step-line done"></div>
+                                    <div class="gb-step done" title="Kitchen Deducted"><span>✓</span></div>
+                                    <div class="gb-step-line done"></div>
+                                    <div class="gb-step active" title="On the Way"><span class="gb-step-pulsing">🛵</span></div>
+                                    <div class="gb-step-line"></div>
+                                    <div class="gb-step" title="Delivered &amp; Restocked"><span>🏠</span></div>
+                                </div>
+                                <span class="coord-val" id="pos-coords-display" style="display:none;">28.6315°N, 77.2167°E</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Category Filter Chips -->
+                    <!-- Category Filter Chips (Shop by Category) -->
                     <div class="pos-category-bar">
-                        <button class="pos-cat-chip active" data-cat="all">All</button>
-                        <button class="pos-cat-chip" data-cat="Burgers">Burgers</button>
-                        <button class="pos-cat-chip" data-cat="Sides">Sides</button>
-                        <button class="pos-cat-chip" data-cat="Beverages">Beverages</button>
-                        <button class="pos-cat-chip" data-cat="Combos">Combos</button>
+                        <button class="pos-cat-chip active" data-cat="all">🌿 All Items</button>
+                        <button class="pos-cat-chip" data-cat="Burgers">🍔 Burgers</button>
+                        <button class="pos-cat-chip" data-cat="Sides">🍟 Sides &amp; Fries</button>
+                        <button class="pos-cat-chip" data-cat="Beverages">🥤 Cold Beverages</button>
+                        <button class="pos-cat-chip" data-cat="Combos">🍱 Chef Combos</button>
                     </div>
 
                     <!-- Menu Items Grid -->
@@ -415,6 +460,41 @@
             </div>
         </section>
 
+        <!-- ── GREENBASKET INSPIRATION: TRUSTED STATS RIBBON ── -->
+        <section class="gb-stats-ribbon">
+            <div class="gb-stat-item">
+                <span class="gb-stat-icon-wrap">👥</span>
+                <div class="gb-stat-text">
+                    <strong>10K+ Orders</strong>
+                    <p>Fulfilled with Zero Waste</p>
+                </div>
+            </div>
+            <div class="gb-stat-divider"></div>
+            <div class="gb-stat-item">
+                <span class="gb-stat-icon-wrap">🧺</span>
+                <div class="gb-stat-text">
+                    <strong>500+ Farm Batches</strong>
+                    <p>100% Organic Produce</p>
+                </div>
+            </div>
+            <div class="gb-stat-divider"></div>
+            <div class="gb-stat-item">
+                <span class="gb-stat-icon-wrap">👨‍🌾</span>
+                <div class="gb-stat-text">
+                    <strong>50+ Local Farmers</strong>
+                    <p>Within 10km Cluster</p>
+                </div>
+            </div>
+            <div class="gb-stat-divider"></div>
+            <div class="gb-stat-item">
+                <span class="gb-stat-icon-wrap">👍</span>
+                <div class="gb-stat-text">
+                    <strong>99.4% Precision</strong>
+                    <p>Positive Kitchen Feedback</p>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- ── HYPERPURE-INSPIRED QUANTITY SELECTION MODAL ── -->
@@ -471,6 +551,6 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <!-- App Logic -->
-    <script src="app.js"></script>
+    <script src="app.js?v=3.8"></script>
 </body>
 </html>

@@ -23,6 +23,9 @@ const MENU_ITEMS = [
         category: "Burgers",
         price: 149,
         isVeg: true,
+        rating: "4.9 (142)",
+        badge: "Always Fresh 🌱",
+        image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=600&auto=format&fit=crop&q=80",
         bom: [
             { name: "Brioche Burger Buns", qty: 1, unit: "pcs" },
             { name: "Crispy Veg Patty", qty: 1, unit: "pcs" },
@@ -37,6 +40,9 @@ const MENU_ITEMS = [
         category: "Burgers",
         price: 199,
         isVeg: false,
+        rating: "4.9 (218)",
+        badge: "Chef's Choice ⭐",
+        image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80",
         bom: [
             { name: "Brioche Burger Buns", qty: 1, unit: "pcs" },
             { name: "Grilled Chicken Patty", qty: 1, unit: "pcs" },
@@ -50,6 +56,9 @@ const MENU_ITEMS = [
         category: "Sides",
         price: 109,
         isVeg: true,
+        rating: "4.8 (95)",
+        badge: "Farm Potatoes 🥔",
+        image: "https://images.unsplash.com/photo-1576107232684-1279f3908594?w=600&auto=format&fit=crop&q=80",
         bom: [
             { name: "Russet Potatoes", qty: 0.25, unit: "kg" }
         ]
@@ -60,6 +69,9 @@ const MENU_ITEMS = [
         category: "Sides",
         price: 159,
         isVeg: true,
+        rating: "4.9 (180)",
+        badge: "Melted Cheddar 🧀",
+        image: "https://images.unsplash.com/photo-1585109649139-366815a0d713?w=600&auto=format&fit=crop&q=80",
         bom: [
             { name: "Russet Potatoes", qty: 0.30, unit: "kg" },
             { name: "Cheddar Cheese Slice", qty: 2, unit: "pcs" },
@@ -72,6 +84,9 @@ const MENU_ITEMS = [
         category: "Beverages",
         price: 69,
         isVeg: true,
+        rating: "4.7 (88)",
+        badge: "Ice Chilled ❄️",
+        image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=80",
         bom: [
             { name: "Cola Fountain Syrup", qty: 0.08, unit: "L" }
         ]
@@ -82,6 +97,9 @@ const MENU_ITEMS = [
         category: "Combos",
         price: 299,
         isVeg: true,
+        rating: "5.0 (310)",
+        badge: "Best Value 🍱",
+        image: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=600&auto=format&fit=crop&q=80",
         bom: [
             { name: "Brioche Burger Buns", qty: 1, unit: "pcs" },
             { name: "Crispy Veg Patty", qty: 1, unit: "pcs" },
@@ -232,27 +250,42 @@ function renderMenuCatalog(filterCategory) {
 
     items.forEach(item => {
         const card = document.createElement("div");
-        card.className = "pos-menu-card";
+        card.className = "pos-menu-card gb-dish-card";
         
         const bomTagsHtml = item.bom.map(b => 
-            `<span class="bom-pill">${b.name}: ${b.qty}${b.unit}</span>`
+            `<span class="bom-pill">${b.name} (${b.qty}${b.unit})</span>`
         ).join("");
 
         card.innerHTML = `
-            <div>
+            <div class="gb-card-thumb-wrap">
+                <img src="${item.image}" alt="${item.name}" class="gb-card-img" loading="lazy">
+                <span class="gb-badge-veg ${item.isVeg ? 'veg' : 'non-veg'}">
+                    <span class="veg-icon-dot"></span> ${item.isVeg ? '100% Veg' : 'Chicken'}
+                </span>
+                <span class="gb-badge-floating">${item.badge || 'Always Fresh 🌱'}</span>
+            </div>
+            <div class="gb-card-content">
                 <div class="menu-card-top">
                     <span class="menu-card-category">${item.category}</span>
-                    <span class="menu-card-price">₹${item.price}</span>
+                    <span class="gb-card-rating">⭐ ${item.rating || '4.9'}</span>
                 </div>
                 <h3 class="menu-card-title">${item.name}</h3>
                 <div class="menu-card-bom-box">
-                    <span class="bom-label">BOM Requirements:</span>
+                    <div class="bom-header-row">
+                        <span class="bom-label">🌱 BOM Farm Micro-Deduction:</span>
+                    </div>
                     <div class="bom-tags">${bomTagsHtml}</div>
                 </div>
+                <div class="gb-card-footer">
+                    <div class="gb-price-wrap">
+                        <span class="gb-currency">₹</span>
+                        <span class="menu-card-price">${item.price}</span>
+                    </div>
+                    <button class="btn-add-dish gb-btn-add" data-id="${item.id}" title="Add to Order">
+                        <span>+ Add to Order</span>
+                    </button>
+                </div>
             </div>
-            <button class="btn-add-dish" data-id="${item.id}">
-                <span>+ Add to Order</span>
-            </button>
         `;
 
         // Click to add
@@ -322,14 +355,15 @@ function renderCart() {
         const row = document.createElement("div");
         row.className = "cart-item-row";
         row.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="cart-item-thumb">
             <div class="cart-item-info">
                 <h5>${item.name}</h5>
                 <span class="cart-item-price">₹${item.price} × ${qty} = ₹${lineTotal}</span>
             </div>
             <div class="cart-item-stepper">
-                <button class="btn-step btn-step--dec" data-id="${id}">−</button>
+                <button class="btn-step btn-step--dec" data-id="${id}" aria-label="Decrease quantity">−</button>
                 <span class="step-qty">${qty}</span>
-                <button class="btn-step btn-step--inc" data-id="${id}">+</button>
+                <button class="btn-step btn-step--inc" data-id="${id}" aria-label="Increase quantity">+</button>
             </div>
         `;
 
@@ -453,20 +487,20 @@ function initRadarMap() {
         scrollWheelZoom: false
     });
 
-    // High quality OpenStreetMap / Carto tiles
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+    // Free OpenStreetMap tiles (No API key required)
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19
     }).addTo(leafletMap);
 
     // 10KM Geofence Radius Circle (10,000 meters)
     geofenceCircle = L.circle(center, {
         radius: 10000,
-        color: "#10b981",
-        fillColor: "#34d399",
-        fillOpacity: 0.14,
-        weight: 2,
-        dashArray: "6, 6"
+        color: "#1b4e2b",
+        fillColor: "#22c55e",
+        fillOpacity: 0.12,
+        weight: 2.5,
+        dashArray: "6, 8"
     }).addTo(leafletMap);
 
     // Store custom icon pins
@@ -605,28 +639,44 @@ function renderMaterialsChart() {
                 label: "Units Transferred (FEFO Saved)",
                 data: [12, 9, 6, 6, 5],
                 backgroundColor: [
-                    "#1e293b",
+                    "#1b4e2b",
                     "#d97706",
-                    "#10b981",
-                    "#64748b",
-                    "#f97316"
+                    "#22c55e",
+                    "#40916c",
+                    "#f59e0b"
                 ],
-                borderRadius: 6
+                borderRadius: 10,
+                borderSkipped: false
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { display: false }
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: "#1b4e2b",
+                    titleFont: { family: "'Plus Jakarta Sans', sans-serif", weight: "700" },
+                    bodyFont: { family: "'Plus Jakarta Sans', sans-serif" },
+                    padding: 10,
+                    cornerRadius: 10
+                }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: { color: "#f1f5f9" }
+                    grid: { color: "#edf2e8" },
+                    ticks: {
+                        font: { family: "'JetBrains Mono', monospace", size: 11 },
+                        color: "#6b8f7e"
+                    }
                 },
                 x: {
-                    grid: { display: false }
+                    grid: { display: false },
+                    ticks: {
+                        font: { family: "'Plus Jakarta Sans', sans-serif", weight: "600", size: 12 },
+                        color: "#2d6a4f"
+                    }
                 }
             }
         }

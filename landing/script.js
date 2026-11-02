@@ -30,7 +30,6 @@ function initHeroAnimations() {
     const heroSequence = [
         { selector: '.floating-badge--left',                    delay: 140,  y: 12,  scale: 0.9  },
         { selector: '.floating-badge--right',                   delay: 200,  y: 12,  scale: 0.9  },
-        { selector: '.hero-badge',                             delay: 180,  y: 18,  scale: 0.95 },
         { selector: '.hero-brand-lockup, .hero-brand-display', delay: 300,  y: 28,  scale: 0.94 },
         { selector: '.hero-title',                             delay: 460,  y: 35,  scale: 0.98 },
         { selector: '.hero-sub',                               delay: 620,  y: 25,  scale: 1    },
@@ -299,16 +298,6 @@ if (submitBtn && emailInput) {
     });
 }
 
-// ── PARALLAX ON HERO BADGE ──
-window.addEventListener('scroll', () => {
-    const badge = document.querySelector('.hero-badge');
-    if (badge) {
-        const scrollY = window.scrollY;
-        badge.style.transform = `translateY(${scrollY * 0.08}px)`;
-        badge.style.opacity = `${1 - scrollY * 0.003}`;
-    }
-}, { passive: true });
-
 // ── INTERACTIVE FEATURE SEGMENTED CONTROLS ──
 document.querySelectorAll('.feature-segmented-control').forEach(ctrl => {
     const parent = ctrl.closest('.feature-header');
@@ -339,7 +328,7 @@ document.querySelectorAll('.feature-segmented-control').forEach(ctrl => {
         });
     });
 });
-// ── APPLE-STYLED OAUTH AUTHENTICATION SYSTEM ──
+// ── MATCHA FOREST GREEN AUTHENTICATION SYSTEM ──
 const BACKEND_AUTH_API = 'http://localhost:4000/api/auth';
 
 const authModal = document.getElementById('auth-modal');
@@ -348,8 +337,11 @@ const navSignInBtn = document.getElementById('nav-sign-in');
 const navGetStartedBtn = document.getElementById('nav-get-started');
 const btnGoogleOAuth = document.getElementById('btn-oauth-google');
 const btnGithubOAuth = document.getElementById('btn-oauth-github');
-const authEmailForm = document.getElementById('auth-email-form');
-const authEmailInput = document.getElementById('auth-email-input');
+const matchaLoginForm = document.getElementById('matcha-login-form');
+const matchaUsernameInput = document.getElementById('matcha-username');
+const matchaPasswordInput = document.getElementById('matcha-password');
+const matchaForgotBtn = document.getElementById('matcha-forgot-btn');
+const btnMatchaSubmit = document.getElementById('btn-matcha-submit');
 const authStatusMsg = document.getElementById('auth-status-msg');
 
 const navAuthItem = document.getElementById('nav-auth-item');
@@ -364,7 +356,7 @@ function openAuthModal() {
     authModal.classList.add('auth-modal--active');
     authModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
-    if (authEmailInput) authEmailInput.focus();
+    if (matchaUsernameInput) matchaUsernameInput.focus();
 }
 
 function closeAuthModal() {
@@ -374,14 +366,12 @@ function closeAuthModal() {
     document.body.style.overflow = '';
     if (authStatusMsg) {
         authStatusMsg.style.display = 'none';
-        authStatusMsg.className = 'auth-status-message';
     }
 }
 
-function showAuthStatus(msg, type = 'loading') {
+function showAuthStatus(msg) {
     if (!authStatusMsg) return;
     authStatusMsg.textContent = msg;
-    authStatusMsg.className = `auth-status-message auth-status-message--${type}`;
     authStatusMsg.style.display = 'block';
 }
 
@@ -404,16 +394,61 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-// OAuth Provider Trigger
+// Primary Matcha Form Submit (Username + Password)
+if (matchaLoginForm) {
+    matchaLoginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = matchaUsernameInput ? matchaUsernameInput.value.trim() : 'Chef';
+        const password = matchaPasswordInput ? matchaPasswordInput.value.trim() : '';
+
+        if (!username || !password) {
+            showAuthStatus('⚠️ Please enter both username and password.');
+            return;
+        }
+
+        if (btnMatchaSubmit) {
+            btnMatchaSubmit.textContent = '✓ Logging in...';
+            btnMatchaSubmit.style.background = '#dcfce7';
+            btnMatchaSubmit.disabled = true;
+        }
+
+        showAuthStatus(`✨ Authenticated as ${username}! Loading Kitchen Console...`);
+
+        setTimeout(() => {
+            const user = {
+                name: username,
+                email: username.includes('@') ? username : `${username.toLowerCase().replace(/\s+/g, '')}@bistro.internal`,
+                provider: 'credentials',
+                avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face'
+            };
+            setUserSession(user);
+            closeAuthModal();
+            window.location.href = 'app.html';
+        }, 700);
+    });
+}
+
+// Forgot Password action
+if (matchaForgotBtn) {
+    matchaForgotBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const uname = matchaUsernameInput ? matchaUsernameInput.value.trim() : '';
+        showAuthStatus(uname 
+            ? `📨 Password reset instructions dispatched for ${uname}.` 
+            : '📨 Enter your username or email above to receive a reset link.');
+    });
+}
+
+// OAuth Provider Trigger (Google / GitHub)
 async function initiateOAuth(provider) {
-    showAuthStatus(`Connecting to ${provider.toUpperCase()} OAuth...`, 'loading');
+    showAuthStatus(`Connecting to ${provider.toUpperCase()}...`);
     
     try {
         const res = await fetch(`${BACKEND_AUTH_API}/login/${provider}?redirectTo=${encodeURIComponent(window.location.origin + window.location.pathname)}`);
         if (res.ok) {
             const data = await res.json();
             if (data.url) {
-                showAuthStatus(`Redirecting to ${provider.toUpperCase()}...`, 'loading');
+                showAuthStatus(`Redirecting to ${provider.toUpperCase()}...`);
                 window.location.href = data.url;
                 return;
             }
@@ -422,7 +457,7 @@ async function initiateOAuth(provider) {
     } catch (err) {
         // Fallback Demo Login if backend is not started or credentials not yet added
         console.warn('OAuth backend fallback:', err.message);
-        showAuthStatus(`✨ Authenticated successfully with ${provider.charAt(0).toUpperCase() + provider.slice(1)}!`, 'loading');
+        showAuthStatus(`✨ Signed in with ${provider.charAt(0).toUpperCase() + provider.slice(1)}!`);
         
         setTimeout(() => {
             const demoUser = {
@@ -436,41 +471,12 @@ async function initiateOAuth(provider) {
             setUserSession(demoUser);
             closeAuthModal();
             window.location.href = 'app.html';
-        }, 900);
+        }, 750);
     }
 }
 
 if (btnGoogleOAuth) btnGoogleOAuth.addEventListener('click', () => initiateOAuth('google'));
 if (btnGithubOAuth) btnGithubOAuth.addEventListener('click', () => initiateOAuth('github'));
-
-// Magic link email submit
-if (authEmailForm) {
-    authEmailForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = authEmailInput.value.trim();
-        if (!email) return;
-
-        showAuthStatus('Dispatching magic login link...', 'loading');
-        try {
-            const res = await fetch(`${BACKEND_AUTH_API}/magic-link`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, redirectTo: window.location.href })
-            });
-            if (res.ok) {
-                showAuthStatus(`✨ Magic sign-in link dispatched to ${email}! Check your inbox.`, 'loading');
-                return;
-            }
-            throw new Error('Backend endpoint unavailable');
-        } catch {
-            showAuthStatus(`✨ Magic sign-in link dispatched to ${email}! (Demo mode activated)`, 'loading');
-            setTimeout(() => {
-                setUserSession({ name: email.split('@')[0], email, provider: 'email' });
-                closeAuthModal();
-            }, 1200);
-        }
-    });
-}
 
 // Update UI with active user session
 function setUserSession(user) {

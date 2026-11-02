@@ -5,7 +5,7 @@ import {
     updateIngredients,
     deleteingredients,
     createingredients
-} from '../controllers/ingredientController.js';
+} from '../controllers/ingredientsController.js';
 const router = express.Router();
 router.get('/', getIngredients)
 router.get('/:id', getIngredientsById)
