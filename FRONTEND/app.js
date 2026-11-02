@@ -58,7 +58,7 @@ const MENU_ITEMS = [
         isVeg: true,
         rating: "4.8 (95)",
         badge: "Farm Potatoes 🥔",
-        image: "https://images.unsplash.com/photo-1576107232684-1279f3908594?w=600&auto=format&fit=crop&q=80",
+        image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&auto=format&fit=crop&q=80",
         bom: [
             { name: "Russet Potatoes", qty: 0.25, unit: "kg" }
         ]
@@ -304,7 +304,7 @@ function renderMenuCatalog(filterCategory = activeCategory) {
 
         card.innerHTML = `
             <div class="gb-card-thumb-wrap">
-                <img src="${item.image}" alt="${item.name}" class="gb-card-img" loading="lazy">
+                <img src="${item.image}" alt="${item.name}" class="gb-card-img" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=600&auto=format&fit=crop&q=80';">
                 <span class="gb-badge-veg ${item.isVeg ? 'veg' : 'non-veg'}">
                     <span class="veg-icon-dot"></span> ${item.isVeg ? '100% Veg' : 'Chicken'}
                 </span>
@@ -501,7 +501,7 @@ function renderCart() {
         const row = document.createElement("div");
         row.className = "cart-item-row";
         row.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" class="cart-item-thumb">
+            <img src="${item.image}" alt="${item.name}" class="cart-item-thumb" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=300&auto=format&fit=crop&q=80';">
             <div class="cart-item-info">
                 <h5>${item.name}</h5>
                 ${entry.optionsText ? `<span class="cart-item-options-tag">✦ ${entry.optionsText}</span>` : ""}
