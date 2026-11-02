@@ -281,21 +281,39 @@ function renderMenuCatalog(filterCategory) {
                         <span class="gb-currency">₹</span>
                         <span class="menu-card-price">${item.price}</span>
                     </div>
-                    <button class="btn-add-dish gb-btn-add" data-id="${item.id}" title="Add to Order">
-                        <span>+ Add to Order</span>
-                    </button>
+                    <div class="dish-btn-group">
+                        <button class="btn-customize-dish" data-id="${item.id}" title="Select options & quantity">
+                            <span>Options ⚙</span>
+                        </button>
+                        <button class="btn-add-dish gb-btn-add" data-id="${item.id}" title="Quick Add">
+                            <span>+ Add</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
 
-        // Click to add
+        // Click quick add button (+1 directly with visual feedback)
         const addBtn = card.querySelector(".btn-add-dish");
         addBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             addToCart(item.id, 1);
+            addBtn.classList.add("added-flash");
+            addBtn.innerHTML = `<span>✓ Added!</span>`;
+            setTimeout(() => {
+                addBtn.classList.remove("added-flash");
+                addBtn.innerHTML = `<span>+ Add</span>`;
+            }, 750);
         });
 
-        // Click card to open Hyperpure quantity selector modal
+        // Click options button to open customization modal
+        const custBtn = card.querySelector(".btn-customize-dish");
+        custBtn?.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openHyperpureModal(item);
+        });
+
+        // Click entire card to open options & quantity modal
         card.addEventListener("click", () => {
             openHyperpureModal(item);
         });
@@ -305,9 +323,62 @@ function renderMenuCatalog(filterCategory) {
 }
 
 function addToCart(itemId, qty = 1) {
-    if (!cart[itemId]) cart[itemId] = 0;
-    cart[itemId] += qty;
-    if (cart[itemId] <= 0) delete cart[itemId];
+    const item = MENU_ITEMS.find(m => m.id === itemId);
+    if (!item) return;
+
+    const cartKey = itemId;
+    if (!cart[cartKey]) {
+        cart[cartKey] = {
+            key: cartKey,
+            id: itemId,
+            qty: 0,
+            unitPrice: item.price,
+            optionsText: "",
+            bomAddons: []
+        };
+    }
+    cart[cartKey].qty += qty;
+    if (cart[cartKey].qty <= 0) {
+        delete cart[cartKey];
+    }
+    renderCart();
+}
+
+function updateCartQty(key, delta) {
+    if (cart[key]) {
+        cart[key].qty += delta;
+        if (cart[key].qty <= 0) {
+            delete cart[key];
+        }
+        renderCart();
+    }
+}
+
+function addCustomizedToCart(item, qty, selectedOptions) {
+    let extraPrice = 0;
+    const labels = [];
+    const bomAddons = [];
+
+    selectedOptions.forEach(opt => {
+        if (opt.price) extraPrice += opt.price;
+        labels.push(opt.label.replace(/\s*\(\+₹\d+\)/, ""));
+        if (opt.bomAdd) bomAddons.push(opt.bomAdd);
+    });
+
+    const optKeySuffix = selectedOptions.map(o => o.id).sort().join("_");
+    const cartKey = optKeySuffix ? `${item.id}__${optKeySuffix}` : item.id;
+
+    if (!cart[cartKey]) {
+        cart[cartKey] = {
+            key: cartKey,
+            id: item.id,
+            qty: 0,
+            unitPrice: item.price + extraPrice,
+            optionsText: labels.join(" · "),
+            bomAddons: bomAddons
+        };
+    }
+    cart[cartKey].qty += qty;
     renderCart();
 }
 
@@ -320,9 +391,9 @@ function renderCart() {
     const taxEl = document.getElementById("cart-tax");
     const grandtotalEl = document.getElementById("cart-grandtotal");
 
-    const itemIds = Object.keys(cart);
+    const cartKeys = Object.keys(cart);
 
-    if (itemIds.length === 0) {
+    if (cartKeys.length === 0) {
         cartList.innerHTML = "";
         cartList.appendChild(emptyState);
         emptyState.style.display = "block";
@@ -337,20 +408,31 @@ function renderCart() {
     let subtotal = 0;
     const computedBom = {};
 
-    itemIds.forEach(id => {
-        const item = MENU_ITEMS.find(m => m.id === id);
+    cartKeys.forEach(key => {
+        const entry = cart[key];
+        const item = MENU_ITEMS.find(m => m.id === entry.id);
         if (!item) return;
-        const qty = cart[id];
-        const lineTotal = item.price * qty;
+
+        const lineTotal = entry.unitPrice * entry.qty;
         subtotal += lineTotal;
 
-        // Compute BOM deductions
+        // Compute Base BOM deductions
         item.bom.forEach(b => {
             if (!computedBom[b.name]) {
                 computedBom[b.name] = { totalQty: 0, unit: b.unit };
             }
-            computedBom[b.name].totalQty += b.qty * qty;
+            computedBom[b.name].totalQty += b.qty * entry.qty;
         });
+
+        // Compute Option Add-on BOM deductions
+        if (entry.bomAddons && entry.bomAddons.length) {
+            entry.bomAddons.forEach(b => {
+                if (!computedBom[b.name]) {
+                    computedBom[b.name] = { totalQty: 0, unit: b.unit };
+                }
+                computedBom[b.name].totalQty += b.qty * entry.qty;
+            });
+        }
 
         const row = document.createElement("div");
         row.className = "cart-item-row";
@@ -358,17 +440,18 @@ function renderCart() {
             <img src="${item.image}" alt="${item.name}" class="cart-item-thumb">
             <div class="cart-item-info">
                 <h5>${item.name}</h5>
-                <span class="cart-item-price">₹${item.price} × ${qty} = ₹${lineTotal}</span>
+                ${entry.optionsText ? `<span class="cart-item-options-tag">✦ ${entry.optionsText}</span>` : ""}
+                <span class="cart-item-price">₹${entry.unitPrice} × ${entry.qty} = ₹${lineTotal}</span>
             </div>
             <div class="cart-item-stepper">
-                <button class="btn-step btn-step--dec" data-id="${id}" aria-label="Decrease quantity">−</button>
-                <span class="step-qty">${qty}</span>
-                <button class="btn-step btn-step--inc" data-id="${id}" aria-label="Increase quantity">+</button>
+                <button class="btn-step btn-step--dec" data-key="${entry.key}" aria-label="Decrease quantity">−</button>
+                <span class="step-qty">${entry.qty}</span>
+                <button class="btn-step btn-step--inc" data-key="${entry.key}" aria-label="Increase quantity">+</button>
             </div>
         `;
 
-        row.querySelector(".btn-step--dec").addEventListener("click", () => addToCart(id, -1));
-        row.querySelector(".btn-step--inc").addEventListener("click", () => addToCart(id, 1));
+        row.querySelector(".btn-step--dec").addEventListener("click", () => updateCartQty(entry.key, -1));
+        row.querySelector(".btn-step--inc").addEventListener("click", () => updateCartQty(entry.key, 1));
         cartList.appendChild(row);
     });
 
@@ -395,19 +478,33 @@ document.getElementById("btn-clear-cart")?.addEventListener("click", () => {
 
 // Checkout Order & Live Micro-Deduction
 document.getElementById("btn-checkout-order")?.addEventListener("click", () => {
-    const itemIds = Object.keys(cart);
-    if (itemIds.length === 0) return;
+    const cartKeys = Object.keys(cart);
+    if (cartKeys.length === 0) return;
 
     // Perform live micro-deductions on inventory
-    itemIds.forEach(id => {
-        const item = MENU_ITEMS.find(m => m.id === id);
-        const count = cart[id];
+    cartKeys.forEach(key => {
+        const entry = cart[key];
+        const item = MENU_ITEMS.find(m => m.id === entry.id);
+        if (!item) return;
+        const count = entry.qty;
+
+        // Base BOM deduction
         item.bom.forEach(b => {
             const match = inventoryMatrix.find(i => i.name === b.name);
             if (match) {
                 match.qty = Math.max(0, parseFloat((match.qty - (b.qty * count)).toFixed(2)));
             }
         });
+
+        // Add-ons BOM deduction
+        if (entry.bomAddons && entry.bomAddons.length) {
+            entry.bomAddons.forEach(b => {
+                const match = inventoryMatrix.find(i => i.name === b.name);
+                if (match) {
+                    match.qty = Math.max(0, parseFloat((match.qty - (b.qty * count)).toFixed(2)));
+                }
+            });
+        }
     });
 
     // Clear cart & re-render
@@ -707,14 +804,117 @@ function renderClusterHealth() {
 }
 
 // ====================================================
-// HYPERPURE QUANTITY SELECTION MODAL
+// GREENBASKET DISH CUSTOMIZATION & QUANTITY MODAL
 // ====================================================
 
-let activeModalItem = null;
+const ITEM_CUSTOMIZATIONS = {
+    Burgers: [
+        {
+            title: "Bun Selection",
+            type: "single",
+            hint: "Select 1",
+            options: [
+                { id: "brioche", label: "Toasted Brioche Bun", price: 0, default: true, bomAdd: { name: "Brioche Burger Buns", qty: 1, unit: "pcs" } },
+                { id: "wholewheat", label: "Whole Wheat Bun (+₹15)", price: 15, bomAdd: { name: "Brioche Burger Buns", qty: 1, unit: "pcs" } }
+            ]
+        },
+        {
+            title: "Add-ons & Extras",
+            type: "multi",
+            hint: "Select any",
+            options: [
+                { id: "extra_cheese", label: "Extra Cheddar Slice (+₹20)", price: 20, bomAdd: { name: "Cheddar Cheese Slice", qty: 1, unit: "pcs" } },
+                { id: "extra_mayo", label: "Signature Garlic Mayo (+₹15)", price: 15, bomAdd: { name: "Signature Garlic Mayo", qty: 0.02, unit: "kg" } },
+                { id: "extra_tomatoes", label: "Extra Farm Tomatoes (+₹10)", price: 10, bomAdd: { name: "Fresh Tomatoes", qty: 0.03, unit: "kg" } }
+            ]
+        }
+    ],
+    Sides: [
+        {
+            title: "Portion Size",
+            type: "single",
+            hint: "Select 1",
+            options: [
+                { id: "regular", label: "Standard Portion", price: 0, default: true },
+                { id: "large", label: "Large Portion (+₹40)", price: 40, bomAdd: { name: "Russet Potatoes", qty: 0.15, unit: "kg" } }
+            ]
+        },
+        {
+            title: "Toppings & Seasoning",
+            type: "multi",
+            hint: "Select any",
+            options: [
+                { id: "melted_cheddar", label: "Double Melted Cheddar (+₹25)", price: 25, bomAdd: { name: "Cheddar Cheese Slice", qty: 1, unit: "pcs" } },
+                { id: "garlic_dip", label: "Garlic Mayo Cup (+₹15)", price: 15, bomAdd: { name: "Signature Garlic Mayo", qty: 0.02, unit: "kg" } },
+                { id: "peri_peri", label: "Peri-Peri Masala (+₹10)", price: 10 }
+            ]
+        }
+    ],
+    Beverages: [
+        {
+            title: "Serving Size",
+            type: "single",
+            hint: "Select 1",
+            options: [
+                { id: "size_500", label: "Regular 500ml", price: 0, default: true },
+                { id: "size_750", label: "King 750ml (+₹25)", price: 25, bomAdd: { name: "Cola Fountain Syrup", qty: 0.04, unit: "L" } }
+            ]
+        },
+        {
+            title: "Ice Level",
+            type: "single",
+            hint: "Select 1",
+            options: [
+                { id: "norm_ice", label: "Normal Ice ❄️", price: 0, default: true },
+                { id: "less_ice", label: "Less Ice", price: 0 },
+                { id: "no_ice", label: "No Ice (Extra Cold)", price: 0 }
+            ]
+        },
+        {
+            title: "Recipe Variant",
+            type: "single",
+            hint: "Select 1",
+            options: [
+                { id: "classic", label: "Classic Fountain Cola", price: 0, default: true },
+                { id: "zero_sugar", label: "Zero Sugar Diet", price: 0 }
+            ]
+        }
+    ],
+    Combos: [
+        {
+            title: "Fries Choice",
+            type: "single",
+            hint: "Select 1",
+            options: [
+                { id: "salted", label: "Golden Salted Fries", price: 0, default: true },
+                { id: "peri_fries", label: "Spicy Peri-Peri Fries (+₹15)", price: 15 }
+            ]
+        },
+        {
+            title: "Beverage Option",
+            type: "single",
+            hint: "Select 1",
+            options: [
+                { id: "drink_500", label: "Chilled Cola (500ml)", price: 0, default: true },
+                { id: "drink_750", label: "Upgrade King 750ml (+₹20)", price: 20, bomAdd: { name: "Cola Fountain Syrup", qty: 0.04, unit: "L" } }
+            ]
+        }
+    ]
+};
+
+let modalState = {
+    item: null,
+    qty: 1,
+    selectedOptions: []
+};
 
 function initHyperpureModal() {
     const backdrop = document.getElementById("hyperpure-modal");
     const closeBtn = document.getElementById("hp-close-btn");
+    const stepMinus = document.getElementById("hp-step-minus");
+    const stepPlus = document.getElementById("hp-step-plus");
+    const presets = document.querySelectorAll(".hp-preset-pill");
+    const addCartBtn = document.getElementById("btn-modal-add-cart");
 
     closeBtn?.addEventListener("click", () => {
         backdrop.classList.remove("active");
@@ -724,27 +924,48 @@ function initHyperpureModal() {
         if (e.target === backdrop) backdrop.classList.remove("active");
     });
 
-    // Tier click handlers
-    document.querySelectorAll(".hp-tier-item").forEach(tier => {
-        tier.addEventListener("click", () => {
-            const qty = parseInt(tier.getAttribute("data-qty"), 10);
-            if (activeModalItem) {
-                addToCart(activeModalItem.id, qty);
-                backdrop.classList.remove("active");
-            }
+    stepMinus?.addEventListener("click", () => {
+        if (modalState.qty > 1) {
+            modalState.qty--;
+            updateModalUI();
+        }
+    });
+
+    stepPlus?.addEventListener("click", () => {
+        modalState.qty++;
+        updateModalUI();
+    });
+
+    presets.forEach(pill => {
+        pill.addEventListener("click", () => {
+            const q = parseInt(pill.getAttribute("data-qty"), 10);
+            modalState.qty = q;
+            updateModalUI();
         });
+    });
+
+    addCartBtn?.addEventListener("click", () => {
+        if (!modalState.item) return;
+        addCustomizedToCart(modalState.item, modalState.qty, modalState.selectedOptions);
+        backdrop.classList.remove("active");
     });
 }
 
 function openHyperpureModal(item) {
-    activeModalItem = item;
+    modalState.item = item;
+    modalState.qty = 1;
+    modalState.selectedOptions = [];
+
     const backdrop = document.getElementById("hyperpure-modal");
     if (!backdrop) return;
 
+    // Header & Summary info
+    document.getElementById("hp-modal-head-title").textContent = `Customize ${item.name}`;
     document.getElementById("hp-modal-title").textContent = item.name;
     document.getElementById("hp-modal-price").textContent = `₹${item.price}`;
-    document.getElementById("hp-modal-veg").textContent = item.isVeg ? "🟢 Veg" : "🔴 Non-Veg";
+    document.getElementById("hp-modal-veg").textContent = item.isVeg ? "🟢 100% Veg" : "🔴 Non-Veg";
     document.getElementById("hp-modal-veg").style.color = item.isVeg ? "#15803d" : "#b91c1c";
+    document.getElementById("hp-modal-rating").textContent = `★ ${item.rating || "4.8"}`;
 
     const emojiMap = {
         Burgers: "🍔",
@@ -754,5 +975,117 @@ function openHyperpureModal(item) {
     };
     document.getElementById("hp-modal-img").textContent = emojiMap[item.category] || "🍽️";
 
+    // Build options list
+    const optionsGroups = ITEM_CUSTOMIZATIONS[item.category] || [];
+    const container = document.getElementById("hp-options-container");
+    container.innerHTML = "";
+
+    // Set defaults
+    optionsGroups.forEach(group => {
+        if (group.type === "single") {
+            const defOpt = group.options.find(o => o.default) || group.options[0];
+            if (defOpt) modalState.selectedOptions.push(defOpt);
+        }
+    });
+
+    // Render options DOM
+    optionsGroups.forEach((group, gIdx) => {
+        const groupEl = document.createElement("div");
+        groupEl.className = "hp-option-group";
+        groupEl.innerHTML = `
+            <div class="hp-option-group-title">
+                <span>${group.title}</span>
+                <span class="hp-option-group-hint">${group.hint}</span>
+            </div>
+            <div class="hp-option-choices" data-group-index="${gIdx}">
+                ${group.options.map(opt => {
+                    const isSelected = modalState.selectedOptions.some(o => o.id === opt.id);
+                    const indicator = group.type === "single" 
+                        ? `<span class="hp-custom-radio"></span>` 
+                        : `<span class="hp-custom-check">✓</span>`;
+                    const priceTag = opt.price > 0 ? `<span class="hp-choice-price">+₹${opt.price}</span>` : "";
+
+                    return `
+                        <div class="hp-choice-item ${isSelected ? "selected" : ""}" data-opt-id="${opt.id}">
+                            <div class="hp-choice-left">
+                                ${indicator}
+                                <span>${opt.label}</span>
+                            </div>
+                            ${priceTag}
+                        </div>
+                    `;
+                }).join("")}
+            </div>
+        `;
+
+        // Click handlers on choices
+        groupEl.querySelectorAll(".hp-choice-item").forEach(choiceEl => {
+            choiceEl.addEventListener("click", () => {
+                const optId = choiceEl.getAttribute("data-opt-id");
+                const opt = group.options.find(o => o.id === optId);
+                if (!opt) return;
+
+                if (group.type === "single") {
+                    // Remove other options in this group
+                    group.options.forEach(o => {
+                        modalState.selectedOptions = modalState.selectedOptions.filter(so => so.id !== o.id);
+                    });
+                    modalState.selectedOptions.push(opt);
+                    groupEl.querySelectorAll(".hp-choice-item").forEach(c => c.classList.remove("selected"));
+                    choiceEl.classList.add("selected");
+                } else {
+                    // Toggle multi-select
+                    const exists = modalState.selectedOptions.some(so => so.id === opt.id);
+                    if (exists) {
+                        modalState.selectedOptions = modalState.selectedOptions.filter(so => so.id !== opt.id);
+                        choiceEl.classList.remove("selected");
+                    } else {
+                        modalState.selectedOptions.push(opt);
+                        choiceEl.classList.add("selected");
+                    }
+                }
+
+                updateModalUI();
+            });
+        });
+
+        container.appendChild(groupEl);
+    });
+
+    updateModalUI();
     backdrop.classList.add("active");
+}
+
+function updateModalUI() {
+    if (!modalState.item) return;
+
+    // Update stepper & preset pills
+    document.getElementById("hp-modal-qty-val").textContent = modalState.qty;
+    document.querySelectorAll(".hp-preset-pill").forEach(pill => {
+        const q = parseInt(pill.getAttribute("data-qty"), 10);
+        pill.classList.toggle("active", q === modalState.qty);
+    });
+
+    // Compute total price
+    let optionExtra = 0;
+    modalState.selectedOptions.forEach(opt => {
+        if (opt.price) optionExtra += opt.price;
+    });
+    const unitPrice = modalState.item.price + optionExtra;
+    const totalPrice = unitPrice * modalState.qty;
+
+    document.getElementById("hp-modal-total-price").textContent = `₹${totalPrice}`;
+    document.getElementById("btn-modal-add-label").textContent = `Add ${modalState.qty} to Order`;
+
+    // Compute BOM preview text
+    const baseBomSummary = modalState.item.bom.map(b => `${(b.qty * modalState.qty).toFixed(2)}${b.unit} ${b.name}`);
+    const addonBom = [];
+    modalState.selectedOptions.forEach(opt => {
+        if (opt.bomAdd) {
+            addonBom.push(`${(opt.bomAdd.qty * modalState.qty).toFixed(2)}${opt.bomAdd.unit} ${opt.bomAdd.name}`);
+        }
+    });
+
+    const allDeductions = [...baseBomSummary, ...addonBom];
+    document.getElementById("hp-modal-bom-text").textContent = allDeductions.join(" · ");
 }

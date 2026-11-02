@@ -16,7 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- App Stylesheet -->
-    <link rel="stylesheet" href="app.css?v=3.8">
+    <link rel="stylesheet" href="app.css?v=4.0">
 </head>
 <body>
     <!-- ── TOP GLOBAL NAVIGATION ── -->
@@ -497,52 +497,75 @@
 
     </main>
 
-    <!-- ── HYPERPURE-INSPIRED QUANTITY SELECTION MODAL ── -->
+    <!-- ── GREENBASKET DISH CUSTOMIZATION & QUANTITY MODAL ── -->
     <div class="hyperpure-modal-backdrop" id="hyperpure-modal" aria-hidden="true">
         <div class="hyperpure-modal-card">
             <div class="hp-modal-header">
-                <h3>Select quantity</h3>
-                <button class="hp-close-btn" id="hp-close-btn">✕</button>
+                <div>
+                    <span class="hp-modal-eyebrow">DISH CUSTOMIZATION</span>
+                    <h3 id="hp-modal-head-title">Select Options & Quantity</h3>
+                </div>
+                <button class="hp-close-btn" id="hp-close-btn" aria-label="Close modal">✕</button>
             </div>
             <div class="hp-modal-body">
+                <!-- Product Summary Card -->
                 <div class="hp-product-summary">
                     <div class="hp-product-img-box" id="hp-modal-img">🍔</div>
                     <div class="hp-product-info">
                         <h4 id="hp-modal-title">Item Title</h4>
                         <div class="hp-rating-row">
                             <span class="hp-badge-veg" id="hp-modal-veg">🟢 Veg</span>
-                            <span class="hp-rating">★ 4.8 (276)</span>
+                            <span class="hp-rating" id="hp-modal-rating">★ 4.9 (180)</span>
                         </div>
                         <div class="hp-price-row">
-                            <span class="hp-price" id="hp-modal-price">₹149</span>
-                            <span class="hp-rate-desc">Standard kitchen rate</span>
+                            <span class="hp-price" id="hp-modal-price">₹159</span>
+                            <span class="hp-rate-desc">Base kitchen rate</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Quantity Tier Selectors -->
-                <div class="hp-tier-list">
-                    <div class="hp-tier-item active" data-qty="1">
-                        <div>
-                            <strong>1 Unit</strong>
-                            <p class="hp-tier-sub">Standard single portion</p>
-                        </div>
-                        <button class="btn-tier-add">Select 1</button>
+                <!-- Customization Options Sections (populated dynamically) -->
+                <div class="hp-options-container" id="hp-options-container">
+                    <!-- Dynamic Radio / Checkbox Option groups -->
+                </div>
+
+                <!-- Quantity Stepper & Quick Presets -->
+                <div class="hp-quantity-section">
+                    <div class="hp-section-header">
+                        <span class="hp-section-title">Select Quantity</span>
+                        <span class="hp-section-hint">Choose portion count</span>
                     </div>
-                    <div class="hp-tier-item" data-qty="2">
-                        <div>
-                            <strong>2 Units (Double)</strong>
-                            <p class="hp-tier-sub">₹5.00/unit bundle benefit</p>
+                    <div class="hp-qty-stepper-wrap">
+                        <div class="hp-stepper">
+                            <button class="hp-step-btn" id="hp-step-minus" type="button" aria-label="Decrease quantity">−</button>
+                            <span class="hp-step-value" id="hp-modal-qty-val">1</span>
+                            <button class="hp-step-btn" id="hp-step-plus" type="button" aria-label="Increase quantity">+</button>
                         </div>
-                        <button class="btn-tier-add">Select 2</button>
-                    </div>
-                    <div class="hp-tier-item" data-qty="4">
-                        <div>
-                            <strong>4 Units (Bulk / Combo)</strong>
-                            <p class="hp-tier-sub">Kitchen volume preparation</p>
+                        <div class="hp-qty-presets" id="hp-qty-presets">
+                            <button type="button" class="hp-preset-pill active" data-qty="1">1x Portion</button>
+                            <button type="button" class="hp-preset-pill" data-qty="2">2x (Double)</button>
+                            <button type="button" class="hp-preset-pill" data-qty="3">3x</button>
+                            <button type="button" class="hp-preset-pill" data-qty="4">4x (Bulk)</button>
                         </div>
-                        <button class="btn-tier-add">Select 4</button>
                     </div>
+                </div>
+
+                <!-- Live BOM deduction preview in modal -->
+                <div class="hp-bom-preview-bar">
+                    <span class="hp-bom-icon">🌱</span>
+                    <div class="hp-bom-text-wrap">
+                        <strong>Micro-Deduction Telemetry:</strong>
+                        <span id="hp-modal-bom-text">Calculating ingredient deduction...</span>
+                    </div>
+                </div>
+
+                <!-- Primary Action Button with Live Price -->
+                <div class="hp-modal-footer">
+                    <button type="button" class="btn-modal-add-cart" id="btn-modal-add-cart">
+                        <span id="btn-modal-add-label">Add to Order</span>
+                        <span class="modal-btn-divider">·</span>
+                        <span id="hp-modal-total-price">₹159</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -551,6 +574,6 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <!-- App Logic -->
-    <script src="app.js?v=3.8"></script>
+    <script src="app.js?v=4.0"></script>
 </body>
 </html>
